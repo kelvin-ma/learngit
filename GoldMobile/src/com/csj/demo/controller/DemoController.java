@@ -1,15 +1,24 @@
 package com.csj.demo.controller;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.RequestParam;
 @Controller
+@RequestMapping("/a")
 public class DemoController {
-	 @RequestMapping ( "/showView" )  
-	 public ModelAndView showView() {  
-	       ModelAndView modelAndView = new ModelAndView();  
-	       modelAndView.setViewName( "viewName" );  
-	       return modelAndView.addObject( " 需要放到 model 中的属性名称 " , " 对应的属性值，它是一个对象 " );  
+	 @RequestMapping ("/showView" )  
+	 public String index() {  
+	       System.out.println("sssss");
+	       return "index";  
+	 }
+	 @RequestMapping ("/a/{pageNo}" )  
+	 public String indexx(@PathVariable("pageNo")int pageNo) {  
+	       System.out.println(pageNo);
+	       return "index";  
+	 }
+	 @RequestMapping ("/b" )  
+	 public String indexxx(@RequestParam("name")String name) {  
+	       System.out.println(name);
+	       return "index";  
 	 }
 }
