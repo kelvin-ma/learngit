@@ -11,8 +11,8 @@ public class IndexController {
 	       System.out.println("sssss");
 	       return "index";  
 	 }
-	 @RequestMapping ("/a/{pageNo}" )  
-	 public String indexx(@PathVariable("pageNo")int pageNo) {  
+	 @RequestMapping ("/m/{pageNo}" )  
+	 public String indexx(@PathVariable("No")int pageNo) {  
 	       System.out.println(pageNo);
 	       return "index";  
 	 }
