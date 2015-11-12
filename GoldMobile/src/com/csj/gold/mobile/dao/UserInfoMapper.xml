@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.mobile.dao.UserInfoMapper" >
+ 
+  <select id="selectByPrimaryKey" resultType="UserInfo" >
+    select `id` ,`userName` ,`phone` ,`certNo` ,`createTime` ,`updateTime` ,`updateUser` ,`id` ,`userName` ,`phone` ,`certNo` ,`create_time` ,`update_time` ,`update_user`  from user where  `id` = #{id}
+  </select>
+  
+  <select id="search" resultType="UserInfo">
+    select * from UserInfo
+  </select>
+  
+  <insert id="insert" parameterType="com.icode.sys.domain.User" useGeneratedKeys="true" >
+    insert into user (`user_name` ,`phone` ,`cert_no` ,`create_time` ,`update_time` ,`update_user` ,`id` ,`user_name` ,`phone` ,`cert_no` ,`create_time` ,`update_time` ,`update_user` ) values (#{user_name},#{phone},#{cert_no},#{create_time},#{update_time},#{update_user},#{id},#{user_name},#{phone},#{cert_no},#{create_time},#{update_time},#{update_user})
+  </insert>
+  
+  <delete id="deleteByPrimaryKey">
+    delete from user where  `id` = #{id}
+  </delete>
+  
+  <update id="updateByPrimaryKey" parameterType="com.icode.sys.domain.User" >
+    update user set `user_name` = #{user_name},`phone` = #{phone},`cert_no` = #{cert_no},`create_time` = #{create_time},`update_time` = #{update_time},`update_user` = #{update_user},`id` = #{id},`user_name` = #{user_name},`phone` = #{phone},`cert_no` = #{cert_no},`create_time` = #{create_time},`update_time` = #{update_time},`update_user` = #{update_user} where  `id` = #{id}
+  </update>
+  
+</mapper>
