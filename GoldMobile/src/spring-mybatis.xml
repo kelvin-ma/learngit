@@ -21,7 +21,7 @@
         <property name="location" value="classpath:jdbc.properties" />  
     </bean>  
   
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
+    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"  
         destroy-method="close">  
         <property name="driverClassName" value="${driver}" />  
         <property name="url" value="${url}" />  
@@ -37,25 +37,62 @@
         <property name="minIdle" value="${minIdle}"></property>  
         <!-- 获取连接最大等待时间 -->  
         <property name="maxWait" value="${maxWait}"></property>  
-    </bean>  
+    </bean>
+    <!-- 
+	<bean id="myDataSource2" class="org.springframework.jdbc.datasource.DriverManagerDataSource"  >
+   		 <property name="driverClassName" value="${driver}">
+         <value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+         </property>
+         <property name="url">
+             <value>proxool.db</value>
+         </property>
+	</bean>
+	 -->
   
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->  
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource" ref="dataSource" />  
         <!-- 自动扫描mapping.xml文件 -->  
         <property name="mapperLocations" value="classpath:com/cn/hnust/mapping/*.xml"></property>  
-    </bean>  
+    </bean>
+    <!-- 区别在哪？？
+  	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="typeAliasesPackage" value="com.icode.sys" /> 
+		<property name="plugins">  
+	       <list>  
+	          <bean class="com.core.code.util.PagingPlugin">
+	            <property name="dialect" value="mysql"/>  
+	          </bean> 
+	        </list>  
+	    </property> 
+	</bean>
+   -->
   
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->  
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
         <property name="basePackage" value="com.cn.hnust.dao" />  
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
     </bean>  
+    <!--  
+  	<bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.icode.sys.persistence" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+  	-->
+  
   
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->  
     <bean id="transactionManager"  
        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
-       <property name="dataSource" ref="dataSource" />  
+       <property name="dataSource" ref="mydataSource" />  
    </bean>  
- 
+ 	<!-- 
+ 	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+ 	 -->
 </beans>
