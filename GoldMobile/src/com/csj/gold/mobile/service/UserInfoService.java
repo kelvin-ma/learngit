@@ -5,15 +5,15 @@ import com.csj.gold.mobile.model.UserInfo;
 
 public interface UserInfoService {
 		 
-		UserInfo searchById(Integer id);
+		public UserInfo searchById(Integer id);
 		
 		//Page search(Page pager);
 		
-		int insert(UserInfo user);
+		public int insert(UserInfo user);
 	 
-		int update(UserInfo user);
+		public int update(UserInfo user);
 		
-		int delete(Integer id);
+		public int delete(Integer id);
 		
 }
 

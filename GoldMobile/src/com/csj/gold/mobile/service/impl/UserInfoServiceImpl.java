@@ -2,12 +2,15 @@ package com.csj.gold.mobile.service.impl;
 
 import javax.annotation.Resource;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.csj.gold.mobile.dao.UserInfoMapper;
 import com.csj.gold.mobile.model.UserInfo;
 import com.csj.gold.mobile.service.UserInfoService;
+
+
 
 @Service("userInfoService")
 public class UserInfoServiceImpl implements UserInfoService {

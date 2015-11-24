@@ -3,12 +3,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+
 @Controller
-@RequestMapping("/")
+@RequestMapping("/a")
 public class IndexController {
 	 @RequestMapping ("/showView" )  
 	 public String index() {  
 	       System.out.println("sssss");
+	       
 	       return "index";  
 	 }
 	 @RequestMapping ("/m" )  
