@@ -44,8 +44,8 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource" ref="myDataSource" />  
         <!-- 自动扫描mapping.xml文件 -->  
-        <property name="typeAliasesPackage" value="com.csj.gold.mobile.dao.mapping" /> 
-       <!-- <property name="mapperLocations" value="classpath:com\csj\gold\moblie\dao\mapping\*.xml"/> --> 
+        <!--<property name="typeAliasesPackage" value="com.csj.gold.mobile.dao.mapping" /> -->  
+        <property name="mapperLocations" value="classpath:com\csj\gold\moblie\dao\*.xml"/>
     </bean>
     
      <!-- DAO接口所在包名，Spring会自动查找其下的类 -->  
