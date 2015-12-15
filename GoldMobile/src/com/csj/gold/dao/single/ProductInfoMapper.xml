@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.dao.single.ProductInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.csj.gold.model.ProductInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_introduct" property="productIntroduct" jdbcType="VARCHAR" />
+    <result column="product_contract_id" property="productContractId" jdbcType="BIGINT" />
+    <result column="product_start_data" property="productStartData" jdbcType="TIMESTAMP" />
+    <result column="product_end_data" property="productEndData" jdbcType="TIMESTAMP" />
+    <result column="product_type" property="productType" jdbcType="BIGINT" />
+    <result column="product_status" property="productStatus" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="is_forbidden" property="isForbidden" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product_name, product_introduct, product_contract_id, product_start_data, product_end_data, 
+    product_type, product_status, create_date, create_user, update_date, update_user, 
+    is_forbidden, is_del, version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.csj.gold.model.ProductInfo" >
+    insert into product_info (id, product_name, product_introduct, 
+      product_contract_id, product_start_data, product_end_data, 
+      product_type, product_status, create_date, 
+      create_user, update_date, update_user, 
+      is_forbidden, is_del, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, #{productIntroduct,jdbcType=VARCHAR}, 
+      #{productContractId,jdbcType=BIGINT}, #{productStartData,jdbcType=TIMESTAMP}, #{productEndData,jdbcType=TIMESTAMP}, 
+      #{productType,jdbcType=BIGINT}, #{productStatus,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, 
+      #{isForbidden,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.csj.gold.model.ProductInfo" >
+    insert into product_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productIntroduct != null" >
+        product_introduct,
+      </if>
+      <if test="productContractId != null" >
+        product_contract_id,
+      </if>
+      <if test="productStartData != null" >
+        product_start_data,
+      </if>
+      <if test="productEndData != null" >
+        product_end_data,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="productStatus != null" >
+        product_status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productIntroduct != null" >
+        #{productIntroduct,jdbcType=VARCHAR},
+      </if>
+      <if test="productContractId != null" >
+        #{productContractId,jdbcType=BIGINT},
+      </if>
+      <if test="productStartData != null" >
+        #{productStartData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productEndData != null" >
+        #{productEndData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=BIGINT},
+      </if>
+      <if test="productStatus != null" >
+        #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isForbidden != null" >
+        #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csj.gold.model.ProductInfo" >
+    update product_info
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productIntroduct != null" >
+        product_introduct = #{productIntroduct,jdbcType=VARCHAR},
+      </if>
+      <if test="productContractId != null" >
+        product_contract_id = #{productContractId,jdbcType=BIGINT},
+      </if>
+      <if test="productStartData != null" >
+        product_start_data = #{productStartData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productEndData != null" >
+        product_end_data = #{productEndData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=BIGINT},
+      </if>
+      <if test="productStatus != null" >
+        product_status = #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csj.gold.model.ProductInfo" >
+    update product_info
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_introduct = #{productIntroduct,jdbcType=VARCHAR},
+      product_contract_id = #{productContractId,jdbcType=BIGINT},
+      product_start_data = #{productStartData,jdbcType=TIMESTAMP},
+      product_end_data = #{productEndData,jdbcType=TIMESTAMP},
+      product_type = #{productType,jdbcType=BIGINT},
+      product_status = #{productStatus,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
