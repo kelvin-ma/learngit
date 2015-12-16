@@ -1,8 +1,8 @@
-package com.csj.gold.mobile.vo;
+package com.csj.gold.model.bean;
 
 import com.sun.istack.internal.NotNull;
 
-public class MobileGoldProductVO {
+public class MobileGoldProduct {
 	// 产品ID
 	private Long productId;
 	// 产品名称
