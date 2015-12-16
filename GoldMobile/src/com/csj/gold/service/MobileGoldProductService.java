@@ -3,6 +3,7 @@ package com.csj.gold.service;
 import java.util.List;
 
 import com.csj.gold.mobile.vo.MobileGoldProductVO;
+import com.csj.gold.model.UserAddress;
 import com.csj.gold.model.bean.MobileGoldProduct;
 
 
