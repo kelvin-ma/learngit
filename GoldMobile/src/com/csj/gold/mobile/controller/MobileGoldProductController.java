@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.csj.gold.mobile.vo.MobileGoldProductParams;
 import com.csj.gold.mobile.vo.MobileGoldProductResult;
 import com.csj.gold.mobile.vo.MobileGoldProductVO;
+import com.csj.gold.mobile.vo.MobileUserAddressParams;
+import com.csj.gold.mobile.vo.MobileUserAddressResult;
+import com.csj.gold.mobile.vo.MobileUserAddressVO;
+import com.csj.gold.model.UserAddress;
 import com.csj.gold.model.bean.MobileGoldProduct;
 import com.csj.gold.service.MobileGoldProductService;
+import com.csj.gold.service.MobileUserAddressService;
 import com.csj.gold.utils.json.JsonConvert;
 @Controller
 @RequestMapping("/product")
@@ -48,5 +53,4 @@ public class MobileGoldProductController {
 		mobileGoldProductResult.setData(resutlProductList);
 		return JsonConvert.getInstance().toJson(mobileGoldProductResult);
     }  
-  
 }
