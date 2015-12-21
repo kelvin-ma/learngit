@@ -4,6 +4,8 @@ import com.csj.gold.model.SysAccount;
 
 public interface SysAccountMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(SysAccount record);
 

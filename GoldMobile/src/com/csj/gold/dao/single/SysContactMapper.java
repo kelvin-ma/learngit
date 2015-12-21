@@ -4,6 +4,8 @@ import com.csj.gold.model.SysContact;
 
 public interface SysContactMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(SysContact record);
 

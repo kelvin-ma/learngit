@@ -2,7 +2,7 @@ package com.csj.gold.model;
 
 import java.util.Date;
 
-public class SysAccoutTransactions {
+public class SysAccountTransactions {
     private Long id;
 
     private Long accoutId;

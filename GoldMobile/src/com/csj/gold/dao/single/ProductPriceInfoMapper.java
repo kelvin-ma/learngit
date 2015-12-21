@@ -4,6 +4,8 @@ import com.csj.gold.model.ProductPriceInfo;
 
 public interface ProductPriceInfoMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(ProductPriceInfo record);
 

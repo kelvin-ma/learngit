@@ -4,6 +4,8 @@ import com.csj.gold.model.ProductInfo;
 
 public interface ProductInfoMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(ProductInfo record);
 

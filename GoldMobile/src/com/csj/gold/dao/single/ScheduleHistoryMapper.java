@@ -4,6 +4,8 @@ import com.csj.gold.model.ScheduleHistory;
 
 public interface ScheduleHistoryMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(ScheduleHistory record);
 

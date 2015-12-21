@@ -29,11 +29,20 @@
     from product_price_info
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from product_price_info
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update product_price_info
+    is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update product_price_info
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.ProductPriceInfo" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into product_price_info (id, product_issued_price, product_money_type, 
       product_sell_fee, product_fee_unit, product_issued_total, 
       product_issued_unit, product_id, version, 
@@ -48,6 +57,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.ProductPriceInfo" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into product_price_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

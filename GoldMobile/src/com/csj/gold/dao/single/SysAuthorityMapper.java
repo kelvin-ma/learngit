@@ -5,6 +5,8 @@ import com.csj.gold.model.SysAuthority;
 public interface SysAuthorityMapper {
     int deleteByPrimaryKey(Long id);
 
+    int forbiddenByPrimaryKey(Long id);
+    
     int insert(SysAuthority record);
 
     int insertSelective(SysAuthority record);

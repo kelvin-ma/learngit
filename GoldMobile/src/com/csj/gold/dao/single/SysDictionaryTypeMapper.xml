@@ -24,11 +24,56 @@
     from sys_dictionary_type
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sys_dictionary_type
+  <select id="selectByParameters" resultMap="BaseResultMap" parameterType="com.csj.gold.model.SysDictionaryType" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dictionary_type
+    where 1 = 1
+    <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typePid != null" >
+        type_pid = #{typePid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update sys_dictionary_type
+    set is_del = 1
     where id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Integer" >
+    update sys_dictionary_type
+    set is_forbidden = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysDictionaryType" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_dictionary_type (id, type_name, type_pid, 
       remark, create_date, create_user, 
       update_date, update_user, is_del, 
@@ -39,6 +84,9 @@
       #{isForbidden,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.SysDictionaryType" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_dictionary_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

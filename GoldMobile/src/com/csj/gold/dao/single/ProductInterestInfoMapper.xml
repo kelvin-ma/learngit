@@ -33,11 +33,20 @@
     from product_interest_info
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from product_interest_info
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update product_interest_info
+    set is_del = 1 
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update product_interest_info
+    set is_forbidden = 1 
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.ProductInterestInfo" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into product_interest_info (id, p_income_payment_unit, p_interest_way, 
       p_interest_rate_day, p_interest_rate_year, p_interest_rate_month, 
       p_interest_model, p_expiry_day, p_expiry_month, 
@@ -54,6 +63,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.ProductInterestInfo" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into product_interest_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

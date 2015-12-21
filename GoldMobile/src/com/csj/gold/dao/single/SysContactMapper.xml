@@ -23,11 +23,20 @@
     from sys_contact
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_contact
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_contact
+    set is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_contact
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysContact" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_contact (id, contact_title, file_id, 
       tontact_type, create_date, create_user, 
       update_date, update_user, is_del, 
@@ -38,6 +47,9 @@
       #{isForbidden,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.SysContact" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_contact
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

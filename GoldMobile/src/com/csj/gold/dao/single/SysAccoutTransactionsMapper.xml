@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.csj.gold.dao.single.SysAccoutTransactionsMapper" >
-  <resultMap id="BaseResultMap" type="com.csj.gold.model.SysAccoutTransactions" >
+  <resultMap id="BaseResultMap" type="com.csj.gold.model.SysAccountTransactions" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="accout_id" property="accoutId" jdbcType="BIGINT" />
     <result column="transaction_money" property="transactionMoney" jdbcType="DECIMAL" />
@@ -25,11 +25,20 @@
     from sys_accout_transactions
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_accout_transactions
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_accout_transactions
+    set is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.csj.gold.model.SysAccoutTransactions" >
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_accout_transactions
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insert" parameterType="com.csj.gold.model.SysAccountTransactions" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_accout_transactions (id, accout_id, transaction_money, 
       transaction_swift_no, transaction_type, order_number, 
       create_date, update_date, create_user, 
@@ -41,7 +50,10 @@
       #{updateUser,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER}, #{isForbidden,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.csj.gold.model.SysAccoutTransactions" >
+  <insert id="insertSelective" parameterType="com.csj.gold.model.SysAccountTransactions" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_accout_transactions
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -120,7 +132,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.csj.gold.model.SysAccoutTransactions" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.csj.gold.model.SysAccountTransactions" >
     update sys_accout_transactions
     <set >
       <if test="accoutId != null" >
@@ -159,7 +171,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.csj.gold.model.SysAccoutTransactions" >
+  <update id="updateByPrimaryKey" parameterType="com.csj.gold.model.SysAccountTransactions" >
     update sys_accout_transactions
     set accout_id = #{accoutId,jdbcType=BIGINT},
       transaction_money = #{transactionMoney,jdbcType=DECIMAL},
