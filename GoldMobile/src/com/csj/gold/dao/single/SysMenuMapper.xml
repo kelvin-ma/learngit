@@ -27,11 +27,20 @@
     from sys_menu
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_menu
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+ <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_menu
+    set is_del = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_menu
+    set is_forbidden = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysMenu" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_menu (id, menu_name, menu_link, 
       menu_pid, menu_category, image_file_id, 
       reamrk, create_date, create_user, 
@@ -44,6 +53,9 @@
       #{isDel,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.SysMenu" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

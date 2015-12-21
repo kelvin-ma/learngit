@@ -28,11 +28,68 @@
     from sys_file
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_file
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+  <select id="selectByParameters" resultMap="BaseResultMap" parameterType="com.csj.gold.model.SysFile" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_file
+    where 1 = 1
+     <if test="fileName != null" >
+       and file_name = #{fileName,jdbcType=VARCHAR}
+      </if>
+      <if test="filePath != null" >
+       and file_path = #{filePath,jdbcType=VARCHAR}
+      </if>
+      <if test="fileSize != null" >
+       and file_size = #{fileSize,jdbcType=INTEGER}
+      </if>
+      <if test="fileType != null" >
+        and file_type = #{fileType,jdbcType=INTEGER}
+      </if>
+      <if test="fileCategory != null" >
+        and file_category = #{fileCategory,jdbcType=INTEGER}
+      </if>
+      <if test="fileTitle != null" >
+        and file_title = #{fileTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="fileLink != null" >
+        and file_link = #{fileLink,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+        and remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="isForbidden != null" >
+        and is_forbidden = #{isForbidden,jdbcType=INTEGER}
+      </if>
+      <if test="createDate != null" >
+        and create_date = #{createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUser != null" >
+        and create_user = #{createUser,jdbcType=BIGINT}
+      </if>
+      <if test="updateDate != null" >
+        and update_date = #{updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null" >
+        and update_user = #{updateUser,jdbcType=BIGINT}
+      </if>
+      <if test="isDel != null" >
+        and is_del = #{isDel,jdbcType=INTEGER}
+      </if>
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_file
+    set is_del = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_dictionary_type
+    set is_forbidden = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysFile" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_file (id, file_name, file_path, 
       file_size, file_type, file_category, 
       file_title, file_link, remark, 
@@ -47,6 +104,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.SysFile" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_file
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

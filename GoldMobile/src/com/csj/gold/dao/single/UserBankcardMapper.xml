@@ -23,11 +23,20 @@
     from user_bankcard
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_bankcard
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update user_bankcard
+    set is_del = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update user_bankcard
+    set is_forbidden = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.UserBankcard" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_bankcard (id, bank_code, card_number, 
       user_id, create_date, update_date, 
       update_user, create_user, is_del, 
@@ -38,6 +47,9 @@
       #{isForbidden,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.UserBankcard" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_bankcard
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -6,6 +6,8 @@ import com.csj.gold.model.UserAddress;
 
 public interface UserAddressMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(UserAddress userAddress);
 
@@ -17,10 +19,6 @@ public interface UserAddressMapper {
 
     int updateByPrimaryKey(UserAddress userAddress);
     
-    int updateDeleteByPrimaryKey(UserAddress userAddress);
-    
-    int updateForbiddenByPrimaryKey(UserAddress userAddress);
-
 	List<UserAddress> searchByUserId(UserAddress userAddress);
 	
 	int resetMainAddress(UserAddress userAddress);

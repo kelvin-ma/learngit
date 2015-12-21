@@ -3,103 +3,114 @@ package com.csj.gold.model;
 import java.util.Date;
 
 public class UserInfo {
-    private Long id;
+	private Long id;
 
-    private String userName;
+	private String userName;
 
-    private String phone;
+	private String phone;
 
-    private String certNo;
+	private Long headImageFileId;
 
-    private Date createDate;
+	private String certNo;
 
-    private Date updateDate;
+	private Date createDate;
 
-    private Long updateUser;
+	private Date updateDate;
 
-    private Long createUser;
+	private Long updateUser;
 
-    private Integer isDel;
+	private Long createUser;
 
-    private Integer isForbidden;
+	private Integer isDel;
 
-    public Long getId() {
-        return id;
-    }
+	private Integer isForbidden;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName == null ? null : userName.trim();
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public String getCertNo() {
-        return certNo;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone == null ? null : phone.trim();
+	}
 
-    public void setCertNo(String certNo) {
-        this.certNo = certNo == null ? null : certNo.trim();
-    }
+	public String getCertNo() {
+		return certNo;
+	}
 
-    public Date getCreateDate() {
-        return createDate;
-    }
+	public void setCertNo(String certNo) {
+		this.certNo = certNo == null ? null : certNo.trim();
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-    public Long getUpdateUser() {
-        return updateUser;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
-    public void setUpdateUser(Long updateUser) {
-        this.updateUser = updateUser;
-    }
+	public Long getUpdateUser() {
+		return updateUser;
+	}
 
-    public Long getCreateUser() {
-        return createUser;
-    }
+	public void setUpdateUser(Long updateUser) {
+		this.updateUser = updateUser;
+	}
 
-    public void setCreateUser(Long createUser) {
-        this.createUser = createUser;
-    }
+	public Long getCreateUser() {
+		return createUser;
+	}
 
-    public Integer getIsDel() {
-        return isDel;
-    }
+	public void setCreateUser(Long createUser) {
+		this.createUser = createUser;
+	}
 
-    public void setIsDel(Integer isDel) {
-        this.isDel = isDel;
-    }
+	public Integer getIsDel() {
+		return isDel;
+	}
 
-    public Integer getIsForbidden() {
-        return isForbidden;
-    }
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
 
-    public void setIsForbidden(Integer isForbidden) {
-        this.isForbidden = isForbidden;
-    }
+	public Integer getIsForbidden() {
+		return isForbidden;
+	}
+
+	public void setIsForbidden(Integer isForbidden) {
+		this.isForbidden = isForbidden;
+	}
+
+	public Long getHeadImageFileId() {
+		return headImageFileId;
+	}
+
+	public void setHeadImageFileId(Long headImageFileId) {
+		this.headImageFileId = headImageFileId;
+	}
+
 }

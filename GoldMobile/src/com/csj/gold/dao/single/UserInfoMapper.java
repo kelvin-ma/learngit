@@ -1,9 +1,13 @@
 package com.csj.gold.dao.single;
 
+import java.util.List;
+
 import com.csj.gold.model.UserInfo;
 
 public interface UserInfoMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(UserInfo record);
 
@@ -14,4 +18,6 @@ public interface UserInfoMapper {
     int updateByPrimaryKeySelective(UserInfo record);
 
     int updateByPrimaryKey(UserInfo record);
+
+	List<UserInfo> selectByParameters(UserInfo userInfo);
 }

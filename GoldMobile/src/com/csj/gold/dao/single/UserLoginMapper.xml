@@ -23,11 +23,28 @@
     from user_login
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_login
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="com.csj.gold.model.UserLogin" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_login
+    where user_phone = #{userPhone,jdbcType=VARCHAR}
+    and is_del = #{isDel,jdbcType=INTEGER}
+    and is_forbidden = #{isForbidden,jdbcType=INTEGER}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete user_login
+    set is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update user_login
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.UserLogin" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_login (id, user_phone, user_pwd, 
       user_id, create_date, create_user, 
       update_date, update_user, is_del, 
@@ -38,6 +55,9 @@
       #{isForbidden,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.UserLogin" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_login
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

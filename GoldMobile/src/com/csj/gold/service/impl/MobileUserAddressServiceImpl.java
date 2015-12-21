@@ -32,7 +32,12 @@ public class MobileUserAddressServiceImpl implements MobileUserAddressService {
 
 	@Override
 	public int deleteAddress(UserAddress userAddress) {
-		return userAddressMapper.updateDeleteByPrimaryKey(userAddress);
+		return userAddressMapper.deleteByPrimaryKey(userAddress.getId());
+	}
+	
+	@Override
+	public int forbiddenAddress(UserAddress userAddress) {
+		return userAddressMapper.forbiddenByPrimaryKey(userAddress.getId());
 	}
 
 	@Override

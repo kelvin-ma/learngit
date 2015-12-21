@@ -23,11 +23,53 @@
     from user_info
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_info
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+  <select id="selectByParameters" resultMap="BaseResultMap" parameterType="com.csj.gold.model.UserInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where 1 = 1
+    <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="certNo != null" >
+        cert_no = #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      </if>
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update user_info
+    set is_del = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update user_info
+    set is_forbidden = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.UserInfo" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_info (id, user_name, phone, 
       cert_no, create_date, update_date, 
       update_user, create_user, is_del, 
@@ -38,6 +80,9 @@
       #{isForbidden,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.UserInfo" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

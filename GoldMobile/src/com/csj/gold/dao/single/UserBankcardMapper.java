@@ -4,6 +4,8 @@ import com.csj.gold.model.UserBankcard;
 
 public interface UserBankcardMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(UserBankcard record);
 

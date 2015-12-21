@@ -25,11 +25,20 @@
     from product_transactions_rule
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from product_transactions_rule
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update product_transactions_rule
+    set is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update product_transactions_rule
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.ProductTransactionsRule" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into product_transactions_rule (id, tra_max_num, tra_min_num, 
       tra_add_num, tra_direction, prouduct_id, 
       create_date, create_user, update_date, 
@@ -42,6 +51,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.ProductTransactionsRule" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into product_transactions_rule
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

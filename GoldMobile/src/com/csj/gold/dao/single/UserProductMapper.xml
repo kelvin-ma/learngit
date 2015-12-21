@@ -29,11 +29,20 @@
     from user_product
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_product
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update user_product
+    set is_del = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update user_product
+    set is_forbidden = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.UserProduct" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_product (id, prouduct_name, year_interest_rate, 
       day_intserest_rate, buy_date, expire_date, 
       expire_intserest, prouduct_type, prouduct_id, 
@@ -48,6 +57,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.UserProduct" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into user_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

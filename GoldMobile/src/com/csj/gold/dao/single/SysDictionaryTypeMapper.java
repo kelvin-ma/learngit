@@ -1,17 +1,23 @@
 package com.csj.gold.dao.single;
 
+import java.util.List;
+
 import com.csj.gold.model.SysDictionaryType;
 
 public interface SysDictionaryTypeMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(SysDictionaryType record);
+    int insert(SysDictionaryType sysDictionaryType);
 
-    int insertSelective(SysDictionaryType record);
+    int insertSelective(SysDictionaryType sysDictionaryType);
 
     SysDictionaryType selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(SysDictionaryType record);
+    int updateByPrimaryKeySelective(SysDictionaryType sysDictionaryType);
 
-    int updateByPrimaryKey(SysDictionaryType record);
+    int updateByPrimaryKey(SysDictionaryType sysDictionaryType);
+
+	int forbiddenByPrimaryKey(Integer id);
+	
+	List<SysDictionaryType> selectByParameters(SysDictionaryType sysDictionaryType);
 }

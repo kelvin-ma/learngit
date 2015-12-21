@@ -33,6 +33,16 @@
     	and is_forbidden  = 0
     	and user_id = #{userId,jdbcType=BIGINT}
   </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  	update user_address
+  	set is_del = 1
+  	where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long">
+  	update user_address
+  	set is_forbidden = 1
+  	where id = #{id,jdbcType=BIGINT}
+  </update>
   <update id="resetMainAddress" parameterType="com.csj.gold.model.UserAddress">
   	update user_address
   	set is_main = 0 
@@ -48,10 +58,6 @@
     	and is_forbidden  = 0
     	and id = #{id,jdbcType=BIGINT}
   </update>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_address
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
   
   <insert id="insert" parameterType="com.csj.gold.model.UserAddress" >
   	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
@@ -176,14 +182,5 @@
       update_user = #{updateUser,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateDeleteByPrimaryKey">
-  	update user_address
-  	set is_del = #{isDel,jdbcType=INTEGER}
-  	where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateForbiddenByPrimaryKey">
-  	update user_address
-  	set is_del = #{isForbidden,jdbcType=INTEGER}
-  	where id = #{id,jdbcType=BIGINT}
-  </update>
+  
 </mapper>

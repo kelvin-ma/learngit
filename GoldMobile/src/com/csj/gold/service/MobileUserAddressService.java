@@ -12,6 +12,8 @@ public interface MobileUserAddressService {
 	
 	int deleteAddress(UserAddress userAddress);
 	
+	int forbiddenAddress(UserAddress userAddress);
+	
 	int addAddress(UserAddress userAddress);
 
 	int updateAddress(UserAddress userAddress);

@@ -12,7 +12,7 @@ public class FileUtil {
 	public static final String PARENT_FLODER_PATH = "/upload/"; //父文件目录
 	  
     //文件上传  
-    public static String uploadFile(MultipartFile file, HttpServletRequest request) throws IOException {  
+    public static String uploadFile(MultipartFile file) throws IOException {  
         String fileName = file.getOriginalFilename();  //上传时的名称
         File tempFile = new File(PARENT_FLODER_PATH, new Date().getTime() + String.valueOf(fileName));  
         if (!tempFile.getParentFile().exists()) {  

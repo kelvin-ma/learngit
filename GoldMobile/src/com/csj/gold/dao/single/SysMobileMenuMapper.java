@@ -4,6 +4,8 @@ import com.csj.gold.model.SysMobileMenu;
 
 public interface SysMobileMenuMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(SysMobileMenu record);
 
