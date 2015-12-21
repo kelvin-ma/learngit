@@ -1,5 +1,7 @@
 package com.csj.gold.dao.single;
 
+import java.util.List;
+
 import com.csj.gold.model.SysFile;
 
 public interface SysFileMapper {
@@ -14,4 +16,8 @@ public interface SysFileMapper {
     int updateByPrimaryKeySelective(SysFile record);
 
     int updateByPrimaryKey(SysFile record);
+
+	int forbiddenByPrimaryKey(Long id);
+
+	List<SysFile> selectByParameters(SysFile sysFile);
 }

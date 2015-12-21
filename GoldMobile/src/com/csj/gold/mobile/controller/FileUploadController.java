@@ -16,8 +16,13 @@ import com.csj.gold.utils.file.FileUtil;
 public class FileUploadController {
 	
 	@RequestMapping("upload")  
-    public void upload(@RequestParam("imageFile") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {  
-        FileUtil.uploadFile(file, request);  
+    public void upload(@RequestParam("imageFile") MultipartFile file){  
+        try {
+			FileUtil.uploadFile(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
     }  
   
 //    @RequestMapping("download")  

@@ -22,11 +22,20 @@
     from role_authority
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from role_authority
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update role_authority
+    set is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update role_authority
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.RoleAuthority" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into role_authority (id, role_id, authority_id, 
       is_forbidden, is_del, create_date, 
       create_user, update_date, update_user
@@ -37,6 +46,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.RoleAuthority" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into role_authority
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -4,6 +4,8 @@ import com.csj.gold.model.UserRole;
 
 public interface UserRoleMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(UserRole record);
 

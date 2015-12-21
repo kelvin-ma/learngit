@@ -28,11 +28,20 @@
     from sys_account
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_account
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_account
+    set is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_account
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysAccount" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_account (id, account_code, account_total_money, 
       account_type, account_money_type, account_status, 
       account_user_id, is_del, is_forbidden, 
@@ -45,6 +54,9 @@
       #{createUser,jdbcType=BIGINT}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.SysAccount" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_account
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

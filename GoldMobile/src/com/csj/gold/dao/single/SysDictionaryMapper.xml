@@ -27,11 +27,65 @@
     from sys_dictionary
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sys_dictionary
+  <select id="selectByParameters" resultMap="BaseResultMap" parameterType="com.csj.gold.model.SysDictionary" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dictionary
+    where 1 = 1
+     <if test="dicName != null" >
+        dic_name = #{dicName,jdbcType=VARCHAR},
+      </if>
+      <if test="dicType != null" >
+        dic_type = #{dicType,jdbcType=INTEGER},
+      </if>
+      <if test="dicPid != null" >
+        dic_pid = #{dicPid,jdbcType=INTEGER},
+      </if>
+      <if test="dicOrder != null" >
+        dic_order = #{dicOrder,jdbcType=INTEGER},
+      </if>
+      <if test="dicValue != null" >
+        dic_value = #{dicValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update sys_dictionary
+    set is_del = 1
     where id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Integer" >
+    update sys_dictionary
+    set is_forbidden = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysDictionary" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_dictionary (id, dic_name, dic_type, 
       dic_pid, dic_order, dic_value, 
       remark, create_date, create_user, 
@@ -44,6 +98,9 @@
       #{isForbidden,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.SysDictionary" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into sys_dictionary
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

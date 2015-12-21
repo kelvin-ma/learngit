@@ -26,11 +26,20 @@
     from schedule_history
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from schedule_history
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update schedule_history
+    set is_del = 1
     where id = #{id,jdbcType=BIGINT}
-  </delete>
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update schedule_history
+    set is_forbidden = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
   <insert id="insert" parameterType="com.csj.gold.model.ScheduleHistory" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into schedule_history (id, schedule_type, shcedule_date, 
       actived_status, shcedule_actived_date, shcedule_code, 
       create_date, create_user, update_date, 
@@ -43,6 +52,9 @@
       #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.ScheduleHistory" >
+  	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into schedule_history
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

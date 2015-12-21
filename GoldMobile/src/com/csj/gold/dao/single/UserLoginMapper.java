@@ -1,5 +1,7 @@
 package com.csj.gold.dao.single;
 
+import java.util.List;
+
 import com.csj.gold.model.UserLogin;
 
 public interface UserLoginMapper {
@@ -14,4 +16,6 @@ public interface UserLoginMapper {
     int updateByPrimaryKeySelective(UserLogin record);
 
     int updateByPrimaryKey(UserLogin record);
+
+	List<UserLogin> selectByPhone(UserLogin user);
 }

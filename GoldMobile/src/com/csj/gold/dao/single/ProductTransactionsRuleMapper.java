@@ -4,6 +4,8 @@ import com.csj.gold.model.ProductTransactionsRule;
 
 public interface ProductTransactionsRuleMapper {
     int deleteByPrimaryKey(Long id);
+    
+    int forbiddenByPrimaryKey(Long id);
 
     int insert(ProductTransactionsRule record);
 
