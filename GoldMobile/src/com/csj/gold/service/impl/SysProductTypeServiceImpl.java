@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.csj.gold.dao.single.ProductTypeMapper;
 import com.csj.gold.model.ProductType;
 import com.csj.gold.service.SysProductTypeService;
+import com.csj.gold.utils.page.Page;
 
 @Service("sysProductTypeService")
 public class SysProductTypeServiceImpl implements SysProductTypeService{
@@ -37,8 +38,9 @@ public class SysProductTypeServiceImpl implements SysProductTypeService{
 	}
 
 	@Override
-	public List<ProductType> searchByParameters(ProductType productType) {
-		List<ProductType> returnList = productTypeMapper.selectByParameters(productType);
+	public List<ProductType> searchByParameters(Page page,ProductType productType) {
+		page.setParameters(productType);
+		List<ProductType> returnList = productTypeMapper.selectByParameters(page);
 		return returnList;
 	}
 

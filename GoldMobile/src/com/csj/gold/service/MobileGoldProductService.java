@@ -2,14 +2,13 @@ package com.csj.gold.service;
 
 import java.util.List;
 
-import com.csj.gold.mobile.vo.MobileGoldProductVO;
-import com.csj.gold.model.UserAddress;
 import com.csj.gold.model.bean.MobileGoldProduct;
+import com.csj.gold.utils.page.Page;
 
 
 public interface MobileGoldProductService {
 	public List<MobileGoldProduct> searchAll();
 	
-	public List<MobileGoldProduct> searchByParameters(MobileGoldProduct mobileGoldProduct);
+	public List<MobileGoldProduct> searchByParameters(Page page,MobileGoldProduct mobileGoldProduct);
 	
 }

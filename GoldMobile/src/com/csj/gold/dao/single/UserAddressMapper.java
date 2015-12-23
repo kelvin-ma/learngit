@@ -3,6 +3,7 @@ package com.csj.gold.dao.single;
 import java.util.List;
 
 import com.csj.gold.model.UserAddress;
+import com.csj.gold.utils.page.Page;
 
 public interface UserAddressMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,6 +15,8 @@ public interface UserAddressMapper {
     int insertSelective(UserAddress userAddress);
 
     UserAddress selectByPrimaryKey(Long id);
+    
+    List<UserAddress> selectByParameters(Page page);
 
     int updateByPrimaryKeySelective(UserAddress userAddress);
 

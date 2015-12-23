@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csj.gold.model.SysFile;
 import com.csj.gold.service.SysFileService;
+import com.csj.gold.utils.page.Page;
 
 @Controller
 @RequestMapping("/sysFile")
 public class SysFileController {
+	
+	private int pageSize = 10;
 
 	@Resource
 	SysFileService sysFileService = null;
@@ -41,8 +44,9 @@ public class SysFileController {
 	}
 
 	@RequestMapping("/searchByParameters")
-	public String searchByParameters(@Param("sysFile") SysFile sysFile) {
-		sysFileService.searchByParameters(sysFile);
+	public String searchByParameters(@Param("sysFile") SysFile sysFile,@Param("pageNo") int pageNo) {
+		Page page = Page.newBuilder(pageNo, pageSize);
+		sysFileService.searchByParameters(page,sysFile);
 		return null;
 	}
 

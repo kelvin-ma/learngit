@@ -33,6 +33,65 @@
     from product_interest_info
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByParameters" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_interest_info
+    where 1 = 1
+    <if test="parameters!=null">
+    <if test="parameters.pIncomePaymentUnit != null" >
+        and p_income_payment_unit = #{parameters.pIncomePaymentUnit,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pInterestWay != null" >
+        and p_interest_way = #{parameters.pInterestWay,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pInterestRateDay != null" >
+        and p_interest_rate_day = #{parameters.pInterestRateDay,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pInterestRateYear != null" >
+        and p_interest_rate_year = #{parameters.pInterestRateYear,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pInterestRateMonth != null" >
+        and p_interest_rate_month = #{parameters.pInterestRateMonth,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pInterestModel != null" >
+        and p_interest_model = #{parameters.pInterestModel,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pExpiryDay != null" >
+        and p_expiry_day = #{parameters.pExpiryDay,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pExpiryMonth != null" >
+        and p_expiry_month = #{parameters.pExpiryMonth,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.pExpiryYear != null" >
+        and p_expiry_year = #{parameters.pExpiryYear,jdbcType=TINYINT}
+      </if>
+      <if test="parameters.pProductId != null" >
+        and p_product_id = #{parameters.pProductId,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.createDate != null" >
+        and create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.createUser != null" >
+        and create_user = #{parameters.createUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.updateDate != null" >
+        and update_date = #{parameters.updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.updateUser != null" >
+        and update_user = #{parameters.updateUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.isDel != null" >
+        and is_del = #{parameters.isDel,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.isForbidden != null" >
+        and is_forbidden = #{parameters.isForbidden,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.version != null" >
+        and version = #{parameters.version,jdbcType=INTEGER}
+      </if>
+    </if>
+  </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update product_interest_info
     set is_del = 1 

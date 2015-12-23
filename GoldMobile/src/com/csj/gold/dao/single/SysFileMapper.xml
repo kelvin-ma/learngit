@@ -28,52 +28,57 @@
     from sys_file
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectByParameters" resultMap="BaseResultMap" parameterType="com.csj.gold.model.SysFile" >
+  <select id="selectByParameters" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from sys_file
     where 1 = 1
-     <if test="fileName != null" >
-       and file_name = #{fileName,jdbcType=VARCHAR}
-      </if>
-      <if test="filePath != null" >
-       and file_path = #{filePath,jdbcType=VARCHAR}
-      </if>
-      <if test="fileSize != null" >
-       and file_size = #{fileSize,jdbcType=INTEGER}
-      </if>
-      <if test="fileType != null" >
-        and file_type = #{fileType,jdbcType=INTEGER}
-      </if>
-      <if test="fileCategory != null" >
-        and file_category = #{fileCategory,jdbcType=INTEGER}
-      </if>
-      <if test="fileTitle != null" >
-        and file_title = #{fileTitle,jdbcType=VARCHAR}
-      </if>
-      <if test="fileLink != null" >
-        and file_link = #{fileLink,jdbcType=VARCHAR}
-      </if>
-      <if test="remark != null" >
-        and remark = #{remark,jdbcType=VARCHAR}
-      </if>
-      <if test="isForbidden != null" >
-        and is_forbidden = #{isForbidden,jdbcType=INTEGER}
-      </if>
-      <if test="createDate != null" >
-        and create_date = #{createDate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="createUser != null" >
-        and create_user = #{createUser,jdbcType=BIGINT}
-      </if>
-      <if test="updateDate != null" >
-        and update_date = #{updateDate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="updateUser != null" >
-        and update_user = #{updateUser,jdbcType=BIGINT}
-      </if>
-      <if test="isDel != null" >
-        and is_del = #{isDel,jdbcType=INTEGER}
+     <if test="parameters != null">
+	     <if test="parameters.fileName != null" >
+	       and file_name = #{parameters.fileName,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.filePath != null" >
+	       and file_path = #{parameters.filePath,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.fileSize != null" >
+	       and file_size = #{parameters.fileSize,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.fileType != null" >
+	        and file_type = #{parameters.fileType,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.fileCategory != null" >
+	        and file_category = #{parameters.fileCategory,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.fileTitle != null" >
+	        and file_title = #{parameters.fileTitle,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.fileLink != null" >
+	        and file_link = #{parameters.fileLink,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.remark != null" >
+	        and remark = #{parameters.remark,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.isForbidden != null" >
+	        and is_forbidden = #{parameters.isForbidden,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.createDate != null" >
+	        and create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="parameters.createUser != null" >
+	        and create_user = #{parameters.createUser,jdbcType=BIGINT}
+	      </if>
+	      <if test="parameters.updateDate != null" >
+	        and update_date = #{parameters.updateDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="parameters.updateUser != null" >
+	        and update_user = #{parameters.updateUser,jdbcType=BIGINT}
+	      </if>
+	      <if test="parameters.isDel != null" >
+	        and is_del = #{parameters.isDel,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.isForbidden != null" >
+	        and is_del = #{parameters.isForbidden,jdbcType=INTEGER}
+	      </if>
       </if>
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
