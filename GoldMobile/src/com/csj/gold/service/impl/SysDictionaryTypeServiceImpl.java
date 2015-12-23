@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.csj.gold.dao.single.SysDictionaryTypeMapper;
 import com.csj.gold.model.SysDictionaryType;
 import com.csj.gold.service.SysDictionaryTypeService;
+import com.csj.gold.utils.page.Page;
 
 @Service("sysDictionaryTypeService")
 public class SysDictionaryTypeServiceImpl implements SysDictionaryTypeService{
@@ -37,8 +38,9 @@ public class SysDictionaryTypeServiceImpl implements SysDictionaryTypeService{
 	}
 
 	@Override
-	public List<SysDictionaryType> searchByParameters(SysDictionaryType sysDictionaryType) {
-		List<SysDictionaryType> returnList = sysDictionaryTypeMapper.selectByParameters(sysDictionaryType);
+	public List<SysDictionaryType> searchByParameters(Page page,SysDictionaryType sysDictionaryType) {
+		page.setParameters(sysDictionaryType);
+		List<SysDictionaryType> returnList = sysDictionaryTypeMapper.selectByParameters(page);
 		return returnList;
 	}
 

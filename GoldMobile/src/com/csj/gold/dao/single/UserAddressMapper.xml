@@ -25,6 +25,35 @@
     from user_address
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByParameters" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_address
+    where 1 = 1
+    <if test="parameters.parameters!=null">
+    <if test="parameters.userId != null" >
+        and user_id = #{parameters.userId,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.address != null" >
+        and address = #{parameters.address,jdbcType=VARCHAR}
+      </if>
+      <if test="parameters.phone != null" >
+        and phone = #{parameters.phone,jdbcType=VARCHAR}
+      </if>
+      <if test="parameters.consignee != null" >
+        and consignee = #{parameters.consignee,jdbcType=VARCHAR}
+      </if>
+      <if test="parameters.isMain != null" >
+        and is_main = #{parameters.isMain,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.updateDate != null" >
+        and update_date = #{parameters.updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.updateUser != null" >
+        and update_user = #{parameters.updateUser,jdbcType=BIGINT}
+      </if>
+    </if>
+  </select>
   <select id="searchByUserId" resultMap="BaseResultMap" parameterType="com.csj.gold.model.UserAddress" >
     select 
     <include refid="Base_Column_List" />

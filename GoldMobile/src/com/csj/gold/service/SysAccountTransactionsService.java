@@ -3,6 +3,7 @@ package com.csj.gold.service;
 import java.util.List;
 
 import com.csj.gold.model.SysAccountTransactions;
+import com.csj.gold.utils.page.Page;
 
 public interface SysAccountTransactionsService {
 	int add(SysAccountTransactions sysAccountTransactions);
@@ -13,7 +14,7 @@ public interface SysAccountTransactionsService {
 
 	int forbidden(SysAccountTransactions sysAccountTransactions);
 
-	List<SysAccountTransactions> searchByParameters(SysAccountTransactions sysAccountTransactions);
+	List<SysAccountTransactions> searchByParameters(Page page,SysAccountTransactions sysAccountTransactions);
 
 	SysAccountTransactions searchByPrimaryKey(SysAccountTransactions sysAccountTransactions);
 }

@@ -25,6 +25,47 @@
     from sys_accout_transactions
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByParameters" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_accout_transactions
+    where 1 = 1
+    <if test="parameters!=null">
+    <if test="parameters.accoutId != null" >
+        and accout_id = #{parameters.accoutId,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.transactionMoney != null" >
+        and transaction_money = #{parameters.transactionMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="parameters.transactionSwiftNo != null" >
+        and transaction_swift_no = #{parameters.transactionSwiftNo,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.transactionType != null" >
+        and transaction_type = #{parameters.transactionType,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.orderNumber != null" >
+        and order_number = #{parameters.orderNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="parameters.createDate != null" >
+        and create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.updateDate != null" >
+        and update_date = #{parameters.updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.createUser != null" >
+        and create_user = #{parameters.createUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.updateUser != null" >
+        and update_user = #{parameters.updateUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.isDel != null" >
+        and is_del = #{parameters.isDel,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.isForbidden != null" >
+        and is_forbidden = #{parameters.isForbidden,jdbcType=INTEGER}
+      </if>
+    </if>
+  </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update sys_accout_transactions
     set is_del = 1

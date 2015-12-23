@@ -3,6 +3,7 @@ package com.csj.gold.dao.single;
 import java.util.List;
 
 import com.csj.gold.model.SysFile;
+import com.csj.gold.utils.page.Page;
 
 public interface SysFileMapper {
     int deleteByPrimaryKey(Long id);
@@ -19,5 +20,5 @@ public interface SysFileMapper {
 
 	int forbiddenByPrimaryKey(Long id);
 
-	List<SysFile> selectByParameters(SysFile sysFile);
+	List<SysFile> selectByParameters(Page page);
 }

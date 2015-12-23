@@ -3,6 +3,7 @@ package com.csj.gold.service;
 import java.util.List;
 
 import com.csj.gold.model.UserInfo;
+import com.csj.gold.utils.page.Page;
 
 public interface UserInfoService {
 	int add(UserInfo userInfo);
@@ -13,7 +14,7 @@ public interface UserInfoService {
 
 	int forbidden(UserInfo userInfo);
 
-	List<UserInfo> searchByParameters(UserInfo userInfo);
+	List<UserInfo> searchByParameters(Page page,UserInfo userInfo);
 
 	UserInfo searchByPrimaryKey(UserInfo userInfo);
 }

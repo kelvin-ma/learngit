@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.csj.gold.dao.single.UserAddressMapper;
 import com.csj.gold.model.UserAddress;
-import com.csj.gold.model.bean.MobileUserAddress;
 import com.csj.gold.service.MobileUserAddressService;
+import com.csj.gold.utils.page.Page;
 
 @Service("mobileUserAddressService")
 public class MobileUserAddressServiceImpl implements MobileUserAddressService {
@@ -20,6 +20,11 @@ public class MobileUserAddressServiceImpl implements MobileUserAddressService {
 	@Override
 	public List<UserAddress> searchByUserId(UserAddress userAddress) {
 		return userAddressMapper.searchByUserId(userAddress);
+	}
+	
+	public List<UserAddress> searchByParameters(Page page,UserAddress userAddress) {
+		page.setParameters(userAddress);
+		return userAddressMapper.selectByParameters(page);
 	}
 
 	@Override

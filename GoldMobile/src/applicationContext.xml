@@ -43,6 +43,11 @@
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
+		<property name="plugins">
+			<array>
+				<bean class="com.csj.gold.utils.page.PageInterceptor"></bean>
+			</array>
+		</property>
 		<!-- 自动扫描mapping.xml文件 -->
 		<!--<property name="typeAliasesPackage" value="com.csj.gold.mobile.dao.mapping" 
 			/> -->

@@ -3,6 +3,7 @@ package com.csj.gold.dao.single;
 import java.util.List;
 
 import com.csj.gold.model.SysDictionaryType;
+import com.csj.gold.utils.page.Page;
 
 public interface SysDictionaryTypeMapper {
     int deleteByPrimaryKey(Integer id);
@@ -19,5 +20,5 @@ public interface SysDictionaryTypeMapper {
 
 	int forbiddenByPrimaryKey(Integer id);
 	
-	List<SysDictionaryType> selectByParameters(SysDictionaryType sysDictionaryType);
+	List<SysDictionaryType> selectByParameters(Page page);
 }

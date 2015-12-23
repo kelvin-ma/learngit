@@ -12,7 +12,6 @@ public class InitFile implements ApplicationListener<ContextRefreshedEvent>{
 		if(event.getApplicationContext().getParent() == null){ //避免执行两次
 			
 			//DO THE LOGIC METHOD
-			System.out.println("***********InitFile******************");
 		}
 	}
 
