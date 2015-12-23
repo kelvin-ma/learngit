@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.csj.gold.dao.single.SysFileMapper;
 import com.csj.gold.model.SysFile;
 import com.csj.gold.service.SysFileService;
+import com.csj.gold.utils.page.Page;
 
 @Service("sysFileService")
 public class SysFileServiceImpl implements SysFileService{
@@ -37,8 +38,9 @@ public class SysFileServiceImpl implements SysFileService{
 	}
 
 	@Override
-	public List<SysFile> searchByParameters(SysFile sysFile) {
-		List<SysFile> returnList = sysFileMapper.selectByParameters(sysFile);
+	public List<SysFile> searchByParameters(Page page,SysFile sysFile) {
+		page.setParameters(sysFile);
+		List<SysFile> returnList = sysFileMapper.selectByParameters(page);
 		return returnList;
 	}
 

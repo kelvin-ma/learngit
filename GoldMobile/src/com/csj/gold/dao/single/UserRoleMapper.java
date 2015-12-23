@@ -1,6 +1,9 @@
 package com.csj.gold.dao.single;
 
+import java.util.List;
+
 import com.csj.gold.model.UserRole;
+import com.csj.gold.utils.page.Page;
 
 public interface UserRoleMapper {
     int deleteByPrimaryKey(Long id);
@@ -12,6 +15,8 @@ public interface UserRoleMapper {
     int insertSelective(UserRole record);
 
     UserRole selectByPrimaryKey(Long id);
+    
+    List<UserRole> selectByParameters(Page page);
 
     int updateByPrimaryKeySelective(UserRole record);
 

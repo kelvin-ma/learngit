@@ -29,6 +29,56 @@
     from product_price_info
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByParameters" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_price_info
+    where 1 = 1
+    <if test="parameters!=null">
+    <if test="parameters.productIssuedPrice != null" >
+        and product_issued_price = #{parameters.productIssuedPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="parameters.productMoneyType != null" >
+        and product_money_type = #{parameters.productMoneyType,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.productSellFee != null" >
+        and product_sell_fee = #{parameters.productSellFee,jdbcType=DECIMAL}
+      </if>
+      <if test="parameters.productFeeUnit != null" >
+        and product_fee_unit = #{parameters.productFeeUnit,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.productIssuedTotal != null" >
+        and product_issued_total = #{parameters.productIssuedTotal,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.productIssuedUnit != null" >
+        and product_issued_unit = #{parameters.productIssuedUnit,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.productId != null" >
+        and product_id = #{parameters.productId,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.version != null" >
+        and version = #{parameters.version,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.createDate != null" >
+        and create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.createUser != null" >
+        and create_user = #{parameters.createUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.updateDate != null" >
+        and update_date = #{parameters.updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.updateUser != null" >
+        and update_user = #{parameters.updateUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.isDel != null" >
+        and is_del = #{parameters.isDel,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.isForbidden != null" >
+        and is_forbidden = #{parameters.isForbidden,jdbcType=INTEGER}
+      </if>
+    </if>
+  </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update product_price_info
     is_del = 1

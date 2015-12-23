@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.csj.gold.dao.single.SysAccoutTransactionsMapper;
 import com.csj.gold.model.SysAccountTransactions;
 import com.csj.gold.service.SysAccountTransactionsService;
+import com.csj.gold.utils.page.Page;
 
 @Service("sysAccountTransactionsService")
 public class SysAccountTransactionsServiceImpl implements SysAccountTransactionsService{
@@ -37,8 +38,9 @@ public class SysAccountTransactionsServiceImpl implements SysAccountTransactions
 	}
 
 	@Override
-	public List<SysAccountTransactions> searchByParameters(SysAccountTransactions sysAccountTransactions) {
-		List<SysAccountTransactions> returnList = sysAccoutTransactionsMapper.selectByParameters(sysAccountTransactions);
+	public List<SysAccountTransactions> searchByParameters(Page page,SysAccountTransactions sysAccountTransactions) {
+		page.setParameters(sysAccountTransactions);
+		List<SysAccountTransactions> returnList = sysAccoutTransactionsMapper.selectByParameters(page);
 		return returnList;
 	}
 

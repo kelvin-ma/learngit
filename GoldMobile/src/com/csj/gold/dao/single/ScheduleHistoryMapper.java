@@ -1,6 +1,9 @@
 package com.csj.gold.dao.single;
 
+import java.util.List;
+
 import com.csj.gold.model.ScheduleHistory;
+import com.csj.gold.utils.page.Page;
 
 public interface ScheduleHistoryMapper {
     int deleteByPrimaryKey(Long id);
@@ -12,6 +15,8 @@ public interface ScheduleHistoryMapper {
     int insertSelective(ScheduleHistory record);
 
     ScheduleHistory selectByPrimaryKey(Long id);
+    
+    List<ScheduleHistory> selectByParameters(Page page);
 
     int updateByPrimaryKeySelective(ScheduleHistory record);
 

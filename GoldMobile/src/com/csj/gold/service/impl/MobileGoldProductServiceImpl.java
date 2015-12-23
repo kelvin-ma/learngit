@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.csj.gold.dao.MobileGoldProductMapper;
-import com.csj.gold.mobile.vo.MobileGoldProductVO;
 import com.csj.gold.model.bean.MobileGoldProduct;
 import com.csj.gold.service.MobileGoldProductService;
+import com.csj.gold.utils.page.Page;
 
 @Service("mobileGoldProductService")
 public class MobileGoldProductServiceImpl implements MobileGoldProductService{
@@ -23,8 +23,9 @@ public class MobileGoldProductServiceImpl implements MobileGoldProductService{
 	}
 
 	@Override
-	public List<MobileGoldProduct> searchByParameters(MobileGoldProduct mobileGoldProduct) {
-		return mobileGoldProductMapper.searchByParameters(mobileGoldProduct);
+	public List<MobileGoldProduct> searchByParameters(Page page,MobileGoldProduct mobileGoldProduct) {
+		page.setParameters(mobileGoldProduct);
+		return mobileGoldProductMapper.searchByParameters(page);
 	}
 
 }

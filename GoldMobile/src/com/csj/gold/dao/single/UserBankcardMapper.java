@@ -1,6 +1,9 @@
 package com.csj.gold.dao.single;
 
+import java.util.List;
+
 import com.csj.gold.model.UserBankcard;
+import com.csj.gold.utils.page.Page;
 
 public interface UserBankcardMapper {
     int deleteByPrimaryKey(Long id);
@@ -12,6 +15,8 @@ public interface UserBankcardMapper {
     int insertSelective(UserBankcard record);
 
     UserBankcard selectByPrimaryKey(Long id);
+    
+    List<UserBankcard> selectByParameters(Page page);
 
     int updateByPrimaryKeySelective(UserBankcard record);
 

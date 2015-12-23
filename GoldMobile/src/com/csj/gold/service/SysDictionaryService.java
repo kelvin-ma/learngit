@@ -3,6 +3,7 @@ package com.csj.gold.service;
 import java.util.List;
 
 import com.csj.gold.model.SysDictionary;
+import com.csj.gold.utils.page.Page;
 
 public interface SysDictionaryService {
 	int add(SysDictionary sysDictionary);
@@ -13,7 +14,7 @@ public interface SysDictionaryService {
 
 	int forbidden(SysDictionary sysDictionary);
 
-	List<SysDictionary> searchByParameters(SysDictionary sysDictionary);
+	List<SysDictionary> searchByParameters(Page page,SysDictionary sysDictionary);
 
 	SysDictionary searchByPrimaryKey(SysDictionary sysDictionary);
 }

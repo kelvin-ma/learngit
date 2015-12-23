@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csj.gold.model.SysDictionary;
 import com.csj.gold.service.SysDictionaryService;
+import com.csj.gold.utils.page.Page;
 
 @Controller
 @RequestMapping("/sysDictionary")
 public class SysDictionaryController {
+	
+	private int pageSize = 10;
 
 	@Resource
 	SysDictionaryService sysDictionaryService = null;
@@ -42,8 +45,9 @@ public class SysDictionaryController {
 
 	@RequestMapping("/searchByParameters")
 	public String searchByParameters(
-			@Param("sysDictionary") SysDictionary sysDictionary) {
-		sysDictionaryService.searchByParameters(sysDictionary);
+			@Param("sysDictionary") SysDictionary sysDictionary,@Param("pageNo") int pageNo) {
+		Page page = Page.newBuilder(pageNo, pageSize);
+		sysDictionaryService.searchByParameters(page,sysDictionary);
 		return null;
 	}
 

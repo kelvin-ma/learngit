@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.csj.gold.dao.single.UserInfoMapper;
-import com.csj.gold.model.SysFile;
 import com.csj.gold.model.UserInfo;
 import com.csj.gold.service.UserInfoService;
+import com.csj.gold.utils.page.Page;
 
 @Service("userInfoService")
 public class UserInfoServiceImpl implements UserInfoService{
@@ -38,8 +38,9 @@ public class UserInfoServiceImpl implements UserInfoService{
 	}
 
 	@Override
-	public List<UserInfo> searchByParameters(UserInfo userInfo) {
-		List<UserInfo> returnList = userInfoMapper.selectByParameters(userInfo);
+	public List<UserInfo> searchByParameters(Page page,UserInfo userInfo) {
+		page.setParameters(userInfo);
+		List<UserInfo> returnList = userInfoMapper.selectByParameters(page);
 		return returnList;
 	}
 

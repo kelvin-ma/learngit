@@ -28,6 +28,53 @@
     from sys_account
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByParameters" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_account
+    where 1 = 1
+    <if test="parameters!=null">
+    <if test="parameters.accountCode != null" >
+        and account_code = #{parameters.accountCode,jdbcType=INTEGER},
+      </if>
+      <if test="parameters.accountTotalMoney != null" >
+        and account_total_money = #{parameters.accountTotalMoney,jdbcType=DECIMAL}
+      </if>
+      <if test="parameters.accountType != null" >
+        and account_type = #{parameters.accountType,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.accountMoneyType != null" >
+        and account_money_type = #{parameters.accountMoneyType,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.accountStatus != null" >
+        and account_status = #{parameters.accountStatus,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.accountUserId != null" >
+        and account_user_id = #{parameters.accountUserId,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.isDel != null" >
+        and is_del = #{parameters.isDel,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.isForbidden != null" >
+        is_forbidden = #{parameters.isForbidden,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.createDate != null" >
+        create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.updateDate != null" >
+        update_date = #{parameters.updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.updateUser != null" >
+        update_user = #{parameters.updateUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.createUser != null" >
+        create_user = #{parameters.createUser,jdbcType=BIGINT}
+      </if>
+      <if test="parameters.version != null" >
+        and version = #{parameters.version,jdbcType=INTEGER}
+      </if>
+    </if>
+  </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update sys_account
     set is_del = 1
