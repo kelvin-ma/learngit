@@ -11,10 +11,11 @@
     <result column="create_user" property="createUser" jdbcType="BIGINT" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, role_id, authority_id, is_forbidden, is_del, create_date, create_user, update_date, 
-    update_user
+    update_user,version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -56,12 +57,12 @@
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update role_authority
-    set is_del = 1
+    set is_del = 1 , version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
     update role_authority
-    set is_forbidden = 1
+    set is_forbidden = 1 , version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
   <insert id="insert" parameterType="com.csj.gold.model.RoleAuthority" >
@@ -168,6 +169,7 @@
       <if test="updateUser != null" >
         update_user = #{updateUser,jdbcType=BIGINT},
       </if>
+      version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -180,7 +182,8 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=BIGINT},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      update_user = #{updateUser,jdbcType=BIGINT}
+      update_user = #{updateUser,jdbcType=BIGINT},
+      version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

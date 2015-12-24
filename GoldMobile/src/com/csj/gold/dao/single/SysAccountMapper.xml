@@ -77,12 +77,12 @@
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update sys_account
-    set is_del = 1
+    set is_del = 1 , version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
     update sys_account
-    set is_forbidden = 1
+    set is_forbidden = 1 , version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysAccount" >
@@ -233,9 +233,7 @@
       <if test="createUser != null" >
         create_user = #{createUser,jdbcType=BIGINT},
       </if>
-      <if test="version != null" >
-        version = #{version,jdbcType=INTEGER},
-      </if>
+      version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -253,7 +251,7 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       update_user = #{updateUser,jdbcType=BIGINT},
       create_user = #{createUser,jdbcType=BIGINT},
-      version = #{version,jdbcType=INTEGER}
+      version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

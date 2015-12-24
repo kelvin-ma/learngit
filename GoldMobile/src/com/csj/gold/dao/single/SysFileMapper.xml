@@ -17,10 +17,11 @@
     <result column="create_user" property="createUser" jdbcType="BIGINT" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, file_name, file_path, file_size, file_type, file_category, file_title, file_link, 
-    remark, is_forbidden, is_del, create_date, create_user, update_date, update_user
+    remark, is_forbidden, is_del, create_date, create_user, update_date, update_user,version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -83,12 +84,12 @@
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update sys_file
-    set is_del = 1
+    set is_del = 1 , version = version + 1
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
     update sys_dictionary_type
-    set is_forbidden = 1
+    set is_forbidden = 1 , version = version + 1
     where id = #{id,jdbcType=INTEGER}
   </update>
   <insert id="insert" parameterType="com.csj.gold.model.SysFile" >
