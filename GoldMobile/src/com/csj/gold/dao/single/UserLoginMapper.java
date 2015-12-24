@@ -22,4 +22,6 @@ public interface UserLoginMapper {
     int updateByPrimaryKey(UserLogin record);
 
 	List<UserLogin> selectByPhone(UserLogin user);
+
+	int forbiddenByPrimaryKey(Long id);
 }
