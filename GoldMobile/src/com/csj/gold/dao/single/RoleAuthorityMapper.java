@@ -10,15 +10,15 @@ public interface RoleAuthorityMapper {
     
     int forbiddenByPrimaryKey(Long id);
     
-    int insert(RoleAuthority record);
+    int insert(RoleAuthority roleAuthority);
 
-    int insertSelective(RoleAuthority record);
+    int insertSelective(RoleAuthority roleAuthority);
 
     RoleAuthority selectByPrimaryKey(Long id);
     
     List<RoleAuthority> selectByParameters(Page page);
 
-    int updateByPrimaryKeySelective(RoleAuthority record);
+    int updateByPrimaryKeySelective(RoleAuthority roleAuthority);
 
-    int updateByPrimaryKey(RoleAuthority record);
+    int updateByPrimaryKey(RoleAuthority roleAuthority);
 }

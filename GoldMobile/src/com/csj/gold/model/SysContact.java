@@ -22,6 +22,17 @@ public class SysContact {
     private Integer isDel;
 
     private Integer isForbidden;
+    
+    private Integer version;
+    
+    public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 
     public Long getId() {
         return id;

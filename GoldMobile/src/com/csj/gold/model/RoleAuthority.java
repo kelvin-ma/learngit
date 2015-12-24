@@ -20,7 +20,7 @@ public class RoleAuthority {
     private Date updateDate;
 
     private Long updateUser;
-
+    
     public Long getId() {
         return id;
     }

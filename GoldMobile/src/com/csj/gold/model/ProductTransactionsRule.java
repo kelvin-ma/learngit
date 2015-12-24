@@ -26,6 +26,8 @@ public class ProductTransactionsRule {
     private Integer isDel;
 
     private Integer isForbidden;
+    
+    private Integer version;
 
     public Long getId() {
         return id;
@@ -122,4 +124,13 @@ public class ProductTransactionsRule {
     public void setIsForbidden(Integer isForbidden) {
         this.isForbidden = isForbidden;
     }
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+    
 }
