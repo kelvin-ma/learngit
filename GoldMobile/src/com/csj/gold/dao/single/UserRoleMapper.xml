@@ -11,10 +11,11 @@
     <result column="update_user" property="updateUser" jdbcType="BIGINT" />
     <result column="is_forbidden" property="isForbidden" jdbcType="INTEGER" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, role_id, create_date, create_user, update_date, update_user, is_forbidden, 
-    is_del
+    is_del,version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -56,12 +57,12 @@
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update user_role
-    set is_del = 1
+    set is_del = 1 , version = version + 1
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
     update user_role
-    set is_forbidden = 1
+    set is_forbidden = 1 , version = version + 1
     where id = #{id,jdbcType=INTEGER}
   </update>
   <insert id="insert" parameterType="com.csj.gold.model.UserRole" >
@@ -168,6 +169,7 @@
       <if test="isDel != null" >
         is_del = #{isDel,jdbcType=INTEGER},
       </if>
+      version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -180,7 +182,8 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       update_user = #{updateUser,jdbcType=BIGINT},
       is_forbidden = #{isForbidden,jdbcType=INTEGER},
-      is_del = #{isDel,jdbcType=INTEGER}
+      is_del = #{isDel,jdbcType=INTEGER},
+      version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
