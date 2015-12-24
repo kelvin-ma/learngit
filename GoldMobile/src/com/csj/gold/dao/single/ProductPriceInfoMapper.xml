@@ -17,6 +17,7 @@
     <result column="update_user" property="updateUser" jdbcType="BIGINT" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
     <result column="is_forbidden" property="isForbidden" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, product_issued_price, product_money_type, product_sell_fee, product_fee_unit, 
@@ -81,12 +82,12 @@
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     update product_price_info
-    is_del = 1
+    is_del = 1 , version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
     update product_price_info
-    set is_forbidden = 1
+    set is_forbidden = 1 , version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
   <insert id="insert" parameterType="com.csj.gold.model.ProductPriceInfo" >
@@ -251,6 +252,7 @@
       <if test="isForbidden != null" >
         is_forbidden = #{isForbidden,jdbcType=INTEGER},
       </if>
+      version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -269,7 +271,8 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       update_user = #{updateUser,jdbcType=BIGINT},
       is_del = #{isDel,jdbcType=INTEGER},
-      is_forbidden = #{isForbidden,jdbcType=INTEGER}
+      is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
