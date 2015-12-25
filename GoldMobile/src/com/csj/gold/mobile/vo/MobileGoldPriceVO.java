@@ -1,6 +1,6 @@
 package com.csj.gold.mobile.vo;
 
-public class MobileGolePriceVO {
+public class MobileGoldPriceVO {
 	private String goldPrice = null;
 	
 	private String currentTime = null;
