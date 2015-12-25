@@ -17,4 +17,7 @@ public interface GoldPriceService {
 	List<GoldPrice> searchByParameters(Page page,GoldPrice goldPrice);
 
 	GoldPrice searchByPrimaryKey(GoldPrice goldPrice);
+	
+	GoldPrice searchRecentGoldPrice();
+	
 }

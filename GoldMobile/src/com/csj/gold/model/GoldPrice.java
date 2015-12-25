@@ -1,11 +1,12 @@
 package com.csj.gold.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class GoldPrice {
     private Long id;
 
-    private Long goldPrice;
+    private Double goldPrice;
 
     private Date effectiveStartTime;
 
@@ -29,11 +30,11 @@ public class GoldPrice {
         this.id = id;
     }
 
-    public Long getGoldPrice() {
+    public Double getGoldPrice() {
         return goldPrice;
     }
 
-    public void setGoldPrice(Long goldPrice) {
+    public void setGoldPrice(Double goldPrice) {
         this.goldPrice = goldPrice;
     }
 

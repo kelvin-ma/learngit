@@ -58,7 +58,10 @@ public class PageInterceptor implements Interceptor{
       //对原始Sql追加limit  
       int offset = (page.getPageNo() - 1) * page.getPageSize();  
       StringBuffer sb = new StringBuffer();  
-      sb.append(originalSql).append(" limit ").append(offset).append(",").append(page.getPageSize());  
+      sb.append(originalSql);
+      if(page.getUsePage() == Page.USE_PAGE){
+    	  sb.append(" limit ").append(offset).append(",").append(page.getPageSize());
+      }
       BoundSql newBoundSql = copyFromBoundSql(mappedStatement, boundSql, sb.toString());  
       MappedStatement newMs = copyFromMappedStatement(mappedStatement,new BoundSqlSqlSource(newBoundSql));    
       invocation.getArgs()[0]= newMs;    

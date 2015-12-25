@@ -1,5 +1,6 @@
 package com.csj.gold.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -47,6 +48,24 @@ public class GoldPriceServiceImpl implements GoldPriceService{
 	@Override
 	public GoldPrice searchByPrimaryKey(GoldPrice goldPrice) {
 		return goldPriceMapper.selectByPrimaryKey(goldPrice.getId());
+	}
+
+	@Override
+	public GoldPrice searchRecentGoldPrice() {
+		GoldPrice goldPrice = new GoldPrice();
+		goldPrice.setIsDel(0);
+		goldPrice.setIsForbidden(0);
+		goldPrice.setEffectiveStartTime(new Date());
+		goldPrice.setEffectiveEntTime(new Date());
+		Page page = Page.newBuilder(1, 10);
+		page.setParameters(goldPrice);
+		page.setUsePage(Page.UN_USE_PAGE);
+		List<GoldPrice> list = goldPriceMapper.selectByParameters(page);
+		if(null != list && list.size()==1){
+			return list.get(0);
+		}else{
+			return null;
+		}
 	}
 
 }
