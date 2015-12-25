@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.dao.single.GoldPriceMapper" >
+  <resultMap id="BaseResultMap" type="com.csj.gold.model.GoldPrice" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="gold_price" property="goldPrice" jdbcType="DECIMAL" />
+    <result column="effective_start_time" property="effectiveStartTime" jdbcType="TIMESTAMP" />
+    <result column="effective_ent_time" property="effectiveEntTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="is_forbidden" property="isForbidden" jdbcType="INTEGER" />
+    <result column="data_source" property="dataSource" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gold_price, effective_start_time, effective_ent_time, is_del, is_forbidden, data_source, 
+    create_date, version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from gold_price
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByParameters" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from gold_price
+    where 1 = 1
+    <if test="parameters!=null">
+    <if test="parameters.goldPrice != null" >
+        and gold_price = #{parameters.goldPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="parameters.effectiveStartTime != null" >
+        and effective_start_time = #{parameters.effectiveStartTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.effectiveEntTime != null" >
+        and effective_ent_time = #{parameters.effectiveEntTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.isDel != null" >
+        and is_del = #{parameters.isDel,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.isForbidden != null" >
+        and is_forbidden = #{parameters.isForbidden,jdbcType=INTEGER}
+      </if>
+      <if test="parameters.dataSource != null" >
+        and data_source = #{parameters.dataSource,jdbcType=VARCHAR}
+      </if>
+      <if test="parameters.createDate != null" >
+        and create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="parameters.version != null" >
+        and version = #{parameters.version,jdbcType=INTEGER}
+      </if>
+    </if>
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update gold_price
+    set is_del = 0 , version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update gold_price
+    set is_forbidden = 0 , version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insert" parameterType="com.csj.gold.model.GoldPrice" >
+    insert into gold_price (id, gold_price, effective_start_time, 
+      effective_ent_time, is_del, is_forbidden, 
+      data_source, create_date, version
+      )
+    values (#{id,jdbcType=BIGINT}, #{goldPrice,jdbcType=DECIMAL}, #{effectiveStartTime,jdbcType=TIMESTAMP}, 
+      #{effectiveEntTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER}, #{isForbidden,jdbcType=INTEGER}, 
+      #{dataSource,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.csj.gold.model.GoldPrice" >
+    insert into gold_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goldPrice != null" >
+        gold_price,
+      </if>
+      <if test="effectiveStartTime != null" >
+        effective_start_time,
+      </if>
+      <if test="effectiveEntTime != null" >
+        effective_ent_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden,
+      </if>
+      <if test="dataSource != null" >
+        data_source,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goldPrice != null" >
+        #{goldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="effectiveStartTime != null" >
+        #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEntTime != null" >
+        #{effectiveEntTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="dataSource != null" >
+        #{dataSource,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csj.gold.model.GoldPrice" >
+    update gold_price
+    <set >
+      <if test="goldPrice != null" >
+        gold_price = #{goldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="effectiveStartTime != null" >
+        effective_start_time = #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEntTime != null" >
+        effective_ent_time = #{effectiveEntTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="dataSource != null" >
+        data_source = #{dataSource,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      version = version + 1
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csj.gold.model.GoldPrice" >
+    update gold_price
+    set gold_price = #{goldPrice,jdbcType=DECIMAL},
+      effective_start_time = #{effectiveStartTime,jdbcType=TIMESTAMP},
+      effective_ent_time = #{effectiveEntTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=INTEGER},
+      is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      data_source = #{dataSource,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
