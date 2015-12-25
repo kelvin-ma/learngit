@@ -4,7 +4,7 @@ package com.csj.gold.mobile.vo;
 
 public class MobileParams {
 
-	private String transNo;
+	private String transNo;//接口代码
 
 	private Integer pageNumber = 1;// 当前页码
 	private Integer pageSize = 10;// 每页记录数
@@ -14,9 +14,10 @@ public class MobileParams {
 	private String dateSources;//数据来源
 	private String userSources;//客户来源
 	private Long userId;//用户ID
-	private String clientType;
+	private String clientType;//
 	private String businessSources;//业务来源
-	private String clientVersion;//
+	private String clientVersion;// 客户端版本
+	private String token;
 	
 	
 
