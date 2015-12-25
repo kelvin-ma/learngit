@@ -16,7 +16,7 @@
     id, gold_price, effective_start_time, effective_ent_time, is_del, is_forbidden, data_source, 
     create_date, version
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="searchRecentGoldPrice" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from gold_price
@@ -142,10 +142,10 @@
         gold_price = #{goldPrice,jdbcType=DECIMAL},
       </if>
       <if test="effectiveStartTime != null" >
-        effective_start_time = #{effectiveStartTime,jdbcType=TIMESTAMP},
+        <![CDATA[ effective_start_time >= #{effectiveStartTime,jdbcType=TIMESTAMP}, ]]> 
       </if>
       <if test="effectiveEntTime != null" >
-        effective_ent_time = #{effectiveEntTime,jdbcType=TIMESTAMP},
+        <![CDATA[ effective_ent_time <= #{effectiveEntTime,jdbcType=TIMESTAMP}, ]]> 
       </if>
       <if test="isDel != null" >
         is_del = #{isDel,jdbcType=INTEGER},

@@ -21,4 +21,5 @@ public interface GoldPriceMapper {
     int updateByPrimaryKeySelective(GoldPrice record);
 
     int updateByPrimaryKey(GoldPrice record);
+
 }
