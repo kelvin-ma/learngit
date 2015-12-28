@@ -10,7 +10,7 @@ import com.csj.gold.model.ProductPriceInfo;
 import com.csj.gold.service.ProductPriceInfoService;
 import com.csj.gold.utils.page.Page;
 
-@Controller
+@Controller    
 @RequestMapping("/productPriceInfo")
 public class ProductPriceInfoController {
 	
