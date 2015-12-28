@@ -3,9 +3,13 @@ package com.csj.gold.mobile.vo;
 public class MobileUserRegisterParams extends MobileParams {
 	private String password;
 	
-	private String phoneCode;
+	private String phoneId;
 	
 	private String messageCode;
+	
+	private String imageCode;
+	
+	private String phoneCode;
 
 	public String getPassword() {
 		return password;
@@ -15,14 +19,6 @@ public class MobileUserRegisterParams extends MobileParams {
 		this.password = password;
 	}
 
-	public String getPhoneCode() {
-		return phoneCode;
-	}
-
-	public void setPhoneCode(String phoneCode) {
-		this.phoneCode = phoneCode;
-	}
-
 	public String getMessageCode() {
 		return messageCode;
 	}
@@ -30,5 +26,30 @@ public class MobileUserRegisterParams extends MobileParams {
 	public void setMessageCode(String messageCode) {
 		this.messageCode = messageCode;
 	}
+
+	public String getImageCode() {
+		return imageCode;
+	}
+
+	public void setImageCode(String imageCode) {
+		this.imageCode = imageCode;
+	}
+
+	public String getPhoneId() {
+		return phoneId;
+	}
+
+	public void setPhoneId(String phoneId) {
+		this.phoneId = phoneId;
+	}
+
+	public String getPhoneCode() {
+		return phoneCode;
+	}
+
+	public void setPhoneCode(String phoneCode) {
+		this.phoneCode = phoneCode;
+	}
+	
 
 }

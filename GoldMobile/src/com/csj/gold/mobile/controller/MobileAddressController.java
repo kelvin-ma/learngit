@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.csj.gold.mobile.vo.MobileGoldProductParams;
-import com.csj.gold.mobile.vo.MobileGoldProductResult;
-import com.csj.gold.mobile.vo.MobileGoldProductVO;
 import com.csj.gold.mobile.vo.MobileUserAddressParams;
 import com.csj.gold.mobile.vo.MobileUserAddressResult;
 import com.csj.gold.mobile.vo.MobileUserAddressVO;
 import com.csj.gold.model.UserAddress;
-import com.csj.gold.model.bean.MobileGoldProduct;
-import com.csj.gold.service.MobileGoldProductService;
 import com.csj.gold.service.MobileUserAddressService;
 import com.csj.gold.utils.json.JsonConvert;
-import com.csj.gold.utils.page.Page;
 @Controller
 @RequestMapping("/address")
 public class MobileAddressController {
+	private static Logger logger = Logger.getLogger(MobileAddressController.class);
+	
 	@Resource
 	private MobileUserAddressService mobileUserAddressService;
 	
+	@ResponseBody
 	@RequestMapping("/searchByUserId")  
     public String searchByUserId(MobileUserAddressParams mobileUserAddressParams){
 		MobileUserAddressResult mobileUserAddressResult = new MobileUserAddressResult();
@@ -41,6 +41,7 @@ public class MobileAddressController {
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
     } 
 	
+	@ResponseBody
 	@RequestMapping("/changeMainAddress")
 	public String changeMainAddress(MobileUserAddressParams mobileUserAddressParams){
 		MobileUserAddressResult mobileUserAddressResult = new MobileUserAddressResult();
@@ -58,6 +59,7 @@ public class MobileAddressController {
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 	}
 	
+	@ResponseBody
 	@RequestMapping("/addAddress")
 	public String addAddress(MobileUserAddressParams mobileUserAddressParams){
 		MobileUserAddressResult mobileUserAddressResult = new MobileUserAddressResult();
@@ -80,6 +82,7 @@ public class MobileAddressController {
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 	}
 	
+	@ResponseBody
 	@RequestMapping("/updateAddress")
 	public String updateAddress(MobileUserAddressParams mobileUserAddressParams){
 		MobileUserAddressResult mobileUserAddressResult = new MobileUserAddressResult();
@@ -103,6 +106,7 @@ public class MobileAddressController {
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 	}
 	
+	@ResponseBody
 	@RequestMapping("/deleteAddress")
 	public String deleteAddress(MobileUserAddressParams mobileUserAddressParams){
 		MobileUserAddressResult mobileUserAddressResult = new MobileUserAddressResult();

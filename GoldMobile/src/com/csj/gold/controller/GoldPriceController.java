@@ -18,13 +18,13 @@ public class GoldPriceController {
 
 	@Resource
 	GoldPriceService goldPriceService = null;
-
+	
 	@RequestMapping("/add")
 	public String add(@Param("goldPrice") GoldPrice goldPrice) {
 		goldPriceService.add(goldPrice);
 		return null;
 	}
-
+	
 	@RequestMapping("/update")
 	public String update(@Param("goldPrice") GoldPrice goldPrice) {
 		goldPriceService.update(goldPrice);
