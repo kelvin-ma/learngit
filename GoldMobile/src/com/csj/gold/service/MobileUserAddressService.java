@@ -20,4 +20,7 @@ public interface MobileUserAddressService {
 	int addAddress(UserAddress userAddress);
 
 	int updateAddress(UserAddress userAddress);
+	
+	UserAddress searchById(Long id);
+
 }

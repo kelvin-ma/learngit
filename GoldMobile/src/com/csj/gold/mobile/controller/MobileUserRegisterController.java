@@ -8,12 +8,15 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.csj.gold.mobile.vo.MobileForgetPasswordParams;
+import com.csj.gold.mobile.vo.MobileForgetPasswordResult;
 import com.csj.gold.mobile.vo.MobileLogoutParams;
 import com.csj.gold.mobile.vo.MobileLogoutResult;
 import com.csj.gold.mobile.vo.MobileUserRegisterParams;
 import com.csj.gold.mobile.vo.MobileUserRegisterResult;
 import com.csj.gold.mobile.vo.MobileUserRegisterVO;
 import com.csj.gold.model.UserInfo;
+import com.csj.gold.model.bean.MobileUserAllInfo;
 import com.csj.gold.model.bean.MobileUserRegister;
 import com.csj.gold.service.MobileUserRegisterService;
 import com.csj.gold.service.UserInfoService;
@@ -101,7 +104,7 @@ public class MobileUserRegisterController {
 	}
 	
 	@RequestMapping("/logout")
-	public String regist(MobileLogoutParams mobileLogoutParams) {
+	public String logout(MobileLogoutParams mobileLogoutParams) {
 		MobileLogoutResult mobileLogoutResult = new MobileLogoutResult();
 		if (null != mobileLogoutParams.getPhone()
 				&& mobileLogoutParams.getPhone().trim().length() > 0) {
@@ -109,6 +112,22 @@ public class MobileUserRegisterController {
 			//？？？？如存在就登出
 		}
 		return JsonConvert.getInstance().toJson(mobileLogoutResult);
+	}
+	@RequestMapping("/forgetPassword")
+	public String forgetPassword(MobileForgetPasswordParams mobileForgetPasswordParams) {
+		MobileForgetPasswordResult MobileForgetPasswordResult = new MobileForgetPasswordResult();
+		if (null != mobileForgetPasswordParams.getPhone()
+				&& mobileForgetPasswordParams.getPhone().trim().length() > 0
+				&& null != mobileForgetPasswordParams.getPassword()
+				&& mobileForgetPasswordParams.getPassword().trim().length() > 0) {
+			MobileUserRegister mobileUserRegister = new MobileUserRegister();
+			//????查询用户是否存在
+			mobileUserRegister.setPhone(mobileForgetPasswordParams.getPhone());
+			mobileUserRegister.setPwd(mobileForgetPasswordParams.getPassword());
+			int res = mobileUserRegisterService.forgetPassword(mobileUserRegister);
+			//？？？验证是否修改成功
+		}
+		return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
 	}
 
 }

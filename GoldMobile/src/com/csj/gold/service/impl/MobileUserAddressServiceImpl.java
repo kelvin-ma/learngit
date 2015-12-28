@@ -55,4 +55,9 @@ public class MobileUserAddressServiceImpl implements MobileUserAddressService {
 		return userAddressMapper.updateByPrimaryKeySelective(userAddress);
 	}
 
+	@Override
+	public UserAddress searchById(Long id) {
+		return userAddressMapper.selectByPrimaryKey(id);
+	}
+
 }

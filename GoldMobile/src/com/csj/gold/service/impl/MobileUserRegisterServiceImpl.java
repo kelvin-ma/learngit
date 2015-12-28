@@ -58,6 +58,20 @@ public class MobileUserRegisterServiceImpl implements MobileUserRegisterService{
 		return userLoginMapper.insertSelective(user);
 	}
 	
+	@Override
+	public int forgetPassword(MobileUserRegister mobileUserRegister) {
+		UserLogin user = new UserLogin();
+		user.setIsDel(0);
+		user.setIsForbidden(0);
+		user.setUserPhone(mobileUserRegister.getPhone());
+		List<UserLogin> userList = userLoginMapper.selectByPhone(user);
+		if(null == userList && userList.size()!=1){
+			return 0;
+		}
+		user = userList.get(0);
+		user.setUserPwd(mobileUserRegister.getPwd());
+		return userLoginMapper.updateByPrimaryKeySelective(user);
+	}
 	
 
 }

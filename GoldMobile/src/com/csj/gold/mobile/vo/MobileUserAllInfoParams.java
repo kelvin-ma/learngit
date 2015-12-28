@@ -11,7 +11,7 @@ public class MobileUserAllInfoParams extends MobileParams {
 	private String newPassword = null;
 
 	private MultipartFile userImage = null;
-
+	
 	public String getCertNo() {
 		return certNo;
 	}

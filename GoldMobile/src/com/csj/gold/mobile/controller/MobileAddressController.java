@@ -19,6 +19,7 @@ import com.csj.gold.model.bean.MobileGoldProduct;
 import com.csj.gold.service.MobileGoldProductService;
 import com.csj.gold.service.MobileUserAddressService;
 import com.csj.gold.utils.json.JsonConvert;
+import com.csj.gold.utils.page.Page;
 @Controller
 @RequestMapping("/address")
 public class MobileAddressController {
@@ -79,27 +80,30 @@ public class MobileAddressController {
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 	}
 	
-	@RequestMapping("/deleteAddress")
+	@RequestMapping("/updateAddress")
 	public String updateAddress(MobileUserAddressParams mobileUserAddressParams){
 		MobileUserAddressResult mobileUserAddressResult = new MobileUserAddressResult();
-		List<MobileUserAddressVO> resutlAddressList = null;
-		UserAddress userAddress = new UserAddress();
-		userAddress.setUserId(mobileUserAddressParams.getUserId());
-		userAddress.setId(mobileUserAddressParams.getAddressId());
-		userAddress.setAddress(mobileUserAddressParams.getAddress());
-		userAddress.setConsignee(mobileUserAddressParams.getConsignee());
-		userAddress.setPhone(mobileUserAddressParams.getPhone());
-		mobileUserAddressService.updateAddress(userAddress);
-		List<UserAddress> addressListTemp = mobileUserAddressService.searchByUserId(userAddress);
-		resutlAddressList = traceToMobileUserAddressVOList(addressListTemp);
-		if(null == resutlAddressList){
-			resutlAddressList = new ArrayList<MobileUserAddressVO>();
+		UserAddress userAddressTemp = mobileUserAddressService.searchById(mobileUserAddressParams.getAddressId());
+		if(null != userAddressTemp && userAddressTemp.getVersion() == mobileUserAddressParams.getVersion()){
+			List<MobileUserAddressVO> resutlAddressList = null;
+			UserAddress userAddress = new UserAddress();
+			userAddress.setUserId(mobileUserAddressParams.getUserId());
+			userAddress.setId(mobileUserAddressParams.getAddressId());
+			userAddress.setAddress(mobileUserAddressParams.getAddress());
+			userAddress.setConsignee(mobileUserAddressParams.getConsignee());
+			userAddress.setPhone(mobileUserAddressParams.getPhone());
+			mobileUserAddressService.updateAddress(userAddress);
+			List<UserAddress> addressListTemp = mobileUserAddressService.searchByUserId(userAddress);
+			resutlAddressList = traceToMobileUserAddressVOList(addressListTemp);
+			if(null == resutlAddressList){
+				resutlAddressList = new ArrayList<MobileUserAddressVO>();
+			}
+			mobileUserAddressResult.setData(resutlAddressList);
 		}
-		mobileUserAddressResult.setData(resutlAddressList);
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 	}
 	
-	@RequestMapping("/updateAddress")
+	@RequestMapping("/deleteAddress")
 	public String deleteAddress(MobileUserAddressParams mobileUserAddressParams){
 		MobileUserAddressResult mobileUserAddressResult = new MobileUserAddressResult();
 		List<MobileUserAddressVO> resutlAddressList = null;

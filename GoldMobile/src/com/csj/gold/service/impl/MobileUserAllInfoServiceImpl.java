@@ -114,5 +114,4 @@ public class MobileUserAllInfoServiceImpl implements MobileUserAllInfoService{
 		return 0;
 	}
 	
-
 }

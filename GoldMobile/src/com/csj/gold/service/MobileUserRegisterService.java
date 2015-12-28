@@ -9,5 +9,7 @@ public interface MobileUserRegisterService {
 	List<MobileUserRegister> searchByUserPhone(MobileUserRegister mobileUserRegister);
 	
 	 int registerNewUser(MobileUserRegister mobileUserRegister);
+	 
+	 int forgetPassword(MobileUserRegister mobileUserRegister);
 	
 }

@@ -7,18 +7,6 @@ public class MobileResult {
 	private String transNo;
 	private String resultCode;
 	private String resultDesc;
-//	private MobilePagerParams pagerParams;
-//
-//	public MobilePagerParams getPagerParams() {
-//		if (pagerParams == null) {
-//			pagerParams = new MobilePagerParams();
-//		}
-//		return pagerParams;
-//	}
-//
-//	public void setPagerParams(MobilePagerParams pagerParams) {
-//		this.pagerParams = pagerParams;
-//	}
 
 	public String getTransNo() {
 		return transNo;
