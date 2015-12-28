@@ -6,8 +6,6 @@ public class MobileUserAddressParams extends MobileParams {
 
 	private String address;
 
-	private String phone;
-
 	private String consignee;
 
 	public Long getAddressId() {
@@ -24,14 +22,6 @@ public class MobileUserAddressParams extends MobileParams {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 	public String getConsignee() {

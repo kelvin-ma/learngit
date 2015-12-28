@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.csj.gold.mobile.vo.MobileLogoutParams;
+import com.csj.gold.mobile.vo.MobileLogoutResult;
 import com.csj.gold.mobile.vo.MobileUserRegisterParams;
 import com.csj.gold.mobile.vo.MobileUserRegisterResult;
 import com.csj.gold.mobile.vo.MobileUserRegisterVO;
@@ -96,6 +98,17 @@ public class MobileUserRegisterController {
 
 		}
 		return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
+	}
+	
+	@RequestMapping("/logout")
+	public String regist(MobileLogoutParams mobileLogoutParams) {
+		MobileLogoutResult mobileLogoutResult = new MobileLogoutResult();
+		if (null != mobileLogoutParams.getPhone()
+				&& mobileLogoutParams.getPhone().trim().length() > 0) {
+			//????查询用户是否存在
+			//？？？？如存在就登出
+		}
+		return JsonConvert.getInstance().toJson(mobileLogoutResult);
 	}
 
 }

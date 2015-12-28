@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.spi.LoggerFactory;
 
 public class MapCacheManager {
 
@@ -17,13 +16,12 @@ public class MapCacheManager {
 
 	private volatile static MapCacheManager mapCacheObject;// 缓存实例对象
 
-	private static Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();// 缓存容器
+	private static Map<String, Object> cacheMap = new ConcurrentHashMap<String, Object>();// 缓存容器
 
 	private MapCacheManager() {
 		this.LoadCache();// 加载缓存
 		updateTime = System.currentTimeMillis();// 缓存更新时间
 	}
-
 	/**
 	 * 采用单例模式获取缓存对象实例
 	 * 
@@ -64,7 +62,7 @@ public class MapCacheManager {
 	 * 
 	 * @return
 	 */
-	public Map<String, String> getMapCache() {
+	public Map<String, Object> getMapCache() {
 
 		long currentTime = System.currentTimeMillis();
 

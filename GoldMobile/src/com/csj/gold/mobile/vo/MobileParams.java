@@ -1,7 +1,5 @@
 package com.csj.gold.mobile.vo;
 
-
-
 public class MobileParams {
 
 	private String transNo;
@@ -9,16 +7,15 @@ public class MobileParams {
 	private Integer pageNumber = 1;// 当前页码
 	private Integer pageSize = 10;// 每页记录数
 	private Integer totalCount = 0;// 总记录数
-	//private PagingBean pager;
-	
-	private String dateSources;//数据来源
-	private String userSources;//客户来源
-	private Long userId;//用户ID
+
+	private String dateSources;// 数据来源
+	private String userSources;// 客户来源
+	private Long userId;// 用户ID
 	private String clientType;
-	private String businessSources;//业务来源
+	private String businessSources;// 业务来源
 	private String clientVersion;//
-	
-	
+
+	private String phone;
 
 	public String getDateSources() {
 		return dateSources;
@@ -100,10 +97,11 @@ public class MobileParams {
 		this.transNo = transNo;
 	}
 
-//	public PagingBean getPagerFactory() {
-//		pager = new PagingBean((pageNumber - 1) * pageSize, pageSize);
-//		pager.setTotalItems(totalCount);
-//		pager.setPageSize(pageSize);
-//		return pager;
-//	}
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }
