@@ -11,7 +11,7 @@ import com.csj.gold.service.GoldPriceService;
 import com.csj.gold.utils.page.Page;
 
 @Controller
-@RequestMapping("/goldPrice")
+@RequestMapping("/goldPrice")   
 public class GoldPriceController {
 	
 	private int pageSize = 10;
