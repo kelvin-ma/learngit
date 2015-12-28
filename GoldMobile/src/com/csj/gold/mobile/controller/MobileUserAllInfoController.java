@@ -37,7 +37,7 @@ public class MobileUserAllInfoController {
 		MobileUserAllInfoVO mobileUserAllInfoVO = new MobileUserAllInfoVO();
 		if (!checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),
 				mobileUserAllInfoParams.getPhoneCode())) {
-			mobileUserAllInfoResult.setResultDesc("未登录");
+			mobileUserAllInfoResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
 		if (null != mobileUserAllInfoParams.getUserId()) {
@@ -72,7 +72,7 @@ public class MobileUserAllInfoController {
 			MobileUserAllInfoParams mobileUserAllInfoParams) {
 		MobileUserAllInfoResult mobileUserAllInfoResult  = new MobileUserAllInfoResult();
 		if(!checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),mobileUserAllInfoParams.getPhoneCode())){
-			mobileUserAllInfoResult.setResultDesc("未登录");
+			mobileUserAllInfoResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
 		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
@@ -98,8 +98,9 @@ public class MobileUserAllInfoController {
 				mobileUserAllInfoVO.setUserId(mobileUserAllInfo.getUserId());
 				mobileUserAllInfoVO
 						.setUserName(mobileUserAllInfo.getUserName());
+				this.setUserAllInfoToSession(mobileUserAllInfo);
 			}
-			mobileUserAllInfoResult.setResultDesc("认证成功");
+			mobileUserAllInfoResult.setResultDesc("Identifacation Success");
 			mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
