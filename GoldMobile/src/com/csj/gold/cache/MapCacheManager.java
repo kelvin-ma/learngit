@@ -1,7 +1,10 @@
 package com.csj.gold.cache;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,6 +49,7 @@ public class MapCacheManager {
 		this.updateFlag = true;// 正在更新
 
 		/********** 数据处理，将数据放入cacheMap缓存中 **begin ******/
+		cacheMap.put("sessionMap",new HashMap<String,HttpSession>());
 //		cacheMap.put("key1", "value1");
 //		cacheMap.put("key2", "value2");
 //		cacheMap.put("key3", "value3");

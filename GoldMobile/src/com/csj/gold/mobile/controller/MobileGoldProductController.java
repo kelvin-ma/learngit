@@ -5,27 +5,26 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.csj.gold.mobile.vo.MobileGoldProductParams;
 import com.csj.gold.mobile.vo.MobileGoldProductResult;
 import com.csj.gold.mobile.vo.MobileGoldProductVO;
-import com.csj.gold.mobile.vo.MobileUserAddressParams;
-import com.csj.gold.mobile.vo.MobileUserAddressResult;
-import com.csj.gold.mobile.vo.MobileUserAddressVO;
-import com.csj.gold.model.UserAddress;
 import com.csj.gold.model.bean.MobileGoldProduct;
 import com.csj.gold.service.MobileGoldProductService;
-import com.csj.gold.service.MobileUserAddressService;
 import com.csj.gold.utils.json.JsonConvert;
 @Controller
 @RequestMapping("/product")
 public class MobileGoldProductController {
+	private static Logger logger = Logger.getLogger(MobileGoldProductController.class);
 	
 	@Resource
 	private MobileGoldProductService mobileGoldProductService;
 	
+	@ResponseBody
 	@RequestMapping("/searchAll")  
     public String searchAll(MobileGoldProductParams mobileGoldProductParams){
 		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();

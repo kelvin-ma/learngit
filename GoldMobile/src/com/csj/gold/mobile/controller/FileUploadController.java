@@ -2,19 +2,20 @@ package com.csj.gold.mobile.controller;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.csj.gold.utils.file.FileUtil;
 @Controller
 @RequestMapping("/file")
 public class FileUploadController {
+	private static Logger logger = Logger.getLogger(FileUploadController.class);
 	
+	@ResponseBody
 	@RequestMapping("upload")  
     public void upload(@RequestParam("imageFile") MultipartFile file){  
         try {
