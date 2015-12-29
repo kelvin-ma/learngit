@@ -92,11 +92,16 @@ public class SendMessageManage {
 		do{
 			SendStateEnum  un=  SmsSendUilt.sendSmsCheckCode(sMessage);
 			i++;
-			if(i>5) return sMessage ;
+			if(i>5) {
+				i=0;
+				return sMessage ;
+			}
+			if(SendStateEnum.SEND_SUCCESS==sMessage.getStateEnum()){
+				sendMessageMap.put(code, sMessage);
+				return sMessage;
+			}
 		}while(SendStateEnum.SEND_SUCCESS!=sMessage.getStateEnum());
 	
-		
-		
 		//首次至今发送时间间隔=本次发送时间-上次发送时间 +上次发送时间间隔
 		return sMessage;
 	}
@@ -169,5 +174,19 @@ public class SendMessageManage {
 		lastMessage.setNextSendTime(waitingInterval+minInterval);
 		return SendStateEnum.SEND_INTERRUPT;
 	}
+
+	/**
+	 * 获取发送短信管理器
+	 * @return
+	 */
+	public Map<String, SendMessage> getSendMessageMap() {
+		return sendMessageMap;
+	}
+
+
+	public void setSendMessageMap(Map<String, SendMessage> sendMessageMap) {
+		this.sendMessageMap = sendMessageMap;
+	}
+	
 	
 }
