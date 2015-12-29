@@ -9,8 +9,6 @@ public class MobileUserRegisterParams extends MobileParams {
 	
 	private String imageCode;
 	
-	private String phoneCode;
-
 	public String getPassword() {
 		return password;
 	}
@@ -42,14 +40,5 @@ public class MobileUserRegisterParams extends MobileParams {
 	public void setPhoneId(String phoneId) {
 		this.phoneId = phoneId;
 	}
-
-	public String getPhoneCode() {
-		return phoneCode;
-	}
-
-	public void setPhoneCode(String phoneCode) {
-		this.phoneCode = phoneCode;
-	}
-	
 
 }

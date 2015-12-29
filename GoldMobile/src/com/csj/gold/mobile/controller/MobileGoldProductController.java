@@ -15,7 +15,9 @@ import com.csj.gold.mobile.vo.MobileGoldProductResult;
 import com.csj.gold.mobile.vo.MobileGoldProductVO;
 import com.csj.gold.model.bean.MobileGoldProduct;
 import com.csj.gold.service.MobileGoldProductService;
+import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
+import com.csj.gold.utils.page.Page;
 @Controller
 @RequestMapping("/product")
 public class MobileGoldProductController {
@@ -30,26 +32,69 @@ public class MobileGoldProductController {
 		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();
 		List<MobileGoldProductVO> resutlProductList = new ArrayList<MobileGoldProductVO>();
 		List<MobileGoldProduct> productListTemp = mobileGoldProductService.searchAll();
-		MobileGoldProduct mobileGoldProduct  = null;
+		MobileGoldProductVO mobileGoldProductVO  = null;
 		if(null != productListTemp && productListTemp.size()>0){
 			for(MobileGoldProduct temp : productListTemp){
-				mobileGoldProduct = new MobileGoldProduct();
-				mobileGoldProduct.setImageFilePath(temp.getImageFilePath());
-				mobileGoldProduct.setpExpiryDay(temp.getpExpiryDay());
-				mobileGoldProduct.setpExpiryMonth(temp.getpExpiryMonth());
-				mobileGoldProduct.setpExpiryYear(temp.getpExpiryYear());
-				mobileGoldProduct.setpInterestModel(temp.getpInterestModel());
-				mobileGoldProduct.setpInterestRateDay(temp.getpInterestRateDay());
-				mobileGoldProduct.setpInterestRateMonth(temp.getpInterestRateMonth());
-				mobileGoldProduct.setpInterestRateYear(temp.getpInterestRateYear());
-				mobileGoldProduct.setProductId(temp.getProductId());
-				mobileGoldProduct.setProductName(temp.getProductName());
-				mobileGoldProduct.setTraAddNum(temp.getTraAddNum());
-				mobileGoldProduct.setTraMaxNum(temp.getTraMaxNum());
-				mobileGoldProduct.setTraMinNum(temp.getTraMinNum());
+				mobileGoldProductVO = new MobileGoldProductVO();
+				mobileGoldProductVO.setImageFilePath(temp.getImageFilePath());
+				mobileGoldProductVO.setpExpiryDay(temp.getpExpiryDay());
+				mobileGoldProductVO.setpExpiryMonth(temp.getpExpiryMonth());
+				mobileGoldProductVO.setpExpiryYear(temp.getpExpiryYear());
+				mobileGoldProductVO.setpInterestModel(temp.getpInterestModel());
+				mobileGoldProductVO.setpInterestRateDay(temp.getpInterestRateDay());
+				mobileGoldProductVO.setpInterestRateMonth(temp.getpInterestRateMonth());
+				mobileGoldProductVO.setpInterestRateYear(temp.getpInterestRateYear());
+				mobileGoldProductVO.setProductId(temp.getProductId());
+				mobileGoldProductVO.setProductName(temp.getProductName());
+				mobileGoldProductVO.setTraAddNum(temp.getTraAddNum());
+				mobileGoldProductVO.setTraMaxNum(temp.getTraMaxNum());
+				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
+				resutlProductList.add(mobileGoldProductVO);
 			}
+			mobileGoldProductResult.setResultDesc("Success!!!");
+		}else{
+			mobileGoldProductResult.setResultDesc("No Data!!!");
 		}
 		mobileGoldProductResult.setData(resutlProductList);
 		return JsonConvert.getInstance().toJson(mobileGoldProductResult);
-    }  
+    }
+	@ResponseBody
+	@RequestMapping("/searchDetail")  
+    public String searchDetail(MobileGoldProductParams mobileGoldProductParams){
+		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();
+		if(null == mobileGoldProductParams.getProductId()){
+			mobileGoldProductResult.setResultDesc("Wrong Product ID！！！！");
+			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
+		}
+		List<MobileGoldProductVO> resutlProductList = new ArrayList<MobileGoldProductVO>();
+		Page page = Page.newBuilderUnPage();
+		MobileGoldProduct mobileGoldProduct = new MobileGoldProduct();
+		mobileGoldProduct.setProductId(mobileGoldProductParams.getProductId());
+		List<MobileGoldProduct> productListTemp = mobileGoldProductService.searchByParameters(page, mobileGoldProduct);
+		MobileGoldProductVO mobileGoldProductVO = null;
+		if(null != productListTemp && productListTemp.size()==1){
+			for(MobileGoldProduct temp : productListTemp){
+				mobileGoldProductVO = new MobileGoldProductVO();
+				mobileGoldProductVO.setImageFilePath(temp.getImageFilePath());
+				mobileGoldProductVO.setpExpiryDay(temp.getpExpiryDay());
+				mobileGoldProductVO.setpExpiryMonth(temp.getpExpiryMonth());
+				mobileGoldProductVO.setpExpiryYear(temp.getpExpiryYear());
+				mobileGoldProductVO.setpInterestModel(temp.getpInterestModel());
+				mobileGoldProductVO.setpInterestRateDay(temp.getpInterestRateDay());
+				mobileGoldProductVO.setpInterestRateMonth(temp.getpInterestRateMonth());
+				mobileGoldProductVO.setpInterestRateYear(temp.getpInterestRateYear());
+				mobileGoldProductVO.setProductId(temp.getProductId());
+				mobileGoldProductVO.setProductName(temp.getProductName());
+				mobileGoldProductVO.setTraAddNum(temp.getTraAddNum());
+				mobileGoldProductVO.setTraMaxNum(temp.getTraMaxNum());
+				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
+				resutlProductList.add(mobileGoldProductVO);
+			}
+			mobileGoldProductResult.setResultDesc("Success !!!");
+		}else{
+			mobileGoldProductResult.setResultDesc("No Data !!!!!");
+		}
+		mobileGoldProductResult.setData(resutlProductList);
+		return JsonConvert.getInstance().toJson(mobileGoldProductResult);
+    }
 }

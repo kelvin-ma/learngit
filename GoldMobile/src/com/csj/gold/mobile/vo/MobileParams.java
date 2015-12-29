@@ -1,8 +1,5 @@
 package com.csj.gold.mobile.vo;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 public class MobileParams {
 
 	private String transNo;
@@ -19,6 +16,8 @@ public class MobileParams {
 	private String clientVersion;//
 
 	private String phone;
+
+	private String phoneCode;
 
 	public String getDateSources() {
 		return dateSources;
@@ -108,5 +107,12 @@ public class MobileParams {
 		this.phone = phone;
 	}
 
+	public String getPhoneCode() {
+		return phoneCode;
+	}
+
+	public void setPhoneCode(String phoneCode) {
+		this.phoneCode = phoneCode;
+	}
 
 }
