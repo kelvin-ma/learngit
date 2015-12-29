@@ -5,6 +5,8 @@ public class MobileGoldProductParams extends MobileParams {
 
 	private String userName = null;
 
+	private Long productId = null;
+
 	public String getCertNo() {
 		return certNo;
 	}
@@ -19,6 +21,14 @@ public class MobileGoldProductParams extends MobileParams {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 }

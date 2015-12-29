@@ -1,17 +1,14 @@
 package com.csj.gold.mobile.controller;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.csj.gold.cache.MapCacheManager;
 import com.csj.gold.mobile.vo.MobileUserAllInfoParams;
 import com.csj.gold.mobile.vo.MobileUserAllInfoResult;
 import com.csj.gold.mobile.vo.MobileUserAllInfoVO;
@@ -35,7 +32,7 @@ public class MobileUserAllInfoController {
 		MobileUserAllInfoResult mobileUserAllInfoResult = new MobileUserAllInfoResult();
 		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
 		MobileUserAllInfoVO mobileUserAllInfoVO = new MobileUserAllInfoVO();
-		if (!checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),
+		if (!MobileControllerUtils.checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),
 				mobileUserAllInfoParams.getPhoneCode())) {
 			mobileUserAllInfoResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
@@ -59,7 +56,7 @@ public class MobileUserAllInfoController {
 				mobileUserAllInfoVO.setUserId(mobileUserAllInfo.getUserId());
 				mobileUserAllInfoVO
 						.setUserName(mobileUserAllInfo.getUserName());
-				this.setUserAllInfoToSession(mobileUserAllInfo);
+				MobileControllerUtils.setUserAllInfoToSession(mobileUserAllInfo);
 			}
 		}
 		mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
@@ -71,7 +68,7 @@ public class MobileUserAllInfoController {
 	public String userIdentification(
 			MobileUserAllInfoParams mobileUserAllInfoParams) {
 		MobileUserAllInfoResult mobileUserAllInfoResult  = new MobileUserAllInfoResult();
-		if(!checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),mobileUserAllInfoParams.getPhoneCode())){
+		if(!MobileControllerUtils.checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),mobileUserAllInfoParams.getPhoneCode())){
 			mobileUserAllInfoResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
@@ -82,7 +79,7 @@ public class MobileUserAllInfoController {
 		int res = mobileUserAllInfoService.userIdentification(mobileUserAllInfo);
 		MobileUserAllInfoVO mobileUserAllInfoVO = new MobileUserAllInfoVO(); 
 		if(res == 1){
-			mobileUserAllInfo = this.getMobileUserAllInfoFromSession(mobileUserAllInfoParams.getPhone());
+			mobileUserAllInfo = MobileControllerUtils.getMobileUserAllInfoFromSession(mobileUserAllInfoParams.getPhone());
 			if (null != mobileUserAllInfo) {
 				mobileUserAllInfoVO
 						.setBankCode(mobileUserAllInfo.getBankCode());
@@ -98,7 +95,7 @@ public class MobileUserAllInfoController {
 				mobileUserAllInfoVO.setUserId(mobileUserAllInfo.getUserId());
 				mobileUserAllInfoVO
 						.setUserName(mobileUserAllInfo.getUserName());
-				this.setUserAllInfoToSession(mobileUserAllInfo);
+				MobileControllerUtils.setUserAllInfoToSession(mobileUserAllInfo);
 			}
 			mobileUserAllInfoResult.setResultDesc("Identifacation Success");
 			mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
@@ -139,38 +136,6 @@ public class MobileUserAllInfoController {
 		return null;
 	}
 
-	private boolean checkUserLoginStatus(String userPhone, String phoneCode) {
-		Map<String, HttpSession> sessionMap = (Map<String, HttpSession>) MapCacheManager
-				.getInstance().getMapCache().get("sessionMap");
-		HttpSession sessionInMap = sessionMap.get(userPhone);
-		if (null == sessionInMap || null != phoneCode
-				|| null == sessionInMap.getAttribute("phoneCode")
-				|| !phoneCode.equals(sessionInMap.getAttribute("phoneCode"))) {
-			return false;
-		}
-		return true;
-	}
-
-	private boolean setUserAllInfoToSession(MobileUserAllInfo mobileUserAllInfo) {
-		Map<String, HttpSession> sessionMap = (Map<String, HttpSession>) MapCacheManager
-				.getInstance().getMapCache().get("sessionMap");
-		HttpSession sessionInMap = sessionMap.get(mobileUserAllInfo.getPhone());
-		if (null == sessionInMap || null == mobileUserAllInfo) {
-			sessionInMap.setAttribute("mobileUserAllInfo", mobileUserAllInfo);
-			return true;
-		}
-		return false;
-	}
-
-	private MobileUserAllInfo getMobileUserAllInfoFromSession(String phone) {
-		Map<String, HttpSession> sessionMap = (Map<String, HttpSession>) MapCacheManager
-				.getInstance().getMapCache().get("sessionMap");
-		HttpSession sessionInMap = sessionMap.get(phone);
-		if (null != sessionInMap) {
-			return (MobileUserAllInfo) sessionInMap
-					.getAttribute("mobileUserAllInfo");
-		}
-		return null;
-	}
+	
 
 }

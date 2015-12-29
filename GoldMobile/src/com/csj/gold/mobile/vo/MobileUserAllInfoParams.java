@@ -4,17 +4,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MobileUserAllInfoParams extends MobileParams {
 	private String certNo = null;
-	
+
 	private String userName = null;
 
 	private String oldPassword = null;
 
 	private String newPassword = null;
-	
-	private String phoneCode = null;
 
 	private MultipartFile userImage = null;
-	
+
 	public String getCertNo() {
 		return certNo;
 	}
@@ -53,14 +51,6 @@ public class MobileUserAllInfoParams extends MobileParams {
 
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
-	}
-
-	public String getPhoneCode() {
-		return phoneCode;
-	}
-
-	public void setPhoneCode(String phoneCode) {
-		this.phoneCode = phoneCode;
 	}
 
 }

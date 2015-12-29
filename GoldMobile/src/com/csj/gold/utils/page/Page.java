@@ -41,6 +41,14 @@ public class Page {
 		page.setPageSize(pageSize);
 		return page;
 	}
+	
+	public static Page newBuilderUnPage() {
+		Page page = new Page();
+		page.setPageNo(1);
+		page.setPageSize(1);
+		page.setUsePage(Page.UN_USE_PAGE);
+		return page;
+	}
 
 	/**
 	 * 总件数变化时，更新总页数并计算显示样式

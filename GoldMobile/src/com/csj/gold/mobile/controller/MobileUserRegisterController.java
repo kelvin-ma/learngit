@@ -42,7 +42,7 @@ public class MobileUserRegisterController {
 	public String login(MobileUserRegisterParams mobileUserRegisterParams,HttpServletRequest httpServletRequest) {
 		MobileUserRegisterResult mobileUserRegisterResult = new MobileUserRegisterResult();
 		MobileUserRegister mobileUserRegister = new MobileUserRegister();
-		Map<String,HttpSession> sessionMap = (Map<String,HttpSession>)MapCacheManager.getInstance().getMapCache().get("sessionMap");
+		Map<String,HttpSession> sessionMap = MobileControllerUtils.getSessionMap();
 		HttpSession session = httpServletRequest.getSession();
 		HttpSession sessionInMap = sessionMap.get(mobileUserRegisterParams.getPhone());
 		Integer errorCount = 1;
@@ -93,7 +93,7 @@ public class MobileUserRegisterController {
 	public String regist(MobileUserRegisterParams mobileUserRegisterParams,HttpServletRequest httpServletRequest) {
 		MobileUserRegisterResult mobileUserRegisterResult = new MobileUserRegisterResult();
 		MobileUserRegister mobileUserRegister = new MobileUserRegister();
-		Map<String,HttpSession> sessionMap = (Map<String,HttpSession>)MapCacheManager.getInstance().getMapCache().get("sessionMap");
+		Map<String,HttpSession> sessionMap = MobileControllerUtils.getSessionMap();
 		HttpSession sessionInMap = sessionMap.get(mobileUserRegisterParams.getPhone());
 		String message = (String)sessionInMap.getAttribute("messageCode");
 		if(null == message || message.trim().length()==0 || null == mobileUserRegisterParams.getMessageCode() || mobileUserRegisterParams.getMessageCode().trim().length()==0){
@@ -143,7 +143,7 @@ public class MobileUserRegisterController {
 	@RequestMapping("/logout")
 	public String logout(MobileLogoutParams mobileLogoutParams,HttpServletRequest httpServletRequest) {
 		MobileLogoutResult mobileLogoutResult = new MobileLogoutResult();
-		Map<String,HttpSession> sessionMap = (Map<String,HttpSession>)MapCacheManager.getInstance().getMapCache().get("sessionMap");
+		Map<String,HttpSession> sessionMap = MobileControllerUtils.getSessionMap();
 		HttpSession sessionInMap = sessionMap.get(mobileLogoutParams.getPhone());
 		if (null != mobileLogoutParams.getPhone()
 				&& mobileLogoutParams.getPhone().trim().length() > 0) {
@@ -157,7 +157,7 @@ public class MobileUserRegisterController {
 	@RequestMapping("/forgetPassword")
 	public String forgetPassword(MobileForgetPasswordParams mobileForgetPasswordParams,HttpServletRequest httpServletRequest) {
 		MobileForgetPasswordResult MobileForgetPasswordResult = new MobileForgetPasswordResult();
-		Map<String,HttpSession> sessionMap = (Map<String,HttpSession>)MapCacheManager.getInstance().getMapCache().get("sessionMap");
+		Map<String,HttpSession> sessionMap = MobileControllerUtils.getSessionMap();
 		HttpSession sessionInMap = sessionMap.get(mobileForgetPasswordParams.getPhone());
 		String message = (String)sessionInMap.getAttribute("messageCode");
 		if(null == message || message.trim().length()==0 || null == mobileForgetPasswordParams.getMessageCode() || mobileForgetPasswordParams.getMessageCode().trim().length()==0){
