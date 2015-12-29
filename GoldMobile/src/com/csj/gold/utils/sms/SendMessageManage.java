@@ -3,6 +3,8 @@ package com.csj.gold.utils.sms;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Test;
+
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
 import com.csj.gold.mobile.annotation.InterfaceEnum;
@@ -92,7 +94,7 @@ public class SendMessageManage {
 		do{
 			SendStateEnum  un=  SmsSendUilt.sendSmsCheckCode(sMessage);
 			i++;
-			if(i>5) {
+			if(i==5) {
 				i=0;
 				return sMessage ;
 			}
@@ -105,6 +107,7 @@ public class SendMessageManage {
 		//首次至今发送时间间隔=本次发送时间-上次发送时间 +上次发送时间间隔
 		return sMessage;
 	}
+	
 	/**
 	 * 检查短信是否可以发送
 	 * 

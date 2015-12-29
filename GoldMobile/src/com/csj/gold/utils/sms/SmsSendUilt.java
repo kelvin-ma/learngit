@@ -22,9 +22,10 @@ private static final Log log = LogFactory.getLog(SmsSendUilt.class);
 		try {
 			System.out.println(content);
 		String sendUrl = url+"&mobile="+phone+"&content="+URLEncoder.encode(content, "UTF-8");
-		System.out.println(sendUrl);
+		log.info("smsurl = "+sendUrl);
 		String result= HttpRequest.sendGet(sendUrl);
-		System.out.println(result);
+		log.info("result = "+result);
+		return result;
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,12 +43,12 @@ private static final Log log = LogFactory.getLog(SmsSendUilt.class);
 	}
 	
 	public static SendStateEnum sendSmsCheckCode(SendMessage sendMessage){
-		 String rusufl =   sendSmsCheckCode(sendMessage.getPhone(),sendMessage.getSmsCode());
+		   String rusufl =   sendSmsCheckCode(sendMessage.getPhone(),sendMessage.getSmsCode());
 		   boolean isSuccess =rusufl.startsWith("111");
-		   log.info(rusufl);
 		   SendStateEnum state;
 		   if(isSuccess){
 			   state=SendStateEnum.SEND_SUCCESS;
+			   System.out.println(state);
 			   sendMessage.setNum(sendMessage.getNum()+1);
 			  sendMessage.setStateEnum(state);
 		   }else {
