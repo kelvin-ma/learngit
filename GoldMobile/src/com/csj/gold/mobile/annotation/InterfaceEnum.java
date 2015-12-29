@@ -3,8 +3,10 @@ package com.csj.gold.mobile.annotation;
 public enum  InterfaceEnum {
 
 	 CHECK_CODE("验证验证码",1001),
-	 USER_REGISTER("注册",1001),
-	 SEND_SMS("发送短信",1001);
+	 USER_REGISTER("注册",1002),
+	 FORGET_PASSWORD("忘记密码",1003),
+	 CHANGE_PASSWORD("修改密码",1005),
+	 SEND_SMS("发送短信",1004);
 	
      // 成员变量
      private String name;

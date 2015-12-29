@@ -50,6 +50,7 @@ public class MapCacheManager {
 
 		/********** 数据处理，将数据放入cacheMap缓存中 **begin ******/
 		cacheMap.put("sessionMap",new HashMap<String,HttpSession>());
+		cacheMap.put("messageCodeMap", new HashMap<String,Map<String,Integer>>());
 //		cacheMap.put("key1", "value1");
 //		cacheMap.put("key2", "value2");
 //		cacheMap.put("key3", "value3");

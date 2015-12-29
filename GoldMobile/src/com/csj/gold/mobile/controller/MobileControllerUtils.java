@@ -1,5 +1,6 @@
 package com.csj.gold.mobile.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,12 @@ public class MobileControllerUtils {
 	protected static Map<String, HttpSession> getSessionMap(){
 		return (Map<String, HttpSession>) MapCacheManager
 				.getInstance().getMapCache().get("sessionMap");
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected static Map<String,Map<String,Integer>> getMessageCodeMap(){
+		return (Map<String,Map<String,Integer>>) MapCacheManager
+				.getInstance().getMapCache().get("messageCodeMap");
 	}
 	
 	protected static boolean checkUserLoginStatus(String userPhone, String phoneCode) {
@@ -44,6 +51,15 @@ public class MobileControllerUtils {
 					.getAttribute("mobileUserAllInfo");
 		}
 		return null;
+	}
+	
+	protected static Map<String,Integer> getUserMessageCodeMapFromCacheMessageCodeMap(String phone){
+		Map<String,Integer> userMap = getMessageCodeMap().get(phone);
+		if(null == userMap){
+			userMap = new HashMap<String,Integer>();
+			getMessageCodeMap().put(phone, userMap);
+		}
+		return userMap;
 	}
 	
 	
