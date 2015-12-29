@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.dao.MobileMyAccountMapper" >
+  <resultMap id="MobileGoldProduct" type="com.csj.gold.model.bean.MobileMyAccount" >
+<!--     <result column="product_id" property="productId" jdbcType="BIGINT" /> -->
+  </resultMap>
+  <sql id="Table_product_info">
+  	 product_info pd 	
+  </sql>
+  <sql id="MobileGoldProduct_Column_List">
+  </sql>
+  <sql id="ProductInfo_Column_List" >
+    pd.id,pd.create_date,pd.create_user,pd.update_date,pd.update_user,pd.is_del,pd.is_forbidden,pd.version
+	,pd.product_contract_id,pd.product_end_data,pd.product_start_data,pd.product_introduct,pd.product_name
+	,pd.product_status,pd.product_type
+  </sql>
+  <sql id="ProductInterestInfo_Column_List" >
+  	pdii.id,pdii.create_date,pdii.create_user,pdii.update_date,pdii.update_user,pdii.is_del,pdii.is_forbidden,pdii.version
+	,pdii.p_expiry_day,pdii.p_expiry_month,pdii.p_expiry_year,pdii.p_income_payment_unit
+	,pdii.p_interest_model,pdii.p_interest_rate_day,pdii.p_interest_rate_month,pdii.p_interest_rate_year
+	,pdii.p_interest_way,pdii.p_product_id
+  </sql>
+  <sql id="ProductPriceInfo_Column_List" >
+  	pdpi.id,pdpi.create_date,pdpi.create_user,pdpi.update_date,pdpi.update_user,pdpi.is_del,pdpi.is_forbidden,pdpi.version
+	,pdpi.product_fee_unit,pdpi.product_id,pdpi.product_issued_price,pdpi.product_issued_total,pdpi.product_issued_unit
+	,pdpi.product_money_type,pdpi.product_sell_fee
+  </sql>
+  <sql id="ProductTransactionsRule_Column_List" >
+  	pdtr.id,pdtr.create_date,pdtr.create_user,pdtr.update_date,pdtr.update_user,pdtr.is_del,pdtr.is_forbidden,pdtr.version
+	,pdtr.prouduct_id,pdtr.tra_add_num,pdtr.tra_direction,pdtr.tra_max_num,pdtr.tra_min_num
+  </sql>
+  <sql id="ProductType_Column_List" >
+  	pdt.id,pdt.create_date,pdt.create_user,pdt.update_date,pdt.update_user,pdt.is_del,pdt.is_forbidden,pdt.version
+	,pdt.type_name
+  </sql>
+  <select id="searchAll" resultMap="MobileGoldProduct" parameterType="java.lang.Long" >
+    select 
+	    <include refid="MobileGoldProduct_Column_List" />
+ 	from 
+ 		<include refid="Table_product_info" />
+		LEFT JOIN 
+			<include refid="Table_product_interest_info" />
+			ON pdii.p_product_id = pd.id
+		LEFT JOIN 
+			<include refid="Table_product_price_info" />
+			ON pdpi.product_id = pd.id
+		LEFT JOIN 
+			<include refid="Table_product_transactions_rule" />
+			ON pdtr.prouduct_id = pd.id
+		LEFT JOIN 
+			<include refid="Table_product_type" />
+			ON pdt.id = pd.product_type
+  </select>
+</mapper>
