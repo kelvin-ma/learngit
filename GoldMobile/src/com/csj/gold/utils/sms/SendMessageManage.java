@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
-import com.csj.gold.mobile.RegistTransation;
 import com.csj.gold.mobile.annotation.InterfaceEnum;
 import com.csj.gold.utils.CheckCodeUilis;
 
