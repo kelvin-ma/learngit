@@ -3,137 +3,143 @@ package com.csj.gold.model;
 import java.util.Date;
 
 public class SysShop {
-    private Long id;
+	private Long id;
 
-    private String shopName;
+	private String shopName;
 
-    private String shopAddress;
+	private String shopAddress;
 
-    private Double shopCoordinateEast;
+	private Double shopCoordinateEast;
 
-    private Double shopCoordinateNorth;
+	private Double shopCoordinateNorth;
 
-    private Long shopImageId;
+	private Long shopImageId;
 
-    private String shopPhone;
+	private String shopPhone;
 
-    private Date createDate;
+	private Integer shopType;
 
-    private Long createUser;
+	private Integer canSave;
 
-    private Date updateDate;
+	private Integer canPick;
 
-    private Long updateUser;
+	private Date createDate;
 
-    private Integer isDel;
+	private Long createUser;
 
-    private Integer isForbidden;
-    
-    private Integer version;
+	private Date updateDate;
 
-    public Long getId() {
-        return id;
-    }
+	private Long updateUser;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private Integer isDel;
 
-    public String getShopName() {
-        return shopName;
-    }
+	private Integer isForbidden;
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
+	private Integer version;
 
-    public String getShopAddress() {
-        return shopAddress;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setShopAddress(String shopAddress) {
-        this.shopAddress = shopAddress;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Double getShopCoordinateEast() {
-        return shopCoordinateEast;
-    }
+	public String getShopName() {
+		return shopName;
+	}
 
-    public void setShopCoordinateEast(Double shopCoordinateEast) {
-        this.shopCoordinateEast = shopCoordinateEast;
-    }
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
 
-    public Double getShopCoordinateNorth() {
-        return shopCoordinateNorth;
-    }
+	public String getShopAddress() {
+		return shopAddress;
+	}
 
-    public void setShopCoordinateNorth(Double shopCoordinateNorth) {
-        this.shopCoordinateNorth = shopCoordinateNorth;
-    }
+	public void setShopAddress(String shopAddress) {
+		this.shopAddress = shopAddress;
+	}
 
-    public Long getShopImageId() {
-        return shopImageId;
-    }
+	public Double getShopCoordinateEast() {
+		return shopCoordinateEast;
+	}
 
-    public void setShopImageId(Long shopImageId) {
-        this.shopImageId = shopImageId;
-    }
+	public void setShopCoordinateEast(Double shopCoordinateEast) {
+		this.shopCoordinateEast = shopCoordinateEast;
+	}
 
-    public String getShopPhone() {
-        return shopPhone;
-    }
+	public Double getShopCoordinateNorth() {
+		return shopCoordinateNorth;
+	}
 
-    public void setShopPhone(String shopPhone) {
-        this.shopPhone = shopPhone;
-    }
+	public void setShopCoordinateNorth(Double shopCoordinateNorth) {
+		this.shopCoordinateNorth = shopCoordinateNorth;
+	}
 
-    public Date getCreateDate() {
-        return createDate;
-    }
+	public Long getShopImageId() {
+		return shopImageId;
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public void setShopImageId(Long shopImageId) {
+		this.shopImageId = shopImageId;
+	}
 
-    public Long getCreateUser() {
-        return createUser;
-    }
+	public String getShopPhone() {
+		return shopPhone;
+	}
 
-    public void setCreateUser(Long createUser) {
-        this.createUser = createUser;
-    }
+	public void setShopPhone(String shopPhone) {
+		this.shopPhone = shopPhone;
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-    public Long getUpdateUser() {
-        return updateUser;
-    }
+	public Long getCreateUser() {
+		return createUser;
+	}
 
-    public void setUpdateUser(Long updateUser) {
-        this.updateUser = updateUser;
-    }
+	public void setCreateUser(Long createUser) {
+		this.createUser = createUser;
+	}
 
-    public Integer getIsDel() {
-        return isDel;
-    }
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-    public void setIsDel(Integer isDel) {
-        this.isDel = isDel;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
-    public Integer getIsForbidden() {
-        return isForbidden;
-    }
+	public Long getUpdateUser() {
+		return updateUser;
+	}
 
-    public void setIsForbidden(Integer isForbidden) {
-        this.isForbidden = isForbidden;
-    }
+	public void setUpdateUser(Long updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
+
+	public Integer getIsForbidden() {
+		return isForbidden;
+	}
+
+	public void setIsForbidden(Integer isForbidden) {
+		this.isForbidden = isForbidden;
+	}
 
 	public Integer getVersion() {
 		return version;
@@ -142,5 +148,29 @@ public class SysShop {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-    
+
+	public Integer getCanSave() {
+		return canSave;
+	}
+
+	public void setCanSave(Integer canSave) {
+		this.canSave = canSave;
+	}
+
+	public Integer getCanPick() {
+		return canPick;
+	}
+
+	public void setCanPick(Integer canPick) {
+		this.canPick = canPick;
+	}
+
+	public Integer getShopType() {
+		return shopType;
+	}
+
+	public void setShopType(Integer shopType) {
+		this.shopType = shopType;
+	}
+
 }

@@ -9,6 +9,9 @@
     <result column="shop_coordinate_north" property="shopCoordinateNorth" jdbcType="DOUBLE" />
     <result column="shop_image_id" property="shopImageId" jdbcType="BIGINT" />
     <result column="shop_phone" property="shopPhone" jdbcType="VARCHAR" />
+    <result column="shop_type" property="shopType" jdbcType="INTEGER" />
+    <result column="can_save" property="canSave" jdbcType="INTEGER" />
+    <result column="can_pick" property="canPick" jdbcType="INTEGER" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="create_user" property="createUser" jdbcType="BIGINT" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
@@ -19,7 +22,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, shop_name, shop_address, shop_coordinate_east, shop_coordinate_north, shop_image_id, 
-    shop_phone, create_date, create_user, update_date, update_user, is_del, is_forbidden, version
+    shop_phone, shop_type, can_save, can_pick, create_date, create_user, update_date, update_user, is_del, is_forbidden, version
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -50,6 +53,15 @@
 	      </if>
 	      <if test="parameters.shopPhone != null" >
 	        and shop_phone = #{parameters.shopPhone,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.shopType != null" >
+	        and shop_type = #{parameters.shopType,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.canSave != null" >
+	        and shop_save = #{parameters.canSave,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.shopPhone != null" >
+	        and shop_pick = #{parameters.shopPick,jdbcType=INTEGER}
 	      </if>
 	      <if test="parameters.createDate != null" >
 	        and create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
@@ -84,12 +96,14 @@
   <insert id="insert" parameterType="com.csj.gold.model.SysShop" >
     insert into sys_shop (id, shop_name, shop_address, 
       shop_coordinate_east, shop_coordinate_north, 
-      shop_image_id, shop_phone, create_date, 
+      shop_image_id, shop_phone, shop_type, can_save,
+      can_pick, create_date,  
       create_user, update_date, update_user, 
       is_del, is_forbidden, version)
     values (#{id,jdbcType=BIGINT}, #{shopName,jdbcType=VARCHAR}, #{shopAddress,jdbcType=VARCHAR}, 
       #{shopCoordinateEast,jdbcType=DOUBLE}, #{shopCoordinateNorth,jdbcType=DOUBLE}, 
-      #{shopImageId,jdbcType=BIGINT}, #{shopPhone,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{shopImageId,jdbcType=BIGINT}, #{shopPhone,jdbcType=VARCHAR}, #{shopType,jdbcType=INTEGER},
+	  #{canSave,jdbcType=INTEGER}, #{canPick,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
       #{createUser,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, 
       #{isDel,jdbcType=INTEGER}, #{isForbidden,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
   </insert>
@@ -116,6 +130,15 @@
       </if>
       <if test="shopPhone != null" >
         shop_phone,
+      </if>
+      <if test="shopType != null" >
+        shop_type,
+      </if>
+      <if test="canSave != null" >
+        can_save,
+      </if>
+      <if test="canPick != null" >
+        can_pick,
       </if>
       <if test="createDate != null" >
         create_date,
@@ -161,6 +184,15 @@
       <if test="shopPhone != null" >
         #{shopPhone,jdbcType=VARCHAR},
       </if>
+      <if test="shopType != null" >
+        #{shopType,jdbcType=INTEGER},
+      </if>
+      <if test="canSave != null" >
+        #{canSave,jdbcType=INTEGER},
+      </if>
+      <if test="canPick != null" >
+        #{canPick,jdbcType=INTEGER},
+      </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
       </if>
@@ -205,6 +237,15 @@
       <if test="shopPhone != null" >
         shop_phone = #{shopPhone,jdbcType=VARCHAR},
       </if>
+      <if test="shopType != null" >
+        shop_type = #{shopType,jdbcType=INTEGER},
+      </if>
+      <if test="canSave != null" >
+        can_save = #{canSave,jdbcType=INTEGER},
+      </if>
+      <if test="canPick != null" >
+        can_pick = #{canPick,jdbcType=INTEGER},
+      </if>
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
@@ -235,6 +276,9 @@
       shop_coordinate_north = #{shopCoordinateNorth,jdbcType=DOUBLE},
       shop_image_id = #{shopImageId,jdbcType=BIGINT},
       shop_phone = #{shopPhone,jdbcType=VARCHAR},
+      shop_type = #{shopType,jdbcType=INTEGER},
+      can_save = #{canSave,jdbcType=INTEGER},
+      can_pick = #{canPick,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=BIGINT},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
