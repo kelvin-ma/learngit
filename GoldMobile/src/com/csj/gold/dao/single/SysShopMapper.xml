@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.dao.single.SysShopMapper" >
+  <resultMap id="BaseResultMap" type="com.csj.gold.model.SysShop" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="shop_address" property="shopAddress" jdbcType="VARCHAR" />
+    <result column="shop_coordinate_east" property="shopCoordinateEast" jdbcType="DOUBLE" />
+    <result column="shop_coordinate_north" property="shopCoordinateNorth" jdbcType="DOUBLE" />
+    <result column="shop_image_id" property="shopImageId" jdbcType="BIGINT" />
+    <result column="shop_phone" property="shopPhone" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="is_forbidden" property="isForbidden" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, shop_name, shop_address, shop_coordinate_east, shop_coordinate_north, shop_image_id, 
+    shop_phone, create_date, create_user, update_date, update_user, is_del, is_forbidden, version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_shop
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByParameters" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_shop
+    where 1 = 1
+    <if test="parameters != null">
+	    <if test="parameters.shopName != null" >
+	        and shop_name = #{parameters.shopName,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.shopAddress != null" >
+	        and shop_address = #{parameters.shopAddress,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.shopCoordinateEast != null" >
+	        and shop_coordinate_east = #{parameters.shopCoordinateEast,jdbcType=DOUBLE}
+	      </if>
+	      <if test="parameters.shopCoordinateNorth != null" >
+	        and shop_coordinate_north = #{parameters.shopCoordinateNorth,jdbcType=DOUBLE}
+	      </if>
+	      <if test="parameters.shopImageId != null" >
+	        and shop_image_id = #{parameters.shopImageId,jdbcType=BIGINT}
+	      </if>
+	      <if test="parameters.shopPhone != null" >
+	        and shop_phone = #{parameters.shopPhone,jdbcType=VARCHAR}
+	      </if>
+	      <if test="parameters.createDate != null" >
+	        and create_date = #{parameters.createDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="parameters.createUser != null" >
+	        and create_user = #{parameters.createUser,jdbcType=BIGINT}
+	      </if>
+	      <if test="parameters.updateDate != null" >
+	        and update_date = #{parameters.updateDate,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="parameters.updateUser != null" >
+	        and update_user = #{parameters.updateUser,jdbcType=BIGINT}
+	      </if>
+	      <if test="parameters.isDel != null" >
+	        and is_del = #{parameters.isDel,jdbcType=INTEGER}
+	      </if>
+	      <if test="parameters.isForbidden != null" >
+	        and is_forbidden = #{parameters.isForbidden,jdbcType=INTEGER}
+	      </if>
+      </if>
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_shop
+    set is_del = 1 ,version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_shop
+    set is_forbidden = 1 ,version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insert" parameterType="com.csj.gold.model.SysShop" >
+    insert into sys_shop (id, shop_name, shop_address, 
+      shop_coordinate_east, shop_coordinate_north, 
+      shop_image_id, shop_phone, create_date, 
+      create_user, update_date, update_user, 
+      is_del, is_forbidden, version)
+    values (#{id,jdbcType=BIGINT}, #{shopName,jdbcType=VARCHAR}, #{shopAddress,jdbcType=VARCHAR}, 
+      #{shopCoordinateEast,jdbcType=DOUBLE}, #{shopCoordinateNorth,jdbcType=DOUBLE}, 
+      #{shopImageId,jdbcType=BIGINT}, #{shopPhone,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, 
+      #{isDel,jdbcType=INTEGER}, #{isForbidden,jdbcType=INTEGER}, #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.csj.gold.model.SysShop" >
+    insert into sys_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="shopAddress != null" >
+        shop_address,
+      </if>
+      <if test="shopCoordinateEast != null" >
+        shop_coordinate_east,
+      </if>
+      <if test="shopCoordinateNorth != null" >
+        shop_coordinate_north,
+      </if>
+      <if test="shopImageId != null" >
+        shop_image_id,
+      </if>
+      <if test="shopPhone != null" >
+        shop_phone,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAddress != null" >
+        #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shopCoordinateEast != null" >
+        #{shopCoordinateEast,jdbcType=DOUBLE},
+      </if>
+      <if test="shopCoordinateNorth != null" >
+        #{shopCoordinateNorth,jdbcType=DOUBLE},
+      </if>
+      <if test="shopImageId != null" >
+        #{shopImageId,jdbcType=BIGINT},
+      </if>
+      <if test="shopPhone != null" >
+        #{shopPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csj.gold.model.SysShop" >
+    update sys_shop
+    <set >
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAddress != null" >
+        shop_address = #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shopCoordinateEast != null" >
+        shop_coordinate_east = #{shopCoordinateEast,jdbcType=DOUBLE},
+      </if>
+      <if test="shopCoordinateNorth != null" >
+        shop_coordinate_north = #{shopCoordinateNorth,jdbcType=DOUBLE},
+      </if>
+      <if test="shopImageId != null" >
+        shop_image_id = #{shopImageId,jdbcType=BIGINT},
+      </if>
+      <if test="shopPhone != null" >
+        shop_phone = #{shopPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      </if>
+      version = version + 1
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csj.gold.model.SysShop" >
+    update sys_shop
+    set shop_name = #{shopName,jdbcType=VARCHAR},
+      shop_address = #{shopAddress,jdbcType=VARCHAR},
+      shop_coordinate_east = #{shopCoordinateEast,jdbcType=DOUBLE},
+      shop_coordinate_north = #{shopCoordinateNorth,jdbcType=DOUBLE},
+      shop_image_id = #{shopImageId,jdbcType=BIGINT},
+      shop_phone = #{shopPhone,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      is_del = #{isDel,jdbcType=INTEGER},
+      is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
