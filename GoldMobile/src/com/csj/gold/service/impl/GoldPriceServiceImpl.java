@@ -57,9 +57,8 @@ public class GoldPriceServiceImpl implements GoldPriceService{
 		goldPrice.setIsForbidden(0);
 		goldPrice.setEffectiveStartTime(new Date());
 		goldPrice.setEffectiveEntTime(new Date());
-		Page page = Page.newBuilder(1, 10);
+		Page page = Page.newBuilderUnPage();
 		page.setParameters(goldPrice);
-		page.setUsePage(Page.UN_USE_PAGE);
 		List<GoldPrice> list = goldPriceMapper.selectByParameters(page);
 		if(null != list && list.size()==1){
 			return list.get(0);
