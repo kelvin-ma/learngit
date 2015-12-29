@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.csj.gold.cache.MapCacheManager;
 import com.csj.gold.model.bean.MobileUserAllInfo;
+import com.csj.gold.utils.json.JsonConvert;
 
 public class MobileControllerUtils {
 	
@@ -62,5 +63,18 @@ public class MobileControllerUtils {
 		return userMap;
 	}
 	
+	protected static boolean checkMessageWasChecked(String phone,String checkCode){
+		Map<String,Integer> userMessageCodeMap = null;
+		if(null != MobileControllerUtils.getMessageCodeMap()){
+			userMessageCodeMap =MobileControllerUtils.getMessageCodeMap().get(phone);
+			if(userMessageCodeMap.get(checkCode)!=1){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return false;
+		}
+	}
 	
 }

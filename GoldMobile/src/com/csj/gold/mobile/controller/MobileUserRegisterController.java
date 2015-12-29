@@ -108,34 +108,39 @@ public class MobileUserRegisterController {
 			HttpServletRequest httpServletRequest) {
 		MobileUserRegisterResult mobileUserRegisterResult = new MobileUserRegisterResult();
 		MobileUserRegister mobileUserRegister = new MobileUserRegister();
-		Map<String, HttpSession> sessionMap = MobileControllerUtils
-				.getSessionMap();
-		HttpSession sessionInMap = sessionMap.get(mobileUserRegisterParams
-				.getPhone());
-		String message = (String) sessionInMap.getAttribute("messageCode");
-		if (null == message
-				|| message.trim().length() == 0
-				|| null == mobileUserRegisterParams.getMessageCode()
-				|| mobileUserRegisterParams.getMessageCode().trim().length() == 0) {
-			mobileUserRegisterResult.setResultDesc("No MessageCode！！");
-			return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
-		} else if (!message.trim().equalsIgnoreCase(
-				mobileUserRegisterParams.getMessageCode().trim())) {
-			mobileUserRegisterResult.setResultDesc("Wrong MessageCode！！");
-			return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
-		}
+//		Map<String, HttpSession> sessionMap = MobileControllerUtils
+//				.getSessionMap();
+//		HttpSession sessionInMap = sessionMap.get(mobileUserRegisterParams
+//				.getPhone());
+//		String message = (String) sessionInMap.getAttribute("messageCode");
+//		if (null == message
+//				|| message.trim().length() == 0
+//				|| null == mobileUserRegisterParams.getMessageCode()
+//				|| mobileUserRegisterParams.getMessageCode().trim().length() == 0) {
+//			mobileUserRegisterResult.setResultDesc("No MessageCode！！");
+//			return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
+//		} else if (!message.trim().equalsIgnoreCase(
+//				mobileUserRegisterParams.getMessageCode().trim())) {
+//			mobileUserRegisterResult.setResultDesc("Wrong MessageCode！！");
+//			return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
+//		}
 		if (null != mobileUserRegisterParams.getPhone()
 				&& mobileUserRegisterParams.getPhone().trim().length() > 0
 				&& null != mobileUserRegisterParams.getPassword()
 				&& mobileUserRegisterParams.getPassword().trim().length() > 0
 				&& null != mobileUserRegisterParams.getPhoneId()
 				&& mobileUserRegisterParams.getPhoneId().trim().length() > 0) {
+			if(!MobileControllerUtils.checkMessageWasChecked(mobileUserRegisterParams.getPhone(), MobileMessageCodeController.CHECK_REGISTER_CODE)){
+				mobileUserRegisterResult.setResultDesc("Wrong Process！！");
+				return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
+			}
 			mobileUserRegister.setPhone(mobileUserRegisterParams.getPhone());
 			List<MobileUserRegister> userList = mobileUserRegisterService
 					.searchByUserPhone(mobileUserRegister);
 			mobileUserRegister = null;
 			if (null != userList && userList.size() > 0) {
-				// ??? 已注册
+				mobileUserRegisterResult.setResultDesc("Already Exist Phone！！");
+				return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
 			} else {
 				UserInfo userInfo = new UserInfo();
 				userInfo.setIsDel(0);
@@ -194,24 +199,28 @@ public class MobileUserRegisterController {
 			MobileForgetPasswordParams mobileForgetPasswordParams,
 			HttpServletRequest httpServletRequest) {
 		MobileForgetPasswordResult MobileForgetPasswordResult = new MobileForgetPasswordResult();
-		Map<String, HttpSession> sessionMap = MobileControllerUtils
-				.getSessionMap();
-		HttpSession sessionInMap = sessionMap.get(mobileForgetPasswordParams
-				.getPhone());
-		String message = (String) sessionInMap.getAttribute("messageCode");
-		if (null == message
-				|| message.trim().length() == 0
-				|| null == mobileForgetPasswordParams.getMessageCode()
-				|| mobileForgetPasswordParams.getMessageCode().trim().length() == 0) {
-			MobileForgetPasswordResult.setResultDesc("No MessageCode！！");
-			return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
-		} else if (!message.trim().equalsIgnoreCase(
-				mobileForgetPasswordParams.getMessageCode().trim())) {
-			MobileForgetPasswordResult.setResultDesc("Wrong MessageCode！！");
-			return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
-		}
+//		Map<String, HttpSession> sessionMap = MobileControllerUtils
+//				.getSessionMap();
+//		HttpSession sessionInMap = sessionMap.get(mobileForgetPasswordParams
+//				.getPhone());
+//		String message = (String) sessionInMap.getAttribute("messageCode");
+//		if (null == message
+//				|| message.trim().length() == 0
+//				|| null == mobileForgetPasswordParams.getMessageCode()
+//				|| mobileForgetPasswordParams.getMessageCode().trim().length() == 0) {
+//			MobileForgetPasswordResult.setResultDesc("No MessageCode！！");
+//			return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
+//		} else if (!message.trim().equalsIgnoreCase(
+//				mobileForgetPasswordParams.getMessageCode().trim())) {
+//			MobileForgetPasswordResult.setResultDesc("Wrong MessageCode！！");
+//			return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
+//		}
 		if (null != mobileForgetPasswordParams.getPhone()
 				&& mobileForgetPasswordParams.getPhone().trim().length() > 0) {
+			if(!MobileControllerUtils.checkMessageWasChecked(mobileForgetPasswordParams.getPhone(), MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE)){
+				MobileForgetPasswordResult.setResultDesc("Wrong Process！！");
+				return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
+			}
 			if (null != mobileForgetPasswordParams.getPassword()
 					&& mobileForgetPasswordParams.getPassword().trim().length() > 0) {
 				MobileUserRegister mobileUserRegister = new MobileUserRegister();
