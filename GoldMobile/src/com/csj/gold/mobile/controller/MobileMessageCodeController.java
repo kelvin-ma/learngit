@@ -24,7 +24,7 @@ import com.csj.gold.utils.sms.SendMessageManage;
 import com.csj.gold.utils.sms.SendStateEnum;
 
 @Controller
-@RequestMapping("/messageCode")
+@RequestMapping("/messageCode") 
 public class MobileMessageCodeController {
 	private static Logger logger = Logger
 			.getLogger(MobileMessageCodeController.class);
