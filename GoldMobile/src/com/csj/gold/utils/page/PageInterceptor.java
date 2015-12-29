@@ -20,6 +20,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+
+import com.csj.gold.utils.json.JsonConvert;
   
 @Intercepts({@Signature(type=Executor.class,method="query",args={ MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class })})  
 public class PageInterceptor implements Interceptor{  
@@ -31,6 +33,12 @@ public class PageInterceptor implements Interceptor{
     Object parameter = invocation.getArgs()[1];   
     BoundSql boundSql = mappedStatement.getBoundSql(parameter);   
     String originalSql = boundSql.getSql().trim();  
+    
+    //生产环境需删除-----打印Sql语句和参数
+    System.out.println(originalSql);
+    if(null != parameter){
+    	System.out.println("Params:"+JsonConvert.getInstance().toJson(parameter));
+    }
     Object parameterObject = boundSql.getParameterObject();  
   
     //Page对象获取，“信使”到达拦截器！  
