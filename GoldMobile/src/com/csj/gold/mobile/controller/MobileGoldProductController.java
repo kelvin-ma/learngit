@@ -15,7 +15,6 @@ import com.csj.gold.mobile.vo.MobileGoldProductResult;
 import com.csj.gold.mobile.vo.MobileGoldProductVO;
 import com.csj.gold.model.bean.MobileGoldProduct;
 import com.csj.gold.service.MobileGoldProductService;
-import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
 import com.csj.gold.utils.page.Page;
 @Controller
@@ -67,9 +66,9 @@ public class MobileGoldProductController {
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
 		List<MobileGoldProductVO> resutlProductList = new ArrayList<MobileGoldProductVO>();
-		Page page = Page.newBuilderUnPage();
 		MobileGoldProduct mobileGoldProduct = new MobileGoldProduct();
 		mobileGoldProduct.setProductId(mobileGoldProductParams.getProductId());
+		Page page = Page.newBuilderUnPage();
 		List<MobileGoldProduct> productListTemp = mobileGoldProductService.searchByParameters(page, mobileGoldProduct);
 		MobileGoldProductVO mobileGoldProductVO = null;
 		if(null != productListTemp && productListTemp.size()==1){
