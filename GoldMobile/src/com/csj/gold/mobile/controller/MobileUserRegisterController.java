@@ -184,7 +184,10 @@ public class MobileUserRegisterController {
 			HttpSession sessionInMap = sessionMap.get(mobileLogoutParams
 					.getPhone());
 			if (null != sessionInMap) {
+				//消除Session中登录信息
 				sessionMap.remove(mobileLogoutParams.getPhone());
+				//短信相关业务全部取消
+				MobileControllerUtils.getMessageCodeMap().put(mobileLogoutParams.getPhone(), null);
 				mobileLogoutResult.setResultDesc("Logout !!!!!");
 			}
 		} else {
