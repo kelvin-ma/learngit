@@ -68,6 +68,8 @@ public class SendMessageManage {
 			sMessage.setTimeInterval(0L);
 			//由于没有上次发送，所以上次发送等同于本次发送
 			lastMessage=sMessage;
+		}else{
+			sMessage=lastMessage;
 		}
 		
 		//校验是否可以发送
@@ -86,7 +88,7 @@ public class SendMessageManage {
 			String smsCode=	CheckCodeUilis.numberChenKCode(4);
 			sMessage.setSmsCode(smsCode);
 			sMessage.setSendTime(System.currentTimeMillis());
-			sMessage.setNextSendTime(System.currentTimeMillis()+59*1000);
+			sMessage.setNextSendTime(System.currentTimeMillis()+10*1000);
 		}
 		
 		
@@ -121,11 +123,11 @@ public class SendMessageManage {
 		
 		int maxNum=5;
 		//每条发送等待时间间隔
-		Long timeInterval = 1*59*1000L;
+		Long timeInterval = 1*1*1000L;
 		//超过条数后等待时间间隔
-		Long waitingInterval = 5*60*1000L;
+		Long waitingInterval = 5*2*1000L;
 		//发送maxNum以内的时间范围 
-		Long minInterval = 5*60*1000L;
+		Long minInterval = 5*2*1000L;
 		//本次发送时间
 		Long sendTime = System.currentTimeMillis();
 		//最后一次发送时间
