@@ -29,8 +29,6 @@ public class MobileMessageCodeController {
 	
 	public static String CHECK_REGISTER_CODE ="checkRegisterMessageCode";
 	
-	public static String CHECK_CHANGE_PASSWORD_CODE ="checkChangePasswordMessageCode";
-	
 	public static String CHECK_FORGET_PASSWORD_CODE ="checkForgetPasswordMessageCode";
 	
 	private static Logger logger = Logger
@@ -69,27 +67,6 @@ public class MobileMessageCodeController {
 			SendMessage sendMessage = SendMessageManage.getInstance()
 					.sendMessage(mobileMessageCodeParams.getPhone(),
 							InterfaceEnum.USER_REGISTER);
-			if (SendStateEnum.SEND_SUCCESS == sendMessage.getStateEnum()) {
-				System.out.println(sendMessage.getContent());
-				Long sec = countDownTime(sendMessage.getNextSendTime());
-				mobileMessageCodeResult.setNextSendTime(sec);
-				mobileMessageCodeResult.setResultDesc("Success!!!!!");
-			} else {
-				mobileMessageCodeResult.setResultDesc("UnSuccess!!!!!");
-			}
-		} else if (mobileMessageCodeParams.getTypeCode().equals(
-				"changePassword")) {
-			if (!MobileControllerUtils.checkUserLoginStatus(
-					mobileMessageCodeParams.getPhone(),
-					mobileMessageCodeParams.getPhoneCode())) {
-				mobileMessageCodeResult.setResultDesc("Not Login!!!!!");
-				return JsonConvert.getInstance()
-						.toJson(mobileMessageCodeResult);
-			}
-			userMap.put(MobileMessageCodeController.CHECK_CHANGE_PASSWORD_CODE, 0);
-			SendMessage sendMessage = SendMessageManage.getInstance()
-					.sendMessage(mobileMessageCodeParams.getPhone(),
-							InterfaceEnum.CHANGE_PASSWORD);
 			if (SendStateEnum.SEND_SUCCESS == sendMessage.getStateEnum()) {
 				System.out.println(sendMessage.getContent());
 				Long sec = countDownTime(sendMessage.getNextSendTime());
@@ -167,38 +144,6 @@ public class MobileMessageCodeController {
 			if (sendMessage.getSmsCode().equals(
 					mobileMessageCodeParams.getMessageCode())) {
 				userMap.put(MobileMessageCodeController.CHECK_REGISTER_CODE, 1);
-				System.out.println(sendMessage.getContent());
-				mobileMessageCodeResult.setResultDesc("Success!!!!!");
-			} else {
-				mobileMessageCodeResult.setResultDesc("UnSuccess!!!!!");
-			}
-		} else if (mobileMessageCodeParams.getTypeCode().equals(
-				"changePassword")) {
-			if (!MobileControllerUtils.checkUserLoginStatus(
-					mobileMessageCodeParams.getPhone(),
-					mobileMessageCodeParams.getPhoneCode())) {
-				mobileMessageCodeResult.setResultDesc("Not Login");
-				return JsonConvert.getInstance()
-						.toJson(mobileMessageCodeResult);
-			}
-			if (userMap.get(MobileMessageCodeController.CHECK_CHANGE_PASSWORD_CODE) != 0) {
-				mobileMessageCodeResult.setResultDesc("Wrong Process");
-				return JsonConvert.getInstance()
-						.toJson(mobileMessageCodeResult);
-			}
-			sendMessage = SendMessageManage
-					.getInstance()
-					.getSendMessageMap()
-					.get(mobileMessageCodeParams.getPhone()
-							+ InterfaceEnum.CHANGE_PASSWORD);
-			if (null == sendMessage) {
-				mobileMessageCodeResult.setResultDesc("No Data");
-				return JsonConvert.getInstance()
-						.toJson(mobileMessageCodeResult);
-			}
-			if (sendMessage.getSmsCode().equals(
-					mobileMessageCodeParams.getMessageCode())) {
-				userMap.put(MobileMessageCodeController.CHECK_CHANGE_PASSWORD_CODE, 1);
 				System.out.println(sendMessage.getContent());
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {
