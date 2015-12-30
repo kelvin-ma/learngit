@@ -57,6 +57,7 @@ public class MobileUserRegisterController {
 			if (null != sessionInMap
 					&& null != sessionInMap.getAttribute("imageCode")) {
 				if (null == mobileUserRegisterParams.getImageCode()) {
+					mobileUserRegisterResult.setResultCode("3001");
 					mobileUserRegisterResult.setResultDesc("No ImageCode！！！");
 					return JsonConvert.getInstance().toJson(
 							mobileUserRegisterResult);
@@ -64,6 +65,7 @@ public class MobileUserRegisterController {
 						.getImageCode()
 						.equalsIgnoreCase(
 								(String) sessionInMap.getAttribute("imageCode"))) {
+					mobileUserRegisterResult.setResultCode("3001");
 					mobileUserRegisterResult.setResultDesc("Wrong ImageCode");
 					return JsonConvert.getInstance().toJson(
 							mobileUserRegisterResult);
@@ -74,19 +76,23 @@ public class MobileUserRegisterController {
 					.searchByUserPhone(mobileUserRegister);
 			mobileUserRegister = null;
 			if (userList == null || userList.size() == 0) {
+				mobileUserRegisterResult.setResultCode("3001");
 				mobileUserRegisterResult.setResultDesc("No User");
 			} else if (userList.size() > 1) {
+				mobileUserRegisterResult.setResultCode("3001");
 				mobileUserRegisterResult.setResultDesc("Too Many User");
 			} else {
 				mobileUserRegister = userList.get(0);
 				if (mobileUserRegisterParams.getPassword().equals(
 						mobileUserRegister.getPwd())) {
+					mobileUserRegisterResult.setResultCode("2001");
 					mobileUserRegisterResult.setResultDesc("Login Success");
 					session.setAttribute("phoneCode",
 							mobileUserRegisterParams.getPhoneCode());
 					sessionMap
 							.put(mobileUserRegisterParams.getPhone(), session);
 				} else {
+					mobileUserRegisterResult.setResultCode("3001");
 					mobileUserRegisterResult.setResultDesc("Password Error");
 					try {
 						errorCount = (Integer) session
@@ -99,6 +105,7 @@ public class MobileUserRegisterController {
 				}
 			}
 		}else{
+			mobileUserRegisterResult.setResultCode("3001");
 			mobileUserRegisterResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
@@ -133,6 +140,7 @@ public class MobileUserRegisterController {
 				&& null != mobileUserRegisterParams.getPhoneId()
 				&& mobileUserRegisterParams.getPhoneId().trim().length() > 0) {
 			if(!MobileControllerUtils.checkMessageWasChecked(mobileUserRegisterParams.getPhone(), MobileMessageCodeController.CHECK_REGISTER_CODE)){
+				mobileUserRegisterResult.setResultCode("3001");
 				mobileUserRegisterResult.setResultDesc("Wrong Process！！");
 				return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
 			}
@@ -141,6 +149,7 @@ public class MobileUserRegisterController {
 					.searchByUserPhone(mobileUserRegister);
 			mobileUserRegister = null;
 			if (null != userList && userList.size() > 0) {
+				mobileUserRegisterResult.setResultCode("3001");
 				mobileUserRegisterResult.setResultDesc("Already Exist Phone！！");
 				return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
 			} else {
@@ -160,9 +169,11 @@ public class MobileUserRegisterController {
 					result = mobileUserRegisterService
 							.registerNewUser(mobileUserRegister);
 					if (result == 1) {
+						mobileUserRegisterResult.setResultCode("2001");
 						mobileUserRegisterResult
 								.setResultDesc("Regist Success");
 					} else {
+						mobileUserRegisterResult.setResultCode("3001");
 						mobileUserRegisterResult
 								.setResultDesc("Regist Unsuccess");
 					}
@@ -170,6 +181,7 @@ public class MobileUserRegisterController {
 			}
 
 		}else{
+			mobileUserRegisterResult.setResultCode("3001");
 			mobileUserRegisterResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
@@ -195,6 +207,7 @@ public class MobileUserRegisterController {
 				mobileLogoutResult.setResultDesc("Logout !!!!!");
 			}
 		} else {
+			mobileLogoutResult.setResultCode("3001");
 			mobileLogoutResult.setResultDesc("Wrong parameter");
 		}
 		return JsonConvert.getInstance().toJson(mobileLogoutResult);
@@ -205,7 +218,7 @@ public class MobileUserRegisterController {
 	public String forgetPassword(
 			MobileForgetPasswordParams mobileForgetPasswordParams,
 			HttpServletRequest httpServletRequest) {
-		MobileForgetPasswordResult MobileForgetPasswordResult = new MobileForgetPasswordResult();
+		MobileForgetPasswordResult mobileForgetPasswordResult = new MobileForgetPasswordResult();
 //		Map<String, HttpSession> sessionMap = MobileControllerUtils
 //				.getSessionMap();
 //		HttpSession sessionInMap = sessionMap.get(mobileForgetPasswordParams
@@ -225,8 +238,9 @@ public class MobileUserRegisterController {
 		if (null != mobileForgetPasswordParams.getPhone()
 				&& mobileForgetPasswordParams.getPhone().trim().length() > 0) {
 			if(!MobileControllerUtils.checkMessageWasChecked(mobileForgetPasswordParams.getPhone(), MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE)){
-				MobileForgetPasswordResult.setResultDesc("Wrong Process！！");
-				return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
+				mobileForgetPasswordResult.setResultCode("3001");
+				mobileForgetPasswordResult.setResultDesc("Wrong Process！！");
+				return JsonConvert.getInstance().toJson(mobileForgetPasswordResult);
 			}
 			if (null != mobileForgetPasswordParams.getPassword()
 					&& mobileForgetPasswordParams.getPassword().trim().length() > 0) {
@@ -236,29 +250,35 @@ public class MobileUserRegisterController {
 				List<MobileUserRegister> userList = mobileUserRegisterService
 						.searchByUserPhone(mobileUserRegister);
 				if (null == userList || userList.size() == 0) {
-					MobileForgetPasswordResult.setResultDesc("No User");
+					mobileForgetPasswordResult.setResultCode("3001");
+					mobileForgetPasswordResult.setResultDesc("No User");
 				} else if (userList.size() > 1) {
-					MobileForgetPasswordResult.setResultDesc("Too Many User");
+					mobileForgetPasswordResult.setResultCode("3001");
+					mobileForgetPasswordResult.setResultDesc("Too Many User");
 				} else {
 					mobileUserRegister.setPwd(mobileForgetPasswordParams
 							.getPassword());
 					int res = mobileUserRegisterService
 							.forgetPassword(mobileUserRegister);
 					if (res == 1) {
-						MobileForgetPasswordResult
+						mobileForgetPasswordResult.setResultCode("2001");
+						mobileForgetPasswordResult
 								.setResultDesc("Update Success");
 					}else{
-						MobileForgetPasswordResult
+						mobileForgetPasswordResult.setResultCode("3001");
+						mobileForgetPasswordResult
 						.setResultDesc("Unsuccess");
 					}
 				}
 			}else{
-				MobileForgetPasswordResult.setResultDesc("No Password！！");
+				mobileForgetPasswordResult.setResultCode("3001");
+				mobileForgetPasswordResult.setResultDesc("No Password！！");
 			}
 		} else {
-			MobileForgetPasswordResult.setResultDesc("No Phone！！");
+			mobileForgetPasswordResult.setResultCode("3001");
+			mobileForgetPasswordResult.setResultDesc("No Phone！！");
 		}
-		return JsonConvert.getInstance().toJson(MobileForgetPasswordResult);
+		return JsonConvert.getInstance().toJson(mobileForgetPasswordResult);
 	}
 
 }

@@ -38,8 +38,8 @@ public class MobileMessageCodeController {
 	private MobileUserRegisterService mobileUserRegisterService;
 
 	@ResponseBody
-	@RequestMapping("/sendCode")
-	public String searchByUserId(MobileMessageCodeParams mobileMessageCodeParams) {
+	@RequestMapping("/sendPhoneNumber")
+	public String sendPhonNumber(MobileMessageCodeParams mobileMessageCodeParams) {
 		MobileMessageCodeResult mobileMessageCodeResult = new MobileMessageCodeResult();
 		if (!StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
 				.getTypeCode())
@@ -47,6 +47,7 @@ public class MobileMessageCodeController {
 						.getPhone())
 				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
 						.getPhoneCode())) {
+			mobileMessageCodeResult.setResultCode("3001");
 			mobileMessageCodeResult.setResultDesc("No parameter");
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
@@ -59,6 +60,7 @@ public class MobileMessageCodeController {
 						.getPhone());
 		if (mobileMessageCodeParams.getTypeCode().equals("register")) {
 			if (null != userLogin && userLogin.size() > 0) {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("Exsit Phone!!!!");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -69,15 +71,18 @@ public class MobileMessageCodeController {
 							InterfaceEnum.USER_REGISTER);
 			if (SendStateEnum.SEND_SUCCESS == sendMessage.getStateEnum()) {
 				System.out.println(sendMessage.getContent());
-				Long sec = countDownTime(sendMessage.getNextSendTime());
-				mobileMessageCodeResult.setNextSendTime(sec);
+				mobileMessageCodeResult.setResultCode("2001");
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {
+				Long sec = countDownTime(sendMessage.getNextSendTime());
+				mobileMessageCodeResult.setNextSendTime(sec);
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("UnSuccess!!!!!");
 			}
 		} else if (mobileMessageCodeParams.getTypeCode().equals(
 				"forgetPassword")) {
 			if (null == userLogin || userLogin.size() == 0) {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("No Phone!!!!");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -90,11 +95,14 @@ public class MobileMessageCodeController {
 				System.out.println(sendMessage.getContent());
 				Long sec = countDownTime(sendMessage.getNextSendTime());
 				mobileMessageCodeResult.setNextSendTime(sec);
+				mobileMessageCodeResult.setResultCode("2001");
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("UnSuccess!!!!!");
 			}
 		} else {
+			mobileMessageCodeResult.setResultCode("3001");
 			mobileMessageCodeResult.setResultDesc("Wrong parameter");
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
@@ -102,7 +110,7 @@ public class MobileMessageCodeController {
 	}
 
 	private Long countDownTime(Long nextSendTime) {
-		return (nextSendTime - new Date().getTime()) / 1000;
+		return (nextSendTime - System.currentTimeMillis()) / 1000;
 	}
 
 	@ResponseBody
@@ -119,6 +127,7 @@ public class MobileMessageCodeController {
 						.getMessageCode())
 				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
 						.getPhoneCode())) {
+			mobileMessageCodeResult.setResultCode("3001");
 			mobileMessageCodeResult.setResultDesc("No parameter");
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
@@ -127,6 +136,7 @@ public class MobileMessageCodeController {
 						.getPhone());
 		if (mobileMessageCodeParams.getTypeCode().equals("register")) {
 			if (userMap.get(MobileMessageCodeController.CHECK_REGISTER_CODE) != 0) {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -137,6 +147,7 @@ public class MobileMessageCodeController {
 					.get(mobileMessageCodeParams.getPhone()
 							+ InterfaceEnum.USER_REGISTER);
 			if (null == sendMessage) {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("No Data");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -144,14 +155,16 @@ public class MobileMessageCodeController {
 			if (sendMessage.getSmsCode().equals(
 					mobileMessageCodeParams.getMessageCode())) {
 				userMap.put(MobileMessageCodeController.CHECK_REGISTER_CODE, 1);
-				System.out.println(sendMessage.getContent());
+				mobileMessageCodeResult.setResultCode("2001");
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("UnSuccess!!!!!");
 			}
 		} else if (mobileMessageCodeParams.getTypeCode().equals(
 				"forgetPassword")) {
 			if (userMap.get(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE) != 0) {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -162,6 +175,7 @@ public class MobileMessageCodeController {
 					.get(mobileMessageCodeParams.getPhone()
 							+ InterfaceEnum.FORGET_PASSWORD);
 			if (null == sendMessage) {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("No Data");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -170,8 +184,10 @@ public class MobileMessageCodeController {
 					mobileMessageCodeParams.getMessageCode())) {
 				userMap.put(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE, 1);
 				System.out.println(sendMessage.getContent());
+				mobileMessageCodeResult.setResultCode("2001");
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {
+				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("UnSuccess!!!!!");
 			}
 		}

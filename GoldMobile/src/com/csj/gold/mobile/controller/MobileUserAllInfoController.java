@@ -14,6 +14,7 @@ import com.csj.gold.mobile.vo.MobileUserAllInfoResult;
 import com.csj.gold.mobile.vo.MobileUserAllInfoVO;
 import com.csj.gold.model.bean.MobileUserAllInfo;
 import com.csj.gold.service.MobileUserAllInfoService;
+import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.file.FileUtil;
 import com.csj.gold.utils.json.JsonConvert;
 
@@ -32,34 +33,50 @@ public class MobileUserAllInfoController {
 		MobileUserAllInfoResult mobileUserAllInfoResult = new MobileUserAllInfoResult();
 		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
 		MobileUserAllInfoVO mobileUserAllInfoVO = new MobileUserAllInfoVO();
-		if (!MobileControllerUtils.checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),
-				mobileUserAllInfoParams.getPhoneCode())) {
-			mobileUserAllInfoResult.setResultDesc("Not Login");
-			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
-		}
-		if (null != mobileUserAllInfoParams.getUserId()) {
-			mobileUserAllInfo.setUserId(mobileUserAllInfoParams.getUserId());
-			mobileUserAllInfo = mobileUserAllInfoService
-					.searchByUserId(mobileUserAllInfo);
-			if (null != mobileUserAllInfo) {
-				mobileUserAllInfoVO
-						.setBankCode(mobileUserAllInfo.getBankCode());
-				mobileUserAllInfoVO
-						.setBankName(mobileUserAllInfo.getBankName());
-				mobileUserAllInfoVO.setCardNumber(mobileUserAllInfo
-						.getCardNumber());
-				mobileUserAllInfoVO.setCertNo(mobileUserAllInfo.getCertNo());
-				mobileUserAllInfoVO.setCardId(mobileUserAllInfo.getCardId());
-				mobileUserAllInfoVO.setImageFilePath(mobileUserAllInfo
-						.getImageFilePath());
-				mobileUserAllInfoVO.setPhone(mobileUserAllInfo.getPhone());
-				mobileUserAllInfoVO.setUserId(mobileUserAllInfo.getUserId());
-				mobileUserAllInfoVO
-						.setUserName(mobileUserAllInfo.getUserName());
-				MobileControllerUtils.setUserAllInfoToSession(mobileUserAllInfo);
+		if (!StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+				.getPhone())&&!StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+						.getPhoneCode())) {
+			if (!MobileControllerUtils.checkUserLoginStatus(
+					mobileUserAllInfoParams.getPhone(),
+					mobileUserAllInfoParams.getPhoneCode())) {
+				mobileUserAllInfoResult.setResultCode("3001");
+				mobileUserAllInfoResult.setResultDesc("Not Login");
+				return JsonConvert.getInstance()
+						.toJson(mobileUserAllInfoResult);
 			}
+			if (null != mobileUserAllInfoParams.getUserId()) {
+				mobileUserAllInfo
+						.setUserId(mobileUserAllInfoParams.getUserId());
+				mobileUserAllInfo = mobileUserAllInfoService
+						.searchByUserId(mobileUserAllInfo);
+				if (null != mobileUserAllInfo) {
+					mobileUserAllInfoVO.setBankCode(mobileUserAllInfo
+							.getBankCode());
+					mobileUserAllInfoVO.setBankName(mobileUserAllInfo
+							.getBankName());
+					mobileUserAllInfoVO.setCardNumber(mobileUserAllInfo
+							.getCardNumber());
+					mobileUserAllInfoVO
+							.setCertNo(mobileUserAllInfo.getCertNo());
+					mobileUserAllInfoVO
+							.setCardId(mobileUserAllInfo.getCardId());
+					mobileUserAllInfoVO.setImageFilePath(mobileUserAllInfo
+							.getImageFilePath());
+					mobileUserAllInfoVO.setPhone(mobileUserAllInfo.getPhone());
+					mobileUserAllInfoVO
+							.setUserId(mobileUserAllInfo.getUserId());
+					mobileUserAllInfoVO.setUserName(mobileUserAllInfo
+							.getUserName());
+					MobileControllerUtils
+							.setUserAllInfoToSession(mobileUserAllInfo);
+				}
+			}
+			mobileUserAllInfoResult.setResultCode("2001");
+			mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
+		} else {
+			mobileUserAllInfoResult.setResultDesc("Wrong parameter");
+			mobileUserAllInfoResult.setResultCode("3001");
 		}
-		mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}
 
@@ -67,8 +84,11 @@ public class MobileUserAllInfoController {
 	@RequestMapping("/userIdentification")
 	public String userIdentification(
 			MobileUserAllInfoParams mobileUserAllInfoParams) {
-		MobileUserAllInfoResult mobileUserAllInfoResult  = new MobileUserAllInfoResult();
-		if(!MobileControllerUtils.checkUserLoginStatus(mobileUserAllInfoParams.getPhone(),mobileUserAllInfoParams.getPhoneCode())){
+		MobileUserAllInfoResult mobileUserAllInfoResult = new MobileUserAllInfoResult();
+		if (!MobileControllerUtils.checkUserLoginStatus(
+				mobileUserAllInfoParams.getPhone(),
+				mobileUserAllInfoParams.getPhoneCode())) {
+			mobileUserAllInfoResult.setResultCode("3001");
 			mobileUserAllInfoResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
@@ -76,10 +96,13 @@ public class MobileUserAllInfoController {
 		mobileUserAllInfo.setUserId(mobileUserAllInfoParams.getUserId());
 		mobileUserAllInfo.setCertNo(mobileUserAllInfoParams.getCertNo());
 		mobileUserAllInfo.setUserName(mobileUserAllInfoParams.getUserName());
-		int res = mobileUserAllInfoService.userIdentification(mobileUserAllInfo);
-		MobileUserAllInfoVO mobileUserAllInfoVO = new MobileUserAllInfoVO(); 
-		if(res == 1){
-			mobileUserAllInfo = MobileControllerUtils.getMobileUserAllInfoFromSession(mobileUserAllInfoParams.getPhone());
+		int res = mobileUserAllInfoService
+				.userIdentification(mobileUserAllInfo);
+		MobileUserAllInfoVO mobileUserAllInfoVO = new MobileUserAllInfoVO();
+		if (res == 1) {
+			mobileUserAllInfo = MobileControllerUtils
+					.getMobileUserAllInfoFromSession(mobileUserAllInfoParams
+							.getPhone());
 			if (null != mobileUserAllInfo) {
 				mobileUserAllInfoVO
 						.setBankCode(mobileUserAllInfo.getBankCode());
@@ -95,8 +118,10 @@ public class MobileUserAllInfoController {
 				mobileUserAllInfoVO.setUserId(mobileUserAllInfo.getUserId());
 				mobileUserAllInfoVO
 						.setUserName(mobileUserAllInfo.getUserName());
-				MobileControllerUtils.setUserAllInfoToSession(mobileUserAllInfo);
+				MobileControllerUtils
+						.setUserAllInfoToSession(mobileUserAllInfo);
 			}
+			mobileUserAllInfoResult.setResultCode("2001");
 			mobileUserAllInfoResult.setResultDesc("Identifacation Success");
 			mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
 		}
@@ -107,6 +132,7 @@ public class MobileUserAllInfoController {
 	@RequestMapping("/userImageUpload")
 	public String userImageUpload(
 			MobileUserAllInfoParams mobileUserAllInfoParams) {
+		MobileUserAllInfoResult mobileUserAllInfoResult = new MobileUserAllInfoResult();
 		String filePath = null;
 		if (null != mobileUserAllInfoParams.getUserImage()) {
 			try {
@@ -120,22 +146,47 @@ public class MobileUserAllInfoController {
 		mobileUserAllInfo.setUserId(mobileUserAllInfoParams.getUserId());
 		mobileUserAllInfo.setImageFilePath(filePath);
 		mobileUserAllInfoService.updateUserImage(mobileUserAllInfo);
-		return null;
+		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}
 
 	@ResponseBody
 	@RequestMapping("/changePassword")
 	public String changePassword(MobileUserAllInfoParams mobileUserAllInfoParams) {
-		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
-		mobileUserAllInfo.setUserId(mobileUserAllInfoParams.getUserId());
-		mobileUserAllInfo.setOldPassword(mobileUserAllInfoParams
-				.getOldPassword());
-		mobileUserAllInfo.setNewPassword(mobileUserAllInfoParams
-				.getNewPassword());
-		mobileUserAllInfoService.changePassword(mobileUserAllInfo);
-		return null;
+		MobileUserAllInfoResult mobileUserAllInfoResult = new MobileUserAllInfoResult();
+		if (StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+				.getPhone())
+				&& StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+						.getPhoneCode())
+				&& StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+						.getOldPassword())
+				&& StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+						.getNewPassword())) {
+			if (!MobileControllerUtils.checkUserLoginStatus(
+					mobileUserAllInfoParams.getPhone(),
+					mobileUserAllInfoParams.getPhoneCode())) {
+				mobileUserAllInfoResult.setResultCode("3001");
+				mobileUserAllInfoResult.setResultDesc("Not Login");
+				return JsonConvert.getInstance()
+						.toJson(mobileUserAllInfoResult);
+			}
+			MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
+			mobileUserAllInfo.setUserId(mobileUserAllInfoParams.getUserId());
+			mobileUserAllInfo.setOldPassword(mobileUserAllInfoParams
+					.getOldPassword());
+			mobileUserAllInfo.setNewPassword(mobileUserAllInfoParams
+					.getNewPassword());
+			if (mobileUserAllInfoService.changePassword(mobileUserAllInfo) > 0) {
+				mobileUserAllInfoResult.setResultDesc("Success");
+				mobileUserAllInfoResult.setResultCode("2001");
+			} else {
+				mobileUserAllInfoResult.setResultDesc("Unsuccess");
+				mobileUserAllInfoResult.setResultCode("3001");
+			}
+		} else {
+			mobileUserAllInfoResult.setResultDesc("Wrong parameter");
+			mobileUserAllInfoResult.setResultCode("3001");
+		}
+		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}
-
-	
 
 }
