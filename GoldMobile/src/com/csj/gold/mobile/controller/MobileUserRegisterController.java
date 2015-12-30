@@ -98,6 +98,8 @@ public class MobileUserRegisterController {
 					mobileUserRegisterResult.setPasswordErrorCount(errorCount);
 				}
 			}
+		}else{
+			mobileUserRegisterResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
 	}
@@ -167,6 +169,8 @@ public class MobileUserRegisterController {
 				}
 			}
 
+		}else{
+			mobileUserRegisterResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
 	}
