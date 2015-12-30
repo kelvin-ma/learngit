@@ -33,8 +33,9 @@ public class MobileUserAllInfoController {
 		MobileUserAllInfoResult mobileUserAllInfoResult = new MobileUserAllInfoResult();
 		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
 		MobileUserAllInfoVO mobileUserAllInfoVO = new MobileUserAllInfoVO();
-		if (!StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
-				.getPhone())&&!StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+		if (StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+				.getPhone())
+				&& StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
 						.getPhoneCode())) {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAllInfoParams.getPhone(),
@@ -133,14 +134,28 @@ public class MobileUserAllInfoController {
 	public String userImageUpload(
 			MobileUserAllInfoParams mobileUserAllInfoParams) {
 		MobileUserAllInfoResult mobileUserAllInfoResult = new MobileUserAllInfoResult();
+		if (!StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+				.getPhone())
+				|| !StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
+						.getPhoneCode())
+				|| null == mobileUserAllInfoParams.getUserImage()) {
+			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultDesc("Wrong parameters");
+			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
+		}
+		if (!MobileControllerUtils.checkUserLoginStatus(
+				mobileUserAllInfoParams.getPhone(),
+				mobileUserAllInfoParams.getPhoneCode())) {
+			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultDesc("Not Login");
+			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
+		}
 		String filePath = null;
-		if (null != mobileUserAllInfoParams.getUserImage()) {
-			try {
-				filePath = FileUtil.uploadFile(mobileUserAllInfoParams
-						.getUserImage());
-			} catch (IOException e) {
-				return null;
-			}
+		try {
+			filePath = FileUtil.uploadFile(mobileUserAllInfoParams
+					.getUserImage());
+		} catch (IOException e) {
+			return null;
 		}
 		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
 		mobileUserAllInfo.setUserId(mobileUserAllInfoParams.getUserId());

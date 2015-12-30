@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.dao.MobileAdvertisementMapper" >
+  <resultMap id="MobileAdvertisement" type="com.csj.gold.model.bean.MobileAdvertisement" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_number" property="orderNumber" jdbcType="INTEGER" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="ad_link" property="traMinNum" jdbcType="VARCHAR" />
+    <result column="link_parameters" property="traAddNum" jdbcType="VARCHAR" />
+    <result column="version" property="pInterestRateDay" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Table_sys_advertisement">
+  	 sys_advertisement sa
+  </sql>
+  <sql id="Table_sys_file">
+  	 sys_file sf
+  </sql>
+  <sql id="MobileAdvertisement_Column_List">
+  	sa.id as id,
+	a.ad_link as ad_link,
+	sa.ad_remark as ad_remark,
+	sa.link_parameter as link_parameter,
+	sa.version as version,
+	sa.order_number as order_number,
+	sf.file_path as file_path
+  </sql>
+  <select id="searchAll" resultMap="MobileAdvertisement" parameterType="java.lang.Long" >
+    select 
+	    <include refid="MobileAdvertisement_Column_List" />
+ 	from 
+ 		<include refid="Table_sys_advertisement" />
+		LEFT JOIN 
+			<include refid="Table_sys_file" />
+			ON sa.file_id = sf.id and sf.is_del = 0 and sf.is_forbidden = 0
+	where
+		sa.is_del = 0
+		and sa.is_forbidden = 0
+		<![CDATA[ and sa.start_date >= CURDATE() ]]> 
+		<![CDATA[ and sa.end_date <= CURDATE() ]]> 
+  </select>
+</mapper>
