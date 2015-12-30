@@ -52,8 +52,6 @@ public class SendMessageManage {
 	 * @return
 	 */
 	public SendMessage sendMessage(String phone,InterfaceEnum sms){
-		System.out.println(phone+sms);
-		
 		String code = phone+sms;
 		//上一条短信
 		SendMessage lastMessage =sendMessageMap.get(code);
