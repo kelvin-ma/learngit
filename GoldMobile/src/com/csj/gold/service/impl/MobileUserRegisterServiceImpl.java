@@ -47,6 +47,8 @@ public class MobileUserRegisterServiceImpl implements MobileUserRegisterService{
 		UserLogin user = new UserLogin();
 		user.setIsDel(0);
 		user.setIsForbidden(0);
+		user.setVersion(0);
+		user.setUserId(mobileUserRegister.getUserId());
 		user.setUserPhone(mobileUserRegister.getPhone());
 		user.setUserPwd(mobileUserRegister.getPwd());
 		List<UserLogin> userList = userLoginMapper.selectByPhone(user);

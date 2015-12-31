@@ -136,6 +136,7 @@ public class MobileUserRegisterController {
 				UserInfo userInfo = new UserInfo();
 				userInfo.setIsDel(0);
 				userInfo.setIsForbidden(0);
+				userInfo.setVersion(0);
 				userInfo.setPhone(mobileUserRegisterParams.getPhone());
 				userInfo.setCreateDate(new Date());
 				int result = userInfoService.add(userInfo);
