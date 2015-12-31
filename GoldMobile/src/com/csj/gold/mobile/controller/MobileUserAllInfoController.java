@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -144,13 +145,13 @@ public class MobileUserAllInfoController {
 			mobileUserAllInfoResult.setResultDesc("Wrong parameters");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
-//		if (!MobileControllerUtils.checkUserLoginStatus(
-//				mobileUserAllInfoParams.getPhone(),
-//				mobileUserAllInfoParams.getPhoneCode())) {
-//			mobileUserAllInfoResult.setResultCode("3001");
-//			mobileUserAllInfoResult.setResultDesc("Not Login");
-//			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
-//		}
+		if (!MobileControllerUtils.checkUserLoginStatus(
+				mobileUserAllInfoParams.getPhone(),
+				mobileUserAllInfoParams.getPhoneCode())) {
+			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultDesc("Not Login");
+			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
+		}
 
 		String filePath = null;
 		try {
@@ -160,13 +161,13 @@ public class MobileUserAllInfoController {
 			return null;
 		}
 		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
-//		Long id = MobileControllerUtils
-//				.getUserIdFromSession(mobileUserAllInfoParams.getPhone());
-		Long id = 7L;
+		Long id = MobileControllerUtils
+				.getUserIdFromSession(mobileUserAllInfoParams.getPhone());
 		if (null != id && id > 0) {
 			mobileUserAllInfo.setUserId(id);
 			mobileUserAllInfo.setImageFilePath(filePath);
 			mobileUserAllInfoService.updateUserImage(mobileUserAllInfo);
+			mobileUserAllInfoResult.setImagePath("upload/"+filePath);
 			mobileUserAllInfoResult.setResultCode("2001");
 			mobileUserAllInfoResult.setResultDesc("Success");
 		} else {

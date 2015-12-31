@@ -69,7 +69,6 @@ public class MobileMessageCodeController {
 					.sendMessage(mobileMessageCodeParams.getPhone(),
 							InterfaceEnum.USER_REGISTER);
 			if (SendStateEnum.SEND_SUCCESS == sendMessage.getStateEnum()) {
-				System.out.println(sendMessage.getContent());
 				mobileMessageCodeResult.setResultCode("2001");
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {
@@ -91,7 +90,6 @@ public class MobileMessageCodeController {
 					.sendMessage(mobileMessageCodeParams.getPhone(),
 							InterfaceEnum.FORGET_PASSWORD);
 			if (SendStateEnum.SEND_SUCCESS == sendMessage.getStateEnum()) {
-				System.out.println(sendMessage.getContent());
 				Long sec = countDownTime(sendMessage.getNextSendTime());
 				mobileMessageCodeResult.setNextSendTime(sec);
 				mobileMessageCodeResult.setResultCode("2001");
@@ -182,7 +180,6 @@ public class MobileMessageCodeController {
 			if (sendMessage.getSmsCode().equals(
 					mobileMessageCodeParams.getMessageCode())) {
 				userMap.put(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE, 1);
-				System.out.println(sendMessage.getContent());
 				mobileMessageCodeResult.setResultCode("2001");
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {

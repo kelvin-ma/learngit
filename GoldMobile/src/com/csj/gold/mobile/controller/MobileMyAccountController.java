@@ -10,6 +10,4 @@ public class MobileMyAccountController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileMyAccountController.class);
 
-	
-
 }
