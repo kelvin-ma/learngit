@@ -22,13 +22,13 @@ import com.csj.gold.utils.sms.SendMessageManage;
 import com.csj.gold.utils.sms.SendStateEnum;
 
 @Controller
-@RequestMapping("/messageCode") 
+@RequestMapping("/messageCode")
 public class MobileMessageCodeController {
-	
-	public static String CHECK_REGISTER_CODE ="checkRegisterMessageCode";
-	
-	public static String CHECK_FORGET_PASSWORD_CODE ="checkForgetPasswordMessageCode";
-	
+
+	public static String CHECK_REGISTER_CODE = "checkRegisterMessageCode";
+
+	public static String CHECK_FORGET_PASSWORD_CODE = "checkForgetPasswordMessageCode";
+
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger
 			.getLogger(MobileMessageCodeController.class);
@@ -85,7 +85,8 @@ public class MobileMessageCodeController {
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
-			userMap.put(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE, 0);
+			userMap.put(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE,
+					0);
 			SendMessage sendMessage = SendMessageManage.getInstance()
 					.sendMessage(mobileMessageCodeParams.getPhone(),
 							InterfaceEnum.FORGET_PASSWORD);
@@ -132,7 +133,11 @@ public class MobileMessageCodeController {
 				.getUserMessageCodeMapFromCacheMessageCodeMap(mobileMessageCodeParams
 						.getPhone());
 		if (mobileMessageCodeParams.getTypeCode().equals("register")) {
-			if (userMap.get(MobileMessageCodeController.CHECK_REGISTER_CODE) != 0) {
+
+			if (null != userMap
+					.get(MobileMessageCodeController.CHECK_REGISTER_CODE)
+					&& userMap
+							.get(MobileMessageCodeController.CHECK_REGISTER_CODE) != 0) {
 				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
@@ -160,7 +165,8 @@ public class MobileMessageCodeController {
 			}
 		} else if (mobileMessageCodeParams.getTypeCode().equals(
 				"forgetPassword")) {
-			if (userMap.get(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE) != 0) {
+			if (userMap
+					.get(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE) != 0) {
 				mobileMessageCodeResult.setResultCode("3001");
 				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
@@ -179,7 +185,9 @@ public class MobileMessageCodeController {
 			}
 			if (sendMessage.getSmsCode().equals(
 					mobileMessageCodeParams.getMessageCode())) {
-				userMap.put(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE, 1);
+				userMap.put(
+						MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE,
+						1);
 				mobileMessageCodeResult.setResultCode("2001");
 				mobileMessageCodeResult.setResultDesc("Success!!!!!");
 			} else {

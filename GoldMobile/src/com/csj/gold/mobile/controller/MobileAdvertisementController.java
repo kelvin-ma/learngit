@@ -15,31 +15,46 @@ import com.csj.gold.mobile.vo.MobileAdvertisementResult;
 import com.csj.gold.mobile.vo.MobileAdvertisementVO;
 import com.csj.gold.model.bean.MobileAdvertisement;
 import com.csj.gold.service.MobileAdvertisementService;
+import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
+
 @Controller
 @RequestMapping("/advertisement")
 public class MobileAdvertisementController {
 	@SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(MobileAdvertisementController.class);
-	
+	private static Logger logger = Logger
+			.getLogger(MobileAdvertisementController.class);
+
 	@Resource
 	private MobileAdvertisementService mobileAdvertisementService;
-	
+
 	@ResponseBody
-	@RequestMapping("/searchAll")  
-    public String searchByUserId(MobileAdvertisementParams mobileAdvertisementParams){
+	@RequestMapping("/searchAll")
+	public String searchByUserId(
+			MobileAdvertisementParams mobileAdvertisementParams) {
 		MobileAdvertisementResult mobileAdvertisementResult = new MobileAdvertisementResult();
+		if (!StringUtils.checkStringNullAndEmpty(mobileAdvertisementParams
+				.getPhone())
+				|| !StringUtils
+						.checkStringNullAndEmpty(mobileAdvertisementParams
+								.getPhoneCode())) {
+			mobileAdvertisementResult.setResultCode("3001");
+			mobileAdvertisementResult.setResultDesc("No parameter!!!");
+			return JsonConvert.getInstance().toJson(mobileAdvertisementResult);
+		}
 		List<MobileAdvertisementVO> resultList = new ArrayList<MobileAdvertisementVO>();
-		List<MobileAdvertisement> advertisementListTemp = mobileAdvertisementService.searchAll();
-		if(null != advertisementListTemp && advertisementListTemp.size() > 0){
+		List<MobileAdvertisement> advertisementListTemp = mobileAdvertisementService
+				.searchAll();
+		if (null != advertisementListTemp && advertisementListTemp.size() > 0) {
 			MobileAdvertisementVO mobileAdvertisementVO = null;
-			for(MobileAdvertisement temp : advertisementListTemp){
+			for (MobileAdvertisement temp : advertisementListTemp) {
 				mobileAdvertisementVO = new MobileAdvertisementVO();
 				mobileAdvertisementVO.setId(temp.getId());
 				mobileAdvertisementVO.setAdLink(temp.getAdLink());
 				mobileAdvertisementVO.setFilePath(temp.getFilePath());
 				mobileAdvertisementVO.setId(temp.getId());
-				mobileAdvertisementVO.setLinkParameters(temp.getLinkParameters());
+				mobileAdvertisementVO.setLinkParameters(temp
+						.getLinkParameters());
 				mobileAdvertisementVO.setOrderNumber(temp.getOrderNumber());
 				mobileAdvertisementVO.setVersion(temp.getVersion());
 				resultList.add(mobileAdvertisementVO);
@@ -47,11 +62,11 @@ public class MobileAdvertisementController {
 			mobileAdvertisementResult.setResultCode("2001");
 			mobileAdvertisementResult.setResultDesc("success");
 			mobileAdvertisementResult.setDatas(resultList);
-		}else{
+		} else {
 			mobileAdvertisementResult.setResultCode("3001");
 			mobileAdvertisementResult.setResultDesc("No Datas");
 		}
 		return JsonConvert.getInstance().toJson(mobileAdvertisementResult);
-    } 
-	
+	}
+
 }
