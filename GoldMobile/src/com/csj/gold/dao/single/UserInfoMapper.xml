@@ -76,11 +76,11 @@
     insert into user_info (id, user_name, phone, 
       cert_no, create_date, update_date, 
       update_user, create_user, is_del, 
-      is_forbidden)
+      is_forbidden,version)
     values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{certNo,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{updateUser,jdbcType=BIGINT}, #{createUser,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER}, 
-      #{isForbidden,jdbcType=INTEGER})
+      #{isForbidden,jdbcType=INTEGER},#{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.UserInfo" >
   	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
@@ -115,6 +115,9 @@
       <if test="isForbidden != null" >
         is_forbidden,
       </if>
+      <if test="version != null" >
+        version,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userName != null" >
@@ -143,6 +146,9 @@
       </if>
       <if test="isForbidden != null" >
         #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
