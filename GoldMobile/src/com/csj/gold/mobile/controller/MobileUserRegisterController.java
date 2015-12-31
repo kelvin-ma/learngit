@@ -86,6 +86,7 @@ public class MobileUserRegisterController {
 						mobileUserRegister.getPwd())) {
 					mobileUserRegisterResult.setResultCode("2001");
 					mobileUserRegisterResult.setResultDesc("Login Success");
+					session.setAttribute("userId", mobileUserRegister.getUserId());
 					session.setAttribute("phoneCode",
 							mobileUserRegisterParams.getPhoneCode());
 					sessionMap

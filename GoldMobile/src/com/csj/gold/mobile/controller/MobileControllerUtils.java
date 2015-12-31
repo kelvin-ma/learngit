@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.csj.gold.cache.MapCacheManager;
 import com.csj.gold.model.bean.MobileUserAllInfo;
-import com.csj.gold.utils.json.JsonConvert;
+import com.csj.gold.utils.StringUtils;
 
 /**
  * @author Cer
@@ -116,4 +116,14 @@ public class MobileControllerUtils {
 		}
 	}
 	
+	protected static Long getUserIdFromSession(String phone){
+		Long id = null;
+		if(StringUtils.checkStringNullAndEmpty(phone)){
+			HttpSession userSession = MobileControllerUtils.getSessionMap().get(phone);
+			if(null!= userSession){
+				id = (Long)userSession.getAttribute("userId");
+			}
+		}
+		return id;
+	}
 }
