@@ -1,6 +1,5 @@
 package com.csj.gold.mobile.vo;
 
-import com.sun.istack.internal.NotNull;
 
 public class MobileGoldProductVO {
 	// 产品ID

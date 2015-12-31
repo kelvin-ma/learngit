@@ -12,14 +12,13 @@ import com.google.common.collect.Lists;
 public class Page {
 
 	private static final Logger logger = LoggerFactory.getLogger(Page.class);
-	private static ObjectMapper mapper = new ObjectMapper();
 
 	public static int USE_PAGE = 1;
 
 	public static int UN_USE_PAGE = 0;
 
 	public static String DEFAULT_PAGESIZE = "10";
-	private Object parameters;
+	private Object parameters; //参数
 	private int pageNo; // 当前页码
 	private int pageSize; // 每页行数
 	private int totalRecord; // 总记录数
