@@ -20,6 +20,7 @@ import com.csj.gold.utils.page.Page;
 @Controller
 @RequestMapping("/product")
 public class MobileGoldProductController {
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileGoldProductController.class);
 	
 	@Resource

@@ -1,6 +1,5 @@
 package com.csj.gold.mobile.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.csj.gold.mobile.annotation.InterfaceEnum;
 import com.csj.gold.mobile.vo.MobileMessageCodeParams;
 import com.csj.gold.mobile.vo.MobileMessageCodeResult;
-import com.csj.gold.model.bean.MobileUserAllInfo;
 import com.csj.gold.model.bean.MobileUserRegister;
 import com.csj.gold.service.MobileUserRegisterService;
 import com.csj.gold.utils.StringUtils;
@@ -31,6 +29,7 @@ public class MobileMessageCodeController {
 	
 	public static String CHECK_FORGET_PASSWORD_CODE ="checkForgetPasswordMessageCode";
 	
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger
 			.getLogger(MobileMessageCodeController.class);
 

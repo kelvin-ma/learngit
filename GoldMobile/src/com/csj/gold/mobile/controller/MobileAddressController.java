@@ -21,6 +21,7 @@ import com.csj.gold.utils.json.JsonConvert;
 @Controller
 @RequestMapping("/address")
 public class MobileAddressController {
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger
 			.getLogger(MobileAddressController.class);
 

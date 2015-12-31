@@ -14,13 +14,13 @@ import com.csj.gold.mobile.vo.MobileSaveGoldParams;
 import com.csj.gold.mobile.vo.MobileSaveGoldResult;
 import com.csj.gold.mobile.vo.MobileShopVO;
 import com.csj.gold.model.SysShop;
-import com.csj.gold.model.UserAddress;
 import com.csj.gold.service.SysShopService;
 import com.csj.gold.utils.json.JsonConvert;
 import com.csj.gold.utils.page.Page;
 @Controller
 @RequestMapping("/saveGold")
 public class MobileSaveGoldController {
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileSaveGoldController.class);
 	
 	@Resource

@@ -19,6 +19,7 @@ import com.csj.gold.utils.json.JsonConvert;
 @Controller
 @RequestMapping("/advertisement")
 public class MobileAdvertisementController {
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileAdvertisementController.class);
 	
 	@Resource

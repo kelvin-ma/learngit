@@ -13,6 +13,7 @@ import com.csj.gold.utils.file.FileUtil;
 @Controller
 @RequestMapping("/file")
 public class FileUploadController {
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(FileUploadController.class);
 	
 	@ResponseBody
