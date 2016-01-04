@@ -2,8 +2,6 @@ package com.csj.gold.utils;
 
 import java.util.Random;
 
-import org.junit.Test;
-
 /**
  * 验证码工机类
  * @author kelvin

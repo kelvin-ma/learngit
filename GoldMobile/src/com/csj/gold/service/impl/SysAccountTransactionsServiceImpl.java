@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.csj.gold.dao.single.SysAccoutTransactionsMapper;
+import com.csj.gold.dao.single.SysAccountTransactionsMapper;
 import com.csj.gold.model.SysAccountTransactions;
 import com.csj.gold.service.SysAccountTransactionsService;
 import com.csj.gold.utils.page.Page;
@@ -15,7 +15,7 @@ import com.csj.gold.utils.page.Page;
 public class SysAccountTransactionsServiceImpl implements SysAccountTransactionsService{
 	
 	@Resource
-	SysAccoutTransactionsMapper sysAccoutTransactionsMapper = null;
+	SysAccountTransactionsMapper sysAccoutTransactionsMapper = null;
 
 	@Override
 	public int add(SysAccountTransactions sysAccountTransactions) {

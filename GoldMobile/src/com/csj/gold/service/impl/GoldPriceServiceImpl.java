@@ -2,6 +2,7 @@ package com.csj.gold.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,12 +10,18 @@ import org.springframework.stereotype.Service;
 
 import com.csj.gold.dao.single.GoldPriceMapper;
 import com.csj.gold.model.GoldPrice;
+import com.csj.gold.model.WebGoldPrice;
+import com.csj.gold.model.WebGoldPriceResult;
 import com.csj.gold.service.GoldPriceService;
+import com.csj.gold.utils.StaticValues;
+import com.csj.gold.utils.SystemPropertiesUtils;
+import com.csj.gold.utils.http.HttpRequest;
+import com.csj.gold.utils.json.JsonConvert;
 import com.csj.gold.utils.page.Page;
 
 @Service("goldPriceService")
-public class GoldPriceServiceImpl implements GoldPriceService{
-	
+public class GoldPriceServiceImpl implements GoldPriceService {
+
 	@Resource
 	GoldPriceMapper goldPriceMapper = null;
 
@@ -39,7 +46,7 @@ public class GoldPriceServiceImpl implements GoldPriceService{
 	}
 
 	@Override
-	public List<GoldPrice> searchByParameters(Page page,GoldPrice goldPrice) {
+	public List<GoldPrice> searchByParameters(Page page, GoldPrice goldPrice) {
 		page.setParameters(goldPrice);
 		List<GoldPrice> returnList = goldPriceMapper.selectByParameters(page);
 		return returnList;
@@ -60,11 +67,27 @@ public class GoldPriceServiceImpl implements GoldPriceService{
 		Page page = Page.newBuilderUnPage();
 		page.setParameters(goldPrice);
 		List<GoldPrice> list = goldPriceMapper.selectByParameters(page);
-		if(null != list && list.size()==1){
+		if (null != list && list.size() == 1) {
 			return list.get(0);
-		}else{
+		} else {
 			return null;
 		}
 	}
 
+	@Override
+	public void SearchGoldPriceFromWeb() {
+		String json = HttpRequest.sendGet(SystemPropertiesUtils
+				.getSystemProperties(StaticValues.WEBSIT_TO_SEARCH_GOLD_PRICE));
+		WebGoldPriceResult result = (WebGoldPriceResult) JsonConvert
+				.getInstance().formJson(json, WebGoldPriceResult.class);
+		Map<String, WebGoldPrice> map = result.getPriceMap();
+		WebGoldPrice wgp = null;
+		for (String key : map.keySet()) {
+			if (map.get(key).getVariety().equals("Au99.99")) {
+				wgp = map.get(key);
+				break;
+			}
+		}
+		// 存储金价
+	}
 }

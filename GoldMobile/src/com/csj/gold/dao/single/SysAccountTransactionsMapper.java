@@ -5,7 +5,7 @@ import java.util.List;
 import com.csj.gold.model.SysAccountTransactions;
 import com.csj.gold.utils.page.Page;
 
-public interface SysAccoutTransactionsMapper {
+public interface SysAccountTransactionsMapper {
     int deleteByPrimaryKey(Long id);
     
     int forbiddenByPrimaryKey(Long id);
