@@ -26,7 +26,8 @@ public class InitFile implements ApplicationListener<ContextRefreshedEvent> {
 	private void getSystempropertiesToCacheMap() {
 		Properties pps = new Properties();
 		try {
-			pps.load(new FileInputStream("system.properties"));
+			String relativelyPath=Thread.currentThread().getContextClassLoader().getResource("").getPath();
+			pps.load(new FileInputStream(relativelyPath+"/system.properties"));
 			Enumeration enum1 = pps.propertyNames();// 得到配置文件的名字
 			Map<String,String> systemPropertiesMap=(Map<String,String>)MapCacheManager.getInstance().getMapCache().get("systemProperties");
 			while (enum1.hasMoreElements()) {
