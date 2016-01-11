@@ -1,7 +1,5 @@
 package com.csj.gold.mobile.vo;
 
-
-
 public class MobileResult {
 
 	private String transNo;

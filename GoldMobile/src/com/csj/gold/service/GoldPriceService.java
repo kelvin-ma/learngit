@@ -20,4 +20,6 @@ public interface GoldPriceService {
 	
 	GoldPrice searchRecentGoldPrice();
 	
+	void SearchGoldPriceFromWeb();
+	
 }

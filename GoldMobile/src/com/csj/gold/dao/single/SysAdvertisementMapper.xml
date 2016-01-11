@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.dao.single.SysAdvertisementMapper" >
+  <resultMap id="BaseResultMap" type="com.csj.gold.model.SysAdvertisement" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="file_id" property="fileId" jdbcType="BIGINT" />
+    <result column="ad_remark" property="adRemark" jdbcType="VARCHAR" />
+    <result column="ad_link" property="adLink" jdbcType="VARCHAR" />
+    <result column="link_parameter" property="linkParameter" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="ad_type" property="adType" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="is_forbidden" property="isForbidden" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_id, ad_remark, ad_link, link_parameter, order_number, start_date, end_date, 
+    ad_type, create_date, create_user, update_date, update_user, is_del, is_forbidden, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_advertisement
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_advertisement
+    set is_del = 1 , version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="forbiddenByPrimaryKey" parameterType="java.lang.Long" >
+    update sys_advertisement
+    set is_forbidden = 1 , version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insert" parameterType="com.csj.gold.model.SysAdvertisement" >
+    insert into sys_advertisement (id, file_id, ad_remark, 
+      ad_link, link_parameter, order_number, 
+      start_date, end_date, ad_type, 
+      create_date, create_user, update_date, 
+      update_user, is_del, is_forbidden, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{adRemark,jdbcType=VARCHAR}, 
+      #{adLink,jdbcType=VARCHAR}, #{linkParameter,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{adType,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER}, #{isForbidden,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.csj.gold.model.SysAdvertisement" >
+    insert into sys_advertisement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="adRemark != null" >
+        ad_remark,
+      </if>
+      <if test="adLink != null" >
+        ad_link,
+      </if>
+      <if test="linkParameter != null" >
+        link_parameter,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="adType != null" >
+        ad_type,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=BIGINT},
+      </if>
+      <if test="adRemark != null" >
+        #{adRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adLink != null" >
+        #{adLink,jdbcType=VARCHAR},
+      </if>
+      <if test="linkParameter != null" >
+        #{linkParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adType != null" >
+        #{adType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        #{isForbidden,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csj.gold.model.SysAdvertisement" >
+    update sys_advertisement
+    <set >
+      <if test="fileId != null" >
+        file_id = #{fileId,jdbcType=BIGINT},
+      </if>
+      <if test="adRemark != null" >
+        ad_remark = #{adRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adLink != null" >
+        ad_link = #{adLink,jdbcType=VARCHAR},
+      </if>
+      <if test="linkParameter != null" >
+        link_parameter = #{linkParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adType != null" >
+        ad_type = #{adType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="isForbidden != null" >
+        is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      </if>
+      version = version + 1
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csj.gold.model.SysAdvertisement" >
+    update sys_advertisement
+    set file_id = #{fileId,jdbcType=BIGINT},
+      ad_remark = #{adRemark,jdbcType=VARCHAR},
+      ad_link = #{adLink,jdbcType=VARCHAR},
+      link_parameter = #{linkParameter,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      ad_type = #{adType,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      is_del = #{isDel,jdbcType=INTEGER},
+      is_forbidden = #{isForbidden,jdbcType=INTEGER},
+      version = version + 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

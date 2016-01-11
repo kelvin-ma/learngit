@@ -74,26 +74,22 @@ public class MobileUserAllInfoServiceImpl implements MobileUserAllInfoService{
 
 	@Override
 	public int updateUserInfo(MobileUserAllInfo mobileUserAllInfo) {
-		SysFile sysFile = new SysFile();
-		sysFile.setFilePath(mobileUserAllInfo.getImageFilePath());
-		sysFile.setIsDel(0);
-		sysFile.setIsForbidden(0);
-		sysFile.setCreateDate(new Date());
-		sysFile.setCreateUser(mobileUserAllInfo.getUserId());
-		sysFileMapper.insertSelective(sysFile);
-		UserInfo userInfo = new UserInfo();
-		userInfo.setHeadImageFileId(sysFile.getId());
-		userInfo.setId(mobileUserAllInfo.getUserId());
-		userInfo.setUpdateDate(new Date());
-		userInfo.setUpdateUser(mobileUserAllInfo.getUserId());
-		return userInfoMapper.updateByPrimaryKeySelective(userInfo);
+		return 0;
 	}
 	
 	@Override
 	public int updateUserImage(MobileUserAllInfo mobileUserAllInfo) {
+		SysFile sysFile = new SysFile();
+		sysFile.setCreateDate(new Date());
+		sysFile.setIsDel(0);
+		sysFile.setIsForbidden(0);
+		sysFile.setVersion(0);
+		sysFile.setCreateUser(mobileUserAllInfo.getUserId());
+		sysFile.setFilePath(mobileUserAllInfo.getImageFilePath());
+		sysFileMapper.insertSelective(sysFile);
 		UserInfo userInfo = new UserInfo();
 		userInfo.setId(mobileUserAllInfo.getUserId());
-		userInfo.setHeadImageFileId(mobileUserAllInfo.getImageId());
+		userInfo.setHeadImageFileId(sysFile.getId());
 		userInfo.setUserName(mobileUserAllInfo.getUserName());
 		userInfo.setUpdateDate(new Date());
 		userInfo.setUpdateUser(mobileUserAllInfo.getUserId());

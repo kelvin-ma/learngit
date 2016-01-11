@@ -47,6 +47,8 @@ public class MobileUserRegisterServiceImpl implements MobileUserRegisterService{
 		UserLogin user = new UserLogin();
 		user.setIsDel(0);
 		user.setIsForbidden(0);
+		user.setVersion(0);
+		user.setUserId(mobileUserRegister.getUserId());
 		user.setUserPhone(mobileUserRegister.getPhone());
 		user.setUserPwd(mobileUserRegister.getPwd());
 		List<UserLogin> userList = userLoginMapper.selectByPhone(user);
@@ -65,7 +67,7 @@ public class MobileUserRegisterServiceImpl implements MobileUserRegisterService{
 		user.setIsForbidden(0);
 		user.setUserPhone(mobileUserRegister.getPhone());
 		List<UserLogin> userList = userLoginMapper.selectByPhone(user);
-		if(null == userList && userList.size()!=1){
+		if(null == userList || userList.size()!=1){
 			return 0;
 		}
 		user = userList.get(0);

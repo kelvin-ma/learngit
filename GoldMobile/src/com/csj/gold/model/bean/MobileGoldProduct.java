@@ -1,6 +1,5 @@
 package com.csj.gold.model.bean;
 
-import com.sun.istack.internal.NotNull;
 
 public class MobileGoldProduct {
 	// 产品ID

@@ -15,11 +15,13 @@ import com.csj.gold.mobile.vo.MobileGoldProductResult;
 import com.csj.gold.mobile.vo.MobileGoldProductVO;
 import com.csj.gold.model.bean.MobileGoldProduct;
 import com.csj.gold.service.MobileGoldProductService;
+import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
 import com.csj.gold.utils.page.Page;
 @Controller
 @RequestMapping("/product")
 public class MobileGoldProductController {
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileGoldProductController.class);
 	
 	@Resource
@@ -50,8 +52,10 @@ public class MobileGoldProductController {
 				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
 				resutlProductList.add(mobileGoldProductVO);
 			}
+			mobileGoldProductResult.setResultCode("2001");
 			mobileGoldProductResult.setResultDesc("Success!!!");
 		}else{
+			mobileGoldProductResult.setResultCode("2002");
 			mobileGoldProductResult.setResultDesc("No Data!!!");
 		}
 		mobileGoldProductResult.setData(resutlProductList);
@@ -61,7 +65,13 @@ public class MobileGoldProductController {
 	@RequestMapping("/searchDetail")  
     public String searchDetail(MobileGoldProductParams mobileGoldProductParams){
 		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();
+		if(!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhone())||!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhoneCode())){
+			mobileGoldProductResult.setResultCode("3004");
+			mobileGoldProductResult.setResultDesc("No parameter!!!");
+			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
+		}
 		if(null == mobileGoldProductParams.getProductId()){
+			mobileGoldProductResult.setResultCode("3005");
 			mobileGoldProductResult.setResultDesc("Wrong Product ID！！！！");
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
@@ -89,8 +99,10 @@ public class MobileGoldProductController {
 				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
 				resutlProductList.add(mobileGoldProductVO);
 			}
+			mobileGoldProductResult.setResultCode("2001");
 			mobileGoldProductResult.setResultDesc("Success !!!");
 		}else{
+			mobileGoldProductResult.setResultCode("2002");
 			mobileGoldProductResult.setResultDesc("No Data !!!!!");
 		}
 		mobileGoldProductResult.setData(resutlProductList);

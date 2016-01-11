@@ -1,5 +1,7 @@
 package com.csj.gold.mobile.vo;
 
+import java.io.File;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class MobileUserAllInfoParams extends MobileParams {
@@ -12,7 +14,9 @@ public class MobileUserAllInfoParams extends MobileParams {
 	private String newPassword = null;
 
 	private MultipartFile userImage = null;
-
+	
+	private File image ;
+	
 	public String getCertNo() {
 		return certNo;
 	}
@@ -51,6 +55,14 @@ public class MobileUserAllInfoParams extends MobileParams {
 
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+
+	public File getImage() {
+		return image;
+	}
+
+	public void setImage(File image) {
+		this.image = image;
 	}
 
 }

@@ -50,6 +50,8 @@ public class MapCacheManager {
 
 		/********** 数据处理，将数据放入cacheMap缓存中 **begin ******/
 		cacheMap.put("sessionMap",new HashMap<String,HttpSession>());
+		cacheMap.put("messageCodeMap", new HashMap<String,Map<String,Integer>>());
+		cacheMap.put("systemProperties",new HashMap<String,String>());
 //		cacheMap.put("key1", "value1");
 //		cacheMap.put("key2", "value2");
 //		cacheMap.put("key3", "value3");
@@ -67,7 +69,6 @@ public class MapCacheManager {
 	 * @return
 	 */
 	public Map<String, Object> getMapCache() {
-
 		long currentTime = System.currentTimeMillis();
 
 		if (this.updateFlag) {// 前缓存正在更新

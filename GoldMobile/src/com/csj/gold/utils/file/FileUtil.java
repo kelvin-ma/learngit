@@ -4,17 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
 
+import com.csj.gold.utils.StaticValues;
+import com.csj.gold.utils.SystemPropertiesUtils;
+
 public class FileUtil {
-	public static final String PARENT_FLODER_PATH = "/upload/"; //父文件目录
 	  
     //文件上传  
     public static String uploadFile(MultipartFile file) throws IOException {  
         String fileName = file.getOriginalFilename();  //上传时的名称
-        File tempFile = new File(PARENT_FLODER_PATH, new Date().getTime() + String.valueOf(fileName));  
+        File tempFile = new File(SystemPropertiesUtils.getSystemProperties(StaticValues.SAVE_IMAGE_FILE_PATH), new Date().getTime() + String.valueOf(fileName));  
         if (!tempFile.getParentFile().exists()) {  
             tempFile.getParentFile().mkdir();  
         }  
@@ -26,6 +26,6 @@ public class FileUtil {
     }  
   
     public static File getFile(String fileName) {  
-        return new File(PARENT_FLODER_PATH, fileName);  
+        return new File(SystemPropertiesUtils.getSystemProperties(StaticValues.SAVE_IMAGE_FILE_PATH), fileName);  
     }  
 }

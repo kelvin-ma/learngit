@@ -1,6 +1,5 @@
 package com.csj.gold.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class GoldPrice {
