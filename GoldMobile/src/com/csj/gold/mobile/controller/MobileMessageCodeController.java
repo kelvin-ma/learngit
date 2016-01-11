@@ -46,7 +46,7 @@ public class MobileMessageCodeController {
 						.getPhone())
 				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
 						.getPhoneCode())) {
-			mobileMessageCodeResult.setResultCode("3001");
+			mobileMessageCodeResult.setResultCode("3004");
 			mobileMessageCodeResult.setResultDesc("No parameter");
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
@@ -59,7 +59,7 @@ public class MobileMessageCodeController {
 						.getPhone());
 		if (mobileMessageCodeParams.getTypeCode().equals("register")) {
 			if (null != userLogin && userLogin.size() > 0) {
-				mobileMessageCodeResult.setResultCode("3001");
+				mobileMessageCodeResult.setResultCode("3006");
 				mobileMessageCodeResult.setResultDesc("Exsit Phone!!!!");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -80,7 +80,7 @@ public class MobileMessageCodeController {
 		} else if (mobileMessageCodeParams.getTypeCode().equals(
 				"forgetPassword")) {
 			if (null == userLogin || userLogin.size() == 0) {
-				mobileMessageCodeResult.setResultCode("3001");
+				mobileMessageCodeResult.setResultCode("3010");
 				mobileMessageCodeResult.setResultDesc("No Phone!!!!");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -100,7 +100,7 @@ public class MobileMessageCodeController {
 				mobileMessageCodeResult.setResultDesc("UnSuccess!!!!!");
 			}
 		} else {
-			mobileMessageCodeResult.setResultCode("3001");
+			mobileMessageCodeResult.setResultCode("3005");
 			mobileMessageCodeResult.setResultDesc("Wrong parameter");
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
@@ -125,7 +125,7 @@ public class MobileMessageCodeController {
 						.getMessageCode())
 				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
 						.getPhoneCode())) {
-			mobileMessageCodeResult.setResultCode("3001");
+			mobileMessageCodeResult.setResultCode("3004");
 			mobileMessageCodeResult.setResultDesc("No parameter");
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
@@ -134,11 +134,10 @@ public class MobileMessageCodeController {
 						.getPhone());
 		if (mobileMessageCodeParams.getTypeCode().equals("register")) {
 
-			if (null != userMap
+			if (null == userMap
 					.get(MobileMessageCodeController.CHECK_REGISTER_CODE)
-					&& userMap
-							.get(MobileMessageCodeController.CHECK_REGISTER_CODE) != 0) {
-				mobileMessageCodeResult.setResultCode("3001");
+					|| userMap.get(MobileMessageCodeController.CHECK_REGISTER_CODE) != 0) {
+				mobileMessageCodeResult.setResultCode("3007");
 				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -149,8 +148,8 @@ public class MobileMessageCodeController {
 					.get(mobileMessageCodeParams.getPhone()
 							+ InterfaceEnum.USER_REGISTER);
 			if (null == sendMessage) {
-				mobileMessageCodeResult.setResultCode("3001");
-				mobileMessageCodeResult.setResultDesc("No Data");
+				mobileMessageCodeResult.setResultCode("3007");
+				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
@@ -167,7 +166,7 @@ public class MobileMessageCodeController {
 				"forgetPassword")) {
 			if (userMap
 					.get(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE) != 0) {
-				mobileMessageCodeResult.setResultCode("3001");
+				mobileMessageCodeResult.setResultCode("3007");
 				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
@@ -178,8 +177,8 @@ public class MobileMessageCodeController {
 					.get(mobileMessageCodeParams.getPhone()
 							+ InterfaceEnum.FORGET_PASSWORD);
 			if (null == sendMessage) {
-				mobileMessageCodeResult.setResultCode("3001");
-				mobileMessageCodeResult.setResultDesc("No Data");
+				mobileMessageCodeResult.setResultCode("3007");
+				mobileMessageCodeResult.setResultDesc("Wrong Process");
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}

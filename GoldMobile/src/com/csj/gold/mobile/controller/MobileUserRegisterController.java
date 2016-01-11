@@ -55,7 +55,7 @@ public class MobileUserRegisterController {
 			if (null != sessionInMap
 					&& null != sessionInMap.getAttribute("imageCode")) {
 				if (null == mobileUserRegisterParams.getImageCode()) {
-					mobileUserRegisterResult.setResultCode("3001");
+					mobileUserRegisterResult.setResultCode("3009");
 					mobileUserRegisterResult.setResultDesc("No ImageCode！！！");
 					return JsonConvert.getInstance().toJson(
 							mobileUserRegisterResult);
@@ -63,7 +63,7 @@ public class MobileUserRegisterController {
 						.getImageCode()
 						.equalsIgnoreCase(
 								(String) sessionInMap.getAttribute("imageCode"))) {
-					mobileUserRegisterResult.setResultCode("3001");
+					mobileUserRegisterResult.setResultCode("3008");
 					mobileUserRegisterResult.setResultDesc("Wrong ImageCode");
 					return JsonConvert.getInstance().toJson(
 							mobileUserRegisterResult);
@@ -74,10 +74,10 @@ public class MobileUserRegisterController {
 					.searchByUserPhone(mobileUserRegister);
 			mobileUserRegister = null;
 			if (userList == null || userList.size() == 0) {
-				mobileUserRegisterResult.setResultCode("3001");
+				mobileUserRegisterResult.setResultCode("3010");
 				mobileUserRegisterResult.setResultDesc("No User");
 			} else if (userList.size() > 1) {
-				mobileUserRegisterResult.setResultCode("3001");
+				mobileUserRegisterResult.setResultCode("3011");
 				mobileUserRegisterResult.setResultDesc("Too Many User");
 			} else {
 				mobileUserRegister = userList.get(0);
@@ -91,7 +91,7 @@ public class MobileUserRegisterController {
 					sessionMap
 							.put(mobileUserRegisterParams.getPhone(), session);
 				} else {
-					mobileUserRegisterResult.setResultCode("3001");
+					mobileUserRegisterResult.setResultCode("3012");
 					mobileUserRegisterResult.setResultDesc("Password Error");
 					try {
 						errorCount = (Integer) session
@@ -104,7 +104,7 @@ public class MobileUserRegisterController {
 				}
 			}
 		}else{
-			mobileUserRegisterResult.setResultCode("3001");
+			mobileUserRegisterResult.setResultCode("3005");
 			mobileUserRegisterResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
@@ -120,7 +120,7 @@ public class MobileUserRegisterController {
 				&& StringUtils.checkStringNullAndEmpty(mobileUserRegisterParams.getPassword())
 				&& StringUtils.checkStringNullAndEmpty(mobileUserRegisterParams.getPhoneCode())) {
 			if(!MobileControllerUtils.checkMessageWasChecked(mobileUserRegisterParams.getPhone(), MobileMessageCodeController.CHECK_REGISTER_CODE)){
-				mobileUserRegisterResult.setResultCode("3001");
+				mobileUserRegisterResult.setResultCode("3007");
 				mobileUserRegisterResult.setResultDesc("Wrong Process！！");
 				return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
 			}
@@ -129,7 +129,7 @@ public class MobileUserRegisterController {
 					.searchByUserPhone(mobileUserRegister);
 			mobileUserRegister = null;
 			if (null != userList && userList.size() > 0) {
-				mobileUserRegisterResult.setResultCode("3001");
+				mobileUserRegisterResult.setResultCode("3013");
 				mobileUserRegisterResult.setResultDesc("Already Exist Phone！！");
 				return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
 			} else {
@@ -162,7 +162,7 @@ public class MobileUserRegisterController {
 			}
 
 		}else{
-			mobileUserRegisterResult.setResultCode("3001");
+			mobileUserRegisterResult.setResultCode("3005");
 			mobileUserRegisterResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserRegisterResult);
@@ -185,10 +185,11 @@ public class MobileUserRegisterController {
 				sessionMap.remove(mobileLogoutParams.getPhone());
 				//短信相关业务全部取消
 				MobileControllerUtils.getMessageCodeMap().put(mobileLogoutParams.getPhone(), null);
+				mobileLogoutResult.setResultCode("2001");
 				mobileLogoutResult.setResultDesc("Logout !!!!!");
 			}
 		} else {
-			mobileLogoutResult.setResultCode("3001");
+			mobileLogoutResult.setResultCode("3005");
 			mobileLogoutResult.setResultDesc("Wrong parameter");
 		}
 		return JsonConvert.getInstance().toJson(mobileLogoutResult);
@@ -203,7 +204,7 @@ public class MobileUserRegisterController {
 		if (null != mobileForgetPasswordParams.getPhone()
 				&& mobileForgetPasswordParams.getPhone().trim().length() > 0) {
 			if(!MobileControllerUtils.checkMessageWasChecked(mobileForgetPasswordParams.getPhone(), MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE)){
-				mobileForgetPasswordResult.setResultCode("3001");
+				mobileForgetPasswordResult.setResultCode("3007");
 				mobileForgetPasswordResult.setResultDesc("Wrong Process！！");
 				return JsonConvert.getInstance().toJson(mobileForgetPasswordResult);
 			}
@@ -215,10 +216,10 @@ public class MobileUserRegisterController {
 				List<MobileUserRegister> userList = mobileUserRegisterService
 						.searchByUserPhone(mobileUserRegister);
 				if (null == userList || userList.size() == 0) {
-					mobileForgetPasswordResult.setResultCode("3001");
+					mobileForgetPasswordResult.setResultCode("3010");
 					mobileForgetPasswordResult.setResultDesc("No User");
 				} else if (userList.size() > 1) {
-					mobileForgetPasswordResult.setResultCode("3001");
+					mobileForgetPasswordResult.setResultCode("3011");
 					mobileForgetPasswordResult.setResultDesc("Too Many User");
 				} else {
 					mobileUserRegister.setPwd(mobileForgetPasswordParams
@@ -236,11 +237,11 @@ public class MobileUserRegisterController {
 					}
 				}
 			}else{
-				mobileForgetPasswordResult.setResultCode("3001");
+				mobileForgetPasswordResult.setResultCode("3005");
 				mobileForgetPasswordResult.setResultDesc("No Password！！");
 			}
 		} else {
-			mobileForgetPasswordResult.setResultCode("3001");
+			mobileForgetPasswordResult.setResultCode("3005");
 			mobileForgetPasswordResult.setResultDesc("No Phone！！");
 		}
 		return JsonConvert.getInstance().toJson(mobileForgetPasswordResult);

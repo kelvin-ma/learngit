@@ -56,7 +56,7 @@ public class MobileSaveGoldController {
 			mobileSaveGoldResult.setResultCode("2001");
 			mobileSaveGoldResult.setResultDesc("Success");
 		}else{
-			mobileSaveGoldResult.setResultCode("3001");
+			mobileSaveGoldResult.setResultCode("2002");
 			mobileSaveGoldResult.setResultDesc("No Data");
 		}
 		mobileSaveGoldResult.setBankDatas(resutlBankList);

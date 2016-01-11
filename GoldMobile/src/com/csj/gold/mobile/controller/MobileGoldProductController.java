@@ -31,11 +31,6 @@ public class MobileGoldProductController {
 	@RequestMapping("/searchAll")  
     public String searchAll(MobileGoldProductParams mobileGoldProductParams){
 		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();
-		if(!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhone())||!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhoneCode())){
-			mobileGoldProductResult.setResultCode("3001");
-			mobileGoldProductResult.setResultDesc("No parameter!!!");
-			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
-		}
 		List<MobileGoldProductVO> resutlProductList = new ArrayList<MobileGoldProductVO>();
 		List<MobileGoldProduct> productListTemp = mobileGoldProductService.searchAll();
 		MobileGoldProductVO mobileGoldProductVO  = null;
@@ -57,8 +52,10 @@ public class MobileGoldProductController {
 				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
 				resutlProductList.add(mobileGoldProductVO);
 			}
+			mobileGoldProductResult.setResultCode("2001");
 			mobileGoldProductResult.setResultDesc("Success!!!");
 		}else{
+			mobileGoldProductResult.setResultCode("2002");
 			mobileGoldProductResult.setResultDesc("No Data!!!");
 		}
 		mobileGoldProductResult.setData(resutlProductList);
@@ -69,12 +66,12 @@ public class MobileGoldProductController {
     public String searchDetail(MobileGoldProductParams mobileGoldProductParams){
 		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();
 		if(!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhone())||!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhoneCode())){
-			mobileGoldProductResult.setResultCode("3001");
+			mobileGoldProductResult.setResultCode("3004");
 			mobileGoldProductResult.setResultDesc("No parameter!!!");
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
 		if(null == mobileGoldProductParams.getProductId()){
-			mobileGoldProductResult.setResultCode("3001");
+			mobileGoldProductResult.setResultCode("3005");
 			mobileGoldProductResult.setResultDesc("Wrong Product ID！！！！");
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
@@ -105,7 +102,7 @@ public class MobileGoldProductController {
 			mobileGoldProductResult.setResultCode("2001");
 			mobileGoldProductResult.setResultDesc("Success !!!");
 		}else{
-			mobileGoldProductResult.setResultCode("3001");
+			mobileGoldProductResult.setResultCode("2002");
 			mobileGoldProductResult.setResultDesc("No Data !!!!!");
 		}
 		mobileGoldProductResult.setData(resutlProductList);

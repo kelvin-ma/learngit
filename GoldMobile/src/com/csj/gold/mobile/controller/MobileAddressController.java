@@ -39,21 +39,27 @@ public class MobileAddressController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAddressParams.getPhone(),
 					mobileUserAddressParams.getPhoneCode())) {
+				mobileUserAddressResult.setResultCode("3002");
 				mobileUserAddressResult.setResultDesc("Not Login");
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAddressResult);
 			}
-			List<MobileUserAddressVO> resutlAddressList = null;
+			List<MobileUserAddressVO> resultAddressList = null;
 			UserAddress userAddress = new UserAddress();
-			userAddress.setUserId(mobileUserAddressParams.getUserId());
+			userAddress.setUserId(MobileControllerUtils.getMobileUserAllInfoFromSession(mobileUserAddressParams.getPhone()).getUserId());
 			List<UserAddress> addressListTemp = mobileUserAddressService
 					.searchByUserId(userAddress);
-			resutlAddressList = traceToMobileUserAddressVOList(addressListTemp);
-			if (null == resutlAddressList) {
-				resutlAddressList = new ArrayList<MobileUserAddressVO>();
+			resultAddressList = traceToMobileUserAddressVOList(addressListTemp);
+			if (resultAddressList.size()==0) {
+				mobileUserAddressResult.setResultCode("2002");
+				mobileUserAddressResult.setResultDesc("No Data");
+			}else{
+				mobileUserAddressResult.setResultCode("2001");
+				mobileUserAddressResult.setResultDesc("Success");
 			}
-			mobileUserAddressResult.setData(resutlAddressList);
+			mobileUserAddressResult.setData(resultAddressList);
 		} else {
+			mobileUserAddressResult.setResultCode("3005");
 			mobileUserAddressResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
@@ -72,6 +78,7 @@ public class MobileAddressController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAddressParams.getPhone(),
 					mobileUserAddressParams.getPhoneCode())) {
+				mobileUserAddressResult.setResultCode("3002");
 				mobileUserAddressResult.setResultDesc("Not Login");
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAddressResult);
@@ -81,6 +88,7 @@ public class MobileAddressController {
 			userAddress.setUserId(mobileUserAddressParams.getUserId());
 			userAddress.setId(mobileUserAddressParams.getAddressId());
 			if(mobileUserAddressService.changeMainAddress(userAddress)==0){
+				mobileUserAddressResult.setResultCode("3003");
 				mobileUserAddressResult.setResultDesc("Unsuccesss");
 				return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 			}
@@ -89,6 +97,7 @@ public class MobileAddressController {
 			resutlAddressList = traceToMobileUserAddressVOList(addressListTemp);
 			mobileUserAddressResult.setData(resutlAddressList);
 		} else {
+			mobileUserAddressResult.setResultCode("3004");
 			mobileUserAddressResult.setResultDesc("Wrong parameters");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
@@ -106,6 +115,7 @@ public class MobileAddressController {
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAddressParams.getPhone(),
 				mobileUserAddressParams.getPhoneCode())) {
+			mobileUserAddressResult.setResultCode("3002");
 			mobileUserAddressResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 		}
@@ -140,6 +150,7 @@ public class MobileAddressController {
 				mobileUserAddressParams.getPhone(),
 				mobileUserAddressParams.getPhoneCode())) {
 			mobileUserAddressResult.setResultDesc("Not Login");
+			mobileUserAddressResult.setResultCode("3002");
 			return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 		}
 		UserAddress userAddressTemp = mobileUserAddressService
@@ -174,6 +185,7 @@ public class MobileAddressController {
 				mobileUserAddressParams.getPhone(),
 				mobileUserAddressParams.getPhoneCode())) {
 			mobileUserAddressResult.setResultDesc("Not Login");
+			mobileUserAddressResult.setResultCode("3002");
 			return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 		}
 		List<MobileUserAddressVO> resutlAddressList = null;

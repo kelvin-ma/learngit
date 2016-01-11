@@ -33,15 +33,6 @@ public class MobileAdvertisementController {
 	public String searchByUserId(
 			MobileAdvertisementParams mobileAdvertisementParams) {
 		MobileAdvertisementResult mobileAdvertisementResult = new MobileAdvertisementResult();
-		if (!StringUtils.checkStringNullAndEmpty(mobileAdvertisementParams
-				.getPhone())
-				|| !StringUtils
-						.checkStringNullAndEmpty(mobileAdvertisementParams
-								.getPhoneCode())) {
-			mobileAdvertisementResult.setResultCode("3001");
-			mobileAdvertisementResult.setResultDesc("No parameter!!!");
-			return JsonConvert.getInstance().toJson(mobileAdvertisementResult);
-		}
 		List<MobileAdvertisementVO> resultList = new ArrayList<MobileAdvertisementVO>();
 		List<MobileAdvertisement> advertisementListTemp = mobileAdvertisementService
 				.searchAll();
@@ -63,7 +54,7 @@ public class MobileAdvertisementController {
 			mobileAdvertisementResult.setResultDesc("success");
 			mobileAdvertisementResult.setDatas(resultList);
 		} else {
-			mobileAdvertisementResult.setResultCode("3001");
+			mobileAdvertisementResult.setResultCode("2002");
 			mobileAdvertisementResult.setResultDesc("No Datas");
 		}
 		return JsonConvert.getInstance().toJson(mobileAdvertisementResult);

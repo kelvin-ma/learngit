@@ -42,15 +42,15 @@ public class MobileUserAllInfoController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAllInfoParams.getPhone(),
 					mobileUserAllInfoParams.getPhoneCode())) {
-				mobileUserAllInfoResult.setResultCode("3001");
+				mobileUserAllInfoResult.setResultCode("3002");
 				mobileUserAllInfoResult.setResultDesc("Not Login");
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAllInfoResult);
 			}
 			Long id = MobileControllerUtils.getUserIdFromSession(mobileUserAllInfoParams.getPhone());
 			if(null == id || id < 1){
-				mobileUserAllInfoResult.setResultCode("3001");
-				mobileUserAllInfoResult.setResultDesc("Unsuccess");
+				mobileUserAllInfoResult.setResultCode("3005");
+				mobileUserAllInfoResult.setResultDesc("Wrong Parameter");
 				return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 			}
 			mobileUserAllInfo.setUserId(id);
@@ -75,10 +75,11 @@ public class MobileUserAllInfoController {
 						.setUserAllInfoToSession(mobileUserAllInfo);
 			}
 			mobileUserAllInfoResult.setResultCode("2001");
+			mobileUserAllInfoResult.setResultDesc("Success");
 			mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
 		} else {
 			mobileUserAllInfoResult.setResultDesc("Wrong parameter");
-			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultCode("3005");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}
@@ -91,7 +92,7 @@ public class MobileUserAllInfoController {
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAllInfoParams.getPhone(),
 				mobileUserAllInfoParams.getPhoneCode())) {
-			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultCode("3002");
 			mobileUserAllInfoResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
@@ -141,14 +142,14 @@ public class MobileUserAllInfoController {
 				|| !StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
 						.getPhoneCode())
 				|| null == mobileUserAllInfoParams.getUserImage()) {
-			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultCode("3005");
 			mobileUserAllInfoResult.setResultDesc("Wrong parameters");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAllInfoParams.getPhone(),
 				mobileUserAllInfoParams.getPhoneCode())) {
-			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultCode("3002");
 			mobileUserAllInfoResult.setResultDesc("Not Login");
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
@@ -171,8 +172,8 @@ public class MobileUserAllInfoController {
 			mobileUserAllInfoResult.setResultCode("2001");
 			mobileUserAllInfoResult.setResultDesc("Success");
 		} else {
-			mobileUserAllInfoResult.setResultCode("3001");
-			mobileUserAllInfoResult.setResultDesc("Unsuccess");
+			mobileUserAllInfoResult.setResultCode("3002");
+			mobileUserAllInfoResult.setResultDesc("Not login");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}
@@ -192,7 +193,7 @@ public class MobileUserAllInfoController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAllInfoParams.getPhone(),
 					mobileUserAllInfoParams.getPhoneCode())) {
-				mobileUserAllInfoResult.setResultCode("3001");
+				mobileUserAllInfoResult.setResultCode("3002");
 				mobileUserAllInfoResult.setResultDesc("Not Login");
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAllInfoResult);
@@ -210,16 +211,16 @@ public class MobileUserAllInfoController {
 					mobileUserAllInfoResult.setResultDesc("Success");
 					mobileUserAllInfoResult.setResultCode("2001");
 				} else {
-					mobileUserAllInfoResult.setResultDesc("Unsuccess");
+					mobileUserAllInfoResult.setResultDesc("Not Login");
 					mobileUserAllInfoResult.setResultCode("3001");
 				}
 			} else {
-				mobileUserAllInfoResult.setResultDesc("Unsuccess");
-				mobileUserAllInfoResult.setResultCode("3001");
+				mobileUserAllInfoResult.setResultDesc("Not Login");
+				mobileUserAllInfoResult.setResultCode("3002");
 			}
 		} else {
 			mobileUserAllInfoResult.setResultDesc("Wrong parameter");
-			mobileUserAllInfoResult.setResultCode("3001");
+			mobileUserAllInfoResult.setResultCode("3005");
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}

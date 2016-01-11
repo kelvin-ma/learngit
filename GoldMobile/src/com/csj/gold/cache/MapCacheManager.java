@@ -69,7 +69,6 @@ public class MapCacheManager {
 	 * @return
 	 */
 	public Map<String, Object> getMapCache() {
-
 		long currentTime = System.currentTimeMillis();
 
 		if (this.updateFlag) {// 前缓存正在更新
