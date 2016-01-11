@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.csj.gold.mobile.common.MobileStateConstants;
 import com.csj.gold.mobile.vo.MobileUserAddressParams;
 import com.csj.gold.mobile.vo.MobileUserAddressResult;
 import com.csj.gold.mobile.vo.MobileUserAddressVO;
@@ -39,8 +40,8 @@ public class MobileAddressController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAddressParams.getPhone(),
 					mobileUserAddressParams.getPhoneCode())) {
-				mobileUserAddressResult.setResultCode("3002");
-				mobileUserAddressResult.setResultDesc("Not Login");
+				mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
+				mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAddressResult);
 			}
@@ -51,16 +52,16 @@ public class MobileAddressController {
 					.searchByUserId(userAddress);
 			resultAddressList = traceToMobileUserAddressVOList(addressListTemp);
 			if (resultAddressList.size()==0) {
-				mobileUserAddressResult.setResultCode("2002");
-				mobileUserAddressResult.setResultDesc("No Data");
+				mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
+				mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
 			}else{
-				mobileUserAddressResult.setResultCode("2001");
-				mobileUserAddressResult.setResultDesc("Success");
+				mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
+				mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
 			}
 			mobileUserAddressResult.setData(resultAddressList);
 		} else {
-			mobileUserAddressResult.setResultCode("3005");
-			mobileUserAddressResult.setResultDesc("Wrong parameters");
+			mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
+			mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getName());
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 	}
@@ -78,8 +79,8 @@ public class MobileAddressController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAddressParams.getPhone(),
 					mobileUserAddressParams.getPhoneCode())) {
-				mobileUserAddressResult.setResultCode("3002");
-				mobileUserAddressResult.setResultDesc("Not Login");
+				mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
+				mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAddressResult);
 			}
@@ -88,8 +89,8 @@ public class MobileAddressController {
 			userAddress.setUserId(mobileUserAddressParams.getUserId());
 			userAddress.setId(mobileUserAddressParams.getAddressId());
 			if(mobileUserAddressService.changeMainAddress(userAddress)==0){
-				mobileUserAddressResult.setResultCode("3003");
-				mobileUserAddressResult.setResultDesc("Unsuccesss");
+				mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.UPDATE_FAULE.getIndex()));
+				mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.UPDATE_FAULE.getName());
 				return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 			}
 			List<UserAddress> addressListTemp = mobileUserAddressService
@@ -97,8 +98,8 @@ public class MobileAddressController {
 			resutlAddressList = traceToMobileUserAddressVOList(addressListTemp);
 			mobileUserAddressResult.setData(resutlAddressList);
 		} else {
-			mobileUserAddressResult.setResultCode("3004");
-			mobileUserAddressResult.setResultDesc("Wrong parameters");
+			mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getIndex()));
+			mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getName());
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 	}
@@ -115,8 +116,8 @@ public class MobileAddressController {
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAddressParams.getPhone(),
 				mobileUserAddressParams.getPhoneCode())) {
-			mobileUserAddressResult.setResultCode("3002");
-			mobileUserAddressResult.setResultDesc("Not Login");
+			mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
+			mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
 			return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 		}
 		List<MobileUserAddressVO> resutlAddressList = null;
@@ -149,8 +150,8 @@ public class MobileAddressController {
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAddressParams.getPhone(),
 				mobileUserAddressParams.getPhoneCode())) {
-			mobileUserAddressResult.setResultDesc("Not Login");
-			mobileUserAddressResult.setResultCode("3002");
+			mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
+			mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
 			return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 		}
 		UserAddress userAddressTemp = mobileUserAddressService
@@ -184,8 +185,8 @@ public class MobileAddressController {
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAddressParams.getPhone(),
 				mobileUserAddressParams.getPhoneCode())) {
-			mobileUserAddressResult.setResultDesc("Not Login");
-			mobileUserAddressResult.setResultCode("3002");
+			mobileUserAddressResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
+			mobileUserAddressResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
 			return JsonConvert.getInstance().toJson(mobileUserAddressResult);
 		}
 		List<MobileUserAddressVO> resutlAddressList = null;

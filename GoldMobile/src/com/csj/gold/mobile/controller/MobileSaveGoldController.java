@@ -10,14 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.csj.gold.mobile.common.MobileStateConstants;
 import com.csj.gold.mobile.vo.MobileSaveGoldParams;
 import com.csj.gold.mobile.vo.MobileSaveGoldResult;
 import com.csj.gold.mobile.vo.MobileShopVO;
-import com.csj.gold.model.SysShop;
 import com.csj.gold.model.bean.MobileShop;
 import com.csj.gold.service.MobileShopService;
 import com.csj.gold.utils.json.JsonConvert;
-import com.csj.gold.utils.page.Page;
 @Controller
 @RequestMapping("/saveGold")
 public class MobileSaveGoldController {
@@ -53,11 +52,11 @@ public class MobileSaveGoldController {
 					}
 				}
 			}
-			mobileSaveGoldResult.setResultCode("2001");
-			mobileSaveGoldResult.setResultDesc("Success");
+			mobileSaveGoldResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
+			mobileSaveGoldResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
 		}else{
-			mobileSaveGoldResult.setResultCode("2002");
-			mobileSaveGoldResult.setResultDesc("No Data");
+			mobileSaveGoldResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
+			mobileSaveGoldResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
 		}
 		mobileSaveGoldResult.setBankDatas(resutlBankList);
 		mobileSaveGoldResult.setShopDatas(resutlShopList);

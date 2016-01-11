@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.csj.gold.mobile.common.MobileStateConstants;
 import com.csj.gold.mobile.vo.MobileGoldProductParams;
 import com.csj.gold.mobile.vo.MobileGoldProductResult;
 import com.csj.gold.mobile.vo.MobileGoldProductVO;
@@ -52,11 +53,11 @@ public class MobileGoldProductController {
 				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
 				resutlProductList.add(mobileGoldProductVO);
 			}
-			mobileGoldProductResult.setResultCode("2001");
-			mobileGoldProductResult.setResultDesc("Success!!!");
+			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
+			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
 		}else{
-			mobileGoldProductResult.setResultCode("2002");
-			mobileGoldProductResult.setResultDesc("No Data!!!");
+			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
+			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
 		}
 		mobileGoldProductResult.setData(resutlProductList);
 		return JsonConvert.getInstance().toJson(mobileGoldProductResult);
@@ -66,13 +67,13 @@ public class MobileGoldProductController {
     public String searchDetail(MobileGoldProductParams mobileGoldProductParams){
 		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();
 		if(!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhone())||!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhoneCode())){
-			mobileGoldProductResult.setResultCode("3004");
-			mobileGoldProductResult.setResultDesc("No parameter!!!");
+			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getIndex()));
+			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getName());
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
 		if(null == mobileGoldProductParams.getProductId()){
-			mobileGoldProductResult.setResultCode("3005");
-			mobileGoldProductResult.setResultDesc("Wrong Product ID！！！！");
+			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
+			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getName());
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
 		List<MobileGoldProductVO> resutlProductList = new ArrayList<MobileGoldProductVO>();
@@ -99,11 +100,11 @@ public class MobileGoldProductController {
 				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
 				resutlProductList.add(mobileGoldProductVO);
 			}
-			mobileGoldProductResult.setResultCode("2001");
-			mobileGoldProductResult.setResultDesc("Success !!!");
+			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
+			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
 		}else{
-			mobileGoldProductResult.setResultCode("2002");
-			mobileGoldProductResult.setResultDesc("No Data !!!!!");
+			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
+			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
 		}
 		mobileGoldProductResult.setData(resutlProductList);
 		return JsonConvert.getInstance().toJson(mobileGoldProductResult);
