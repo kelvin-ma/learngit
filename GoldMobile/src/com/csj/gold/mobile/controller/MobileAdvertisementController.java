@@ -19,7 +19,7 @@ import com.csj.gold.service.MobileAdvertisementService;
 import com.csj.gold.utils.json.JsonConvert;
 
 @Controller
-@RequestMapping("/advertisement")
+@RequestMapping(value="/advertisement",produces="text/html;charset=UTF-8")
 public class MobileAdvertisementController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger

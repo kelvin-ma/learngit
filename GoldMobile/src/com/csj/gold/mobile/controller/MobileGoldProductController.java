@@ -20,7 +20,7 @@ import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
 import com.csj.gold.utils.page.Page;
 @Controller
-@RequestMapping("/product")
+@RequestMapping(value="/product",produces="text/html;charset=UTF-8")
 public class MobileGoldProductController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileGoldProductController.class);

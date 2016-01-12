@@ -29,10 +29,8 @@ public class MobileUserAddressServiceImpl implements MobileUserAddressService {
 
 	@Override
 	public int changeMainAddress(UserAddress userAddress) {
-		if(userAddressMapper.resetMainAddress(userAddress)>0){
+		userAddressMapper.resetMainAddress(userAddress);
 			return userAddressMapper.setMainAddress(userAddress);
-		}
-		return 0;
 	}
 
 	@Override

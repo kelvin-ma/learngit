@@ -21,14 +21,16 @@ import com.csj.gold.mobile.vo.MobileLogoutResult;
 import com.csj.gold.mobile.vo.MobileUserRegisterParams;
 import com.csj.gold.mobile.vo.MobileUserRegisterResult;
 import com.csj.gold.model.UserInfo;
+import com.csj.gold.model.bean.MobileUserAllInfo;
 import com.csj.gold.model.bean.MobileUserRegister;
+import com.csj.gold.service.MobileUserAllInfoService;
 import com.csj.gold.service.MobileUserRegisterService;
 import com.csj.gold.service.UserInfoService;
 import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping(value="/register",produces="text/html;charset=UTF-8")
 public class MobileUserRegisterController {
 	private static Logger logger = Logger
 			.getLogger(MobileUserRegisterController.class);
@@ -38,6 +40,9 @@ public class MobileUserRegisterController {
 
 	@Resource
 	private UserInfoService userInfoService;
+	
+	@Resource
+	private MobileUserAllInfoService mobileUserAllInfoService;
 
 	@ResponseBody
 	@RequestMapping("/login")
@@ -89,6 +94,11 @@ public class MobileUserRegisterController {
 					session.setAttribute("userId", mobileUserRegister.getUserId());
 					session.setAttribute("phoneCode",
 							mobileUserRegisterParams.getPhoneCode());
+					MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
+					mobileUserAllInfo.setUserId(mobileUserRegister.getUserId());
+					mobileUserAllInfo = mobileUserAllInfoService.searchByUserId(mobileUserAllInfo);
+					System.out.println("Login:"+mobileUserAllInfo.getUserId());
+					session.setAttribute("mobileUserAllInfo",mobileUserAllInfo);
 					sessionMap
 							.put(mobileUserRegisterParams.getPhone(), session);
 				} else {

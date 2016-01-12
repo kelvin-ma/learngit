@@ -37,7 +37,7 @@
 	) AS bd
   </sql>
   <sql id="MobileUserAllInfo_Column_List">
-  	ui.user_name,ui.phone,ui.cert_no,sf.file_path as image_file_path,bd.dic_name,uib.bank_code,bd.dic_name as bank_name,uib.card_number,uib.user_id,uib.id as card_id
+  	ui.id as user_id,ui.user_name,ui.phone,ui.cert_no,sf.file_path as image_file_path,bd.dic_name,uib.bank_code,bd.dic_name as bank_name,uib.card_number,uib.id as card_id
   </sql>
   <select id="searchByUserId" resultMap="MobileUserAllInfo" parameterType="com.csj.gold.model.bean.MobileUserAllInfo" >
     select 

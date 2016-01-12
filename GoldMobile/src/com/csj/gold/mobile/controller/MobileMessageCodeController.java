@@ -23,7 +23,7 @@ import com.csj.gold.utils.sms.SendMessageManage;
 import com.csj.gold.utils.sms.SendStateEnum;
 
 @Controller
-@RequestMapping("/messageCode")
+@RequestMapping(value="/messageCode",produces="text/html;charset=UTF-8")
 public class MobileMessageCodeController {
 
 	public static String CHECK_REGISTER_CODE = "checkRegisterMessageCode";

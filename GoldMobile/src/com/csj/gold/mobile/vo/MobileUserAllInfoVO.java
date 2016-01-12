@@ -1,8 +1,6 @@
 package com.csj.gold.mobile.vo;
 
 public class MobileUserAllInfoVO {
-	private Long userId;
-
 	private String userName;
 
 	private String phone;
@@ -18,14 +16,6 @@ public class MobileUserAllInfoVO {
 	private String cardNumber;
 
 	private String imageFilePath;
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
 
 	public String getUserName() {
 		return userName;

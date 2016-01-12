@@ -18,7 +18,7 @@ import com.csj.gold.model.bean.MobileShop;
 import com.csj.gold.service.MobileShopService;
 import com.csj.gold.utils.json.JsonConvert;
 @Controller
-@RequestMapping("/saveGold")
+@RequestMapping(value="/saveGold",produces="text/html;charset=UTF-8")
 public class MobileSaveGoldController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileSaveGoldController.class);

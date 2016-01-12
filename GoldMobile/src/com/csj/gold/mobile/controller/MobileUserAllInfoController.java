@@ -20,7 +20,7 @@ import com.csj.gold.utils.file.FileUtil;
 import com.csj.gold.utils.json.JsonConvert;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping(value="/user",produces="text/html;charset=UTF-8")
 public class MobileUserAllInfoController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger
@@ -68,7 +68,6 @@ public class MobileUserAllInfoController {
 				mobileUserAllInfoVO.setImageFilePath(mobileUserAllInfo
 						.getImageFilePath());
 				mobileUserAllInfoVO.setPhone(mobileUserAllInfo.getPhone());
-				mobileUserAllInfoVO.setUserId(mobileUserAllInfo.getUserId());
 				mobileUserAllInfoVO
 						.setUserName(mobileUserAllInfo.getUserName());
 				MobileControllerUtils
@@ -119,7 +118,6 @@ public class MobileUserAllInfoController {
 				mobileUserAllInfoVO.setImageFilePath(mobileUserAllInfo
 						.getImageFilePath());
 				mobileUserAllInfoVO.setPhone(mobileUserAllInfo.getPhone());
-				mobileUserAllInfoVO.setUserId(mobileUserAllInfo.getUserId());
 				mobileUserAllInfoVO
 						.setUserName(mobileUserAllInfo.getUserName());
 				MobileControllerUtils
