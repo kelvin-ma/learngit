@@ -52,11 +52,9 @@ public class MobileSaveGoldController {
 					}
 				}
 			}
-			mobileSaveGoldResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-			mobileSaveGoldResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileSaveGoldResult, MobileStateConstants.MobileConstants.SUCCESS);
 		}else{
-			mobileSaveGoldResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
-			mobileSaveGoldResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileSaveGoldResult, MobileStateConstants.MobileConstants.NO_DATA);
 		}
 		mobileSaveGoldResult.setBankDatas(resutlBankList);
 		mobileSaveGoldResult.setShopDatas(resutlShopList);

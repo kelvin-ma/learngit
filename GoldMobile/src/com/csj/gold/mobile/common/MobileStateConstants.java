@@ -4,7 +4,7 @@ import com.csj.gold.mobile.annotation.InterfaceEnum;
 
 public class MobileStateConstants  {
 
-	public enum MobileErrorConstants  {
+	public enum MobileConstants  {
 
 		UNSUCCESS("失败",3001),
 		NOT_LOGIN("未登录",3002),
@@ -19,48 +19,6 @@ public class MobileStateConstants  {
 		ERROR("联系管理",3011),
 		WRONG_PASSWORD("密码错误",3012),
 		EXIST("已存在",3013),
-		;
-		 // 成员变量
-	     private String name;
-	     private Integer index;
-
-	     // 构造方法
-	     private MobileErrorConstants(String name,Integer index) {
-	         this.name = name;
-	         this.index = index;
-	     }
-	     
-	     
-	     // 普通方法
-	     public static String getName(int index) {
-	         for (InterfaceEnum c : InterfaceEnum.values()) {
-	             if (c.getIndex() == index) {
-	                 return c.getName();
-	             }
-	         }
-	         return null;
-	     }
-
-	     // get set 方法
-	     public String getName() {
-	         return name;
-	     }
-
-	     public void setName(String name) {
-	         this.name = name;
-	     }
-
-	     public int getIndex() {
-	         return index;
-	     }
-
-	     public void setIndex(int index) {
-	         this.index = index;
-	     }
-		
-	}
-	public enum MobileConstants  {
-
 		SUCCESS("成功",2001),
 		NO_DATA("无数据",2002)
 		;

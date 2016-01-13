@@ -47,8 +47,7 @@ public class MobileMessageCodeController {
 						.getPhone())
 				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
 						.getPhoneCode())) {
-			mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getIndex()));
-			mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SHORT_PARAMETER);
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
 		MobileUserRegister mobileUserRegister = new MobileUserRegister();
@@ -60,8 +59,7 @@ public class MobileMessageCodeController {
 						.getPhone());
 		if (mobileMessageCodeParams.getTypeCode().equals("register")) {
 			if (null != userLogin && userLogin.size() > 0) {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.EXIST_PHONE.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.EXIST_PHONE.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.EXIST_PHONE);
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
@@ -70,19 +68,16 @@ public class MobileMessageCodeController {
 					.sendMessage(mobileMessageCodeParams.getPhone(),
 							InterfaceEnum.USER_REGISTER);
 			if (SendStateEnum.SEND_SUCCESS == sendMessage.getStateEnum()) {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getName()));
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SUCCESS);
 			} else {
 				Long sec = countDownTime(sendMessage.getNextSendTime());
 				mobileMessageCodeResult.setNextSendTime(sec);
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.UNSUCCESS);
 			}
 		} else if (mobileMessageCodeParams.getTypeCode().equals(
 				"forgetPassword")) {
 			if (null == userLogin || userLogin.size() == 0) {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NO_USER.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NO_USER.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.NO_USER);
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
@@ -94,15 +89,12 @@ public class MobileMessageCodeController {
 			if (SendStateEnum.SEND_SUCCESS == sendMessage.getStateEnum()) {
 				Long sec = countDownTime(sendMessage.getNextSendTime());
 				mobileMessageCodeResult.setNextSendTime(sec);
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SUCCESS);
 			} else {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.UNSUCCESS);
 			}
 		} else {
-			mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
-			mobileMessageCodeResult.setResultDesc("Wrong parameter");
+			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
 		return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
@@ -126,8 +118,7 @@ public class MobileMessageCodeController {
 						.getMessageCode())
 				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
 						.getPhoneCode())) {
-			mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getIndex()));
-			mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SHORT_PARAMETER);
 			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
 		Map<String, Integer> userMap = MobileControllerUtils
@@ -138,8 +129,7 @@ public class MobileMessageCodeController {
 			if (null == userMap
 					.get(MobileMessageCodeController.CHECK_REGISTER_CODE)
 					|| userMap.get(MobileMessageCodeController.CHECK_REGISTER_CODE) != 0) {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PROCESS);
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
@@ -149,26 +139,22 @@ public class MobileMessageCodeController {
 					.get(mobileMessageCodeParams.getPhone()
 							+ InterfaceEnum.USER_REGISTER);
 			if (null == sendMessage) {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SHORT_PARAMETER);
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
 			if (sendMessage.getSmsCode().equals(
 					mobileMessageCodeParams.getMessageCode())) {
 				userMap.put(MobileMessageCodeController.CHECK_REGISTER_CODE, 1);
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SUCCESS);
 			} else {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.UNSUCCESS);
 			}
 		} else if (mobileMessageCodeParams.getTypeCode().equals(
 				"forgetPassword")) {
 			if (userMap
 					.get(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE) != 0) {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PROCESS);
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
@@ -178,8 +164,7 @@ public class MobileMessageCodeController {
 					.get(mobileMessageCodeParams.getPhone()
 							+ InterfaceEnum.FORGET_PASSWORD);
 			if (null == sendMessage) {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PROCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PROCESS);
 				return JsonConvert.getInstance()
 						.toJson(mobileMessageCodeResult);
 			}
@@ -188,11 +173,9 @@ public class MobileMessageCodeController {
 				userMap.put(
 						MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE,
 						1);
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SUCCESS);
 			} else {
-				mobileMessageCodeResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getIndex()));
-				mobileMessageCodeResult.setResultDesc(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.UNSUCCESS);
 			}
 		}
 		return JsonConvert.getInstance().toJson(mobileMessageCodeResult);

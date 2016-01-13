@@ -42,15 +42,13 @@ public class MobileUserAllInfoController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAllInfoParams.getPhone(),
 					mobileUserAllInfoParams.getPhoneCode())) {
-				mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
-				mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.NOT_LOGIN);
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAllInfoResult);
 			}
 			Long id = MobileControllerUtils.getUserIdFromSession(mobileUserAllInfoParams.getPhone());
 			if(null == id || id < 1){
-				mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
-				mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
 				return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 			}
 			mobileUserAllInfo.setUserId(id);
@@ -73,12 +71,10 @@ public class MobileUserAllInfoController {
 				MobileControllerUtils
 						.setUserAllInfoToSession(mobileUserAllInfo);
 			}
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.SUCCESS);
 			mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
 		} else {
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getName());
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}
@@ -91,8 +87,7 @@ public class MobileUserAllInfoController {
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAllInfoParams.getPhone(),
 				mobileUserAllInfoParams.getPhoneCode())) {
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.NOT_LOGIN);
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
 		MobileUserAllInfo mobileUserAllInfo = new MobileUserAllInfo();
@@ -123,8 +118,7 @@ public class MobileUserAllInfoController {
 				MobileControllerUtils
 						.setUserAllInfoToSession(mobileUserAllInfo);
 			}
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.SUCCESS);
 			mobileUserAllInfoResult.setData(mobileUserAllInfoVO);
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
@@ -140,15 +134,13 @@ public class MobileUserAllInfoController {
 				|| !StringUtils.checkStringNullAndEmpty(mobileUserAllInfoParams
 						.getPhoneCode())
 				|| null == mobileUserAllInfoParams.getUserImage()) {
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
 		if (!MobileControllerUtils.checkUserLoginStatus(
 				mobileUserAllInfoParams.getPhone(),
 				mobileUserAllInfoParams.getPhoneCode())) {
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.NOT_LOGIN);
 			return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 		}
 
@@ -167,11 +159,9 @@ public class MobileUserAllInfoController {
 			mobileUserAllInfo.setImageFilePath(filePath);
 			mobileUserAllInfoService.updateUserImage(mobileUserAllInfo);
 			mobileUserAllInfoResult.setImagePath("upload/"+filePath);
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.SUCCESS);
 		} else {
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.NOT_LOGIN);
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}
@@ -191,8 +181,7 @@ public class MobileUserAllInfoController {
 			if (!MobileControllerUtils.checkUserLoginStatus(
 					mobileUserAllInfoParams.getPhone(),
 					mobileUserAllInfoParams.getPhoneCode())) {
-				mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
-				mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
+				MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.NOT_LOGIN);
 				return JsonConvert.getInstance()
 						.toJson(mobileUserAllInfoResult);
 			}
@@ -206,19 +195,15 @@ public class MobileUserAllInfoController {
 				mobileUserAllInfo.setNewPassword(mobileUserAllInfoParams
 						.getNewPassword());
 				if (mobileUserAllInfoService.changePassword(mobileUserAllInfo) > 0) {
-					mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
-					mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
+					MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.SUCCESS);
 				} else {
-					mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getName());
-					mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.UNSUCCESS.getIndex()));
+					MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.UNSUCCESS);
 				}
 			} else {
-				mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getName());
-				mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.NOT_LOGIN.getIndex()));
+				MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.NOT_LOGIN);
 			}
 		} else {
-			mobileUserAllInfoResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getName());
-			mobileUserAllInfoResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
+			MobileControllerUtils.setResultCodeAndDesc(mobileUserAllInfoResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
 		}
 		return JsonConvert.getInstance().toJson(mobileUserAllInfoResult);
 	}

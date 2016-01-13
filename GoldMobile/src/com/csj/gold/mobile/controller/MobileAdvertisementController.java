@@ -50,12 +50,10 @@ public class MobileAdvertisementController {
 				mobileAdvertisementVO.setVersion(temp.getVersion());
 				resultList.add(mobileAdvertisementVO);
 			}
-			mobileAdvertisementResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-			mobileAdvertisementResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileAdvertisementResult, MobileStateConstants.MobileConstants.SUCCESS);
 			mobileAdvertisementResult.setDatas(resultList);
 		} else {
-			mobileAdvertisementResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
-			mobileAdvertisementResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileAdvertisementResult, MobileStateConstants.MobileConstants.NO_DATA);
 		}
 		return JsonConvert.getInstance().toJson(mobileAdvertisementResult);
 	}

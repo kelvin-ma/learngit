@@ -53,11 +53,9 @@ public class MobileGoldProductController {
 				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
 				resutlProductList.add(mobileGoldProductVO);
 			}
-			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileGoldProductResult, MobileStateConstants.MobileConstants.SUCCESS);
 		}else{
-			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
-			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileGoldProductResult, MobileStateConstants.MobileConstants.NO_DATA);
 		}
 		mobileGoldProductResult.setData(resutlProductList);
 		return JsonConvert.getInstance().toJson(mobileGoldProductResult);
@@ -67,13 +65,11 @@ public class MobileGoldProductController {
     public String searchDetail(MobileGoldProductParams mobileGoldProductParams){
 		MobileGoldProductResult mobileGoldProductResult = new MobileGoldProductResult();
 		if(!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhone())||!StringUtils.checkStringNullAndEmpty(mobileGoldProductParams.getPhoneCode())){
-			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getIndex()));
-			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileErrorConstants.SHORT_PARAMETER.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileGoldProductResult, MobileStateConstants.MobileConstants.SHORT_PARAMETER);
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
 		if(null == mobileGoldProductParams.getProductId()){
-			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getIndex()));
-			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileErrorConstants.WRONG_PARAMETER.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileGoldProductResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
 			return JsonConvert.getInstance().toJson(mobileGoldProductResult);
 		}
 		List<MobileGoldProductVO> resutlProductList = new ArrayList<MobileGoldProductVO>();
@@ -100,11 +96,9 @@ public class MobileGoldProductController {
 				mobileGoldProductVO.setTraMinNum(temp.getTraMinNum());
 				resutlProductList.add(mobileGoldProductVO);
 			}
-			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.SUCCESS.getIndex()));
-			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.SUCCESS.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileGoldProductResult, MobileStateConstants.MobileConstants.SUCCESS);
 		}else{
-			mobileGoldProductResult.setResultCode(String.valueOf(MobileStateConstants.MobileConstants.NO_DATA.getIndex()));
-			mobileGoldProductResult.setResultDesc(MobileStateConstants.MobileConstants.NO_DATA.getName());
+			MobileControllerUtils.setResultCodeAndDesc(mobileGoldProductResult, MobileStateConstants.MobileConstants.NO_DATA);
 		}
 		mobileGoldProductResult.setData(resutlProductList);
 		return JsonConvert.getInstance().toJson(mobileGoldProductResult);
