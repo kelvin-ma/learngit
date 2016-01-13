@@ -14,7 +14,7 @@ public class FileUtil {
     //文件上传  
     public static String uploadFile(MultipartFile file) throws IOException {  
         String fileName = file.getOriginalFilename();  //上传时的名称
-        File tempFile = new File(SystemPropertiesUtils.getSystemProperties(StaticValues.SAVE_IMAGE_FILE_PATH), new Date().getTime() + String.valueOf(fileName));  
+        File tempFile = new File(SystemPropertiesUtils.getSystemProperties(StaticValues.WEB_APPLICATION_HOME)+SystemPropertiesUtils.getSystemProperties(StaticValues.SAVE_IMAGE_FILE_PATH), new Date().getTime() + String.valueOf(fileName));  
         if (!tempFile.getParentFile().exists()) {  
             tempFile.getParentFile().mkdir();  
         }  

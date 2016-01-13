@@ -66,7 +66,7 @@ public class MobileUserAddressParams extends MobileParams {
 		return postCode;
 	}
 
-	public void setPost_code(String postCode) {
+	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}
 
