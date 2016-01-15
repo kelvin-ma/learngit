@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.gold.dao.TestMapper">
+	<sql id="Table_test_one">
+		test_one as t1
+	</sql>
+	<sql id="Table_test_two">
+		test_two as t2
+	</sql>
+	<!-- 一对一 -->
+	<resultMap id="TestOne1to1" type="com.csj.gold.model.TestOne">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<association property="testTwo" column="id"
+			javaType="com.csj.gold.model.TestTwo">
+			<result column="tid" property="id" jdbcType="INTEGER" />
+			<result column="pk_id" property="pkId" jdbcType="INTEGER" />
+			<result column="tname" property="name" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	<select id="searchOneToOne" resultMap="TestOne1to1">
+		select
+		t1.id,t1.name,t2.id as tid,t2.name as tname,t2.pk_id
+		from
+		<include refid="Table_test_one" />
+		,
+		<include refid="Table_test_two" />
+		where
+		t1.id = t2.pk_id
+	</select>
+	<!-- 结束 -->
+	<!-- 一对多 -->
+	<resultMap id="TestOne1toN" type="com.csj.gold.model.TestOne">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<collection property="testTwoList" javaType="java.util.List"
+			resultMap="TestTwo"></collection>
+	</resultMap>
+	<resultMap id="TestTwo" type="com.csj.gold.model.TestTwo">
+		<result column="tid" property="id" jdbcType="INTEGER" />
+		<result column="pk_id" property="pkId" jdbcType="INTEGER" />
+		<result column="tname" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="searchOneToMore" resultMap="TestOne1toN">
+		select
+		t1.id,t1.name,t2.id as tid,t2.name as tname,t2.pk_id
+		from
+		<include refid="Table_test_one" />
+		left join
+		<include refid="Table_test_two" />
+		on t1.id = t2.pk_id
+	</select>
+	<!-- 结束 -->
+
+</mapper>

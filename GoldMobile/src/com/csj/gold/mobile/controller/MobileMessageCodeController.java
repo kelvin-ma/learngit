@@ -95,7 +95,6 @@ public class MobileMessageCodeController {
 			}
 		} else {
 			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
-			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 		}
 		return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 	}
@@ -124,6 +123,11 @@ public class MobileMessageCodeController {
 		Map<String, Integer> userMap = MobileControllerUtils
 				.getUserMessageCodeMapFromCacheMessageCodeMap(mobileMessageCodeParams
 						.getPhone());
+		if(null == userMap||userMap.size() ==0 ){
+			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PROCESS);
+			return JsonConvert.getInstance()
+					.toJson(mobileMessageCodeResult);
+		}
 		if (mobileMessageCodeParams.getTypeCode().equals("register")) {
 
 			if (null == userMap
@@ -152,7 +156,8 @@ public class MobileMessageCodeController {
 			}
 		} else if (mobileMessageCodeParams.getTypeCode().equals(
 				"forgetPassword")) {
-			if (userMap
+			if (null == userMap
+					.get(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE) || userMap
 					.get(MobileMessageCodeController.CHECK_FORGET_PASSWORD_CODE) != 0) {
 				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PROCESS);
 				return JsonConvert.getInstance()
@@ -177,6 +182,8 @@ public class MobileMessageCodeController {
 			} else {
 				MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.UNSUCCESS);
 			}
+		}else{
+			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.WRONG_PARAMETER);
 		}
 		return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
 	}
