@@ -185,7 +185,17 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-  	
+  		<dependency>  
+		    <groupId>org.hibernate</groupId>  
+		    <artifactId>hibernate-validator</artifactId>  
+		    <version>5.0.2.Final</version>  
+		</dependency>
+		<dependency>  
+		    <groupId>javax.el</groupId>  
+		    <artifactId>javax.el-api</artifactId>  
+		    <version>2.2.4</version>  
+		    <scope>provided</scope>  
+		</dependency>
     <dependency> 
       <!--  -->
       <groupId>javax.servlet</groupId>
