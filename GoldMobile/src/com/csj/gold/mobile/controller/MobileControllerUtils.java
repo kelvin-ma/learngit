@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.csj.gold.cache.MapCacheManager;
+import com.csj.gold.mobile.common.MobileStateConstants;
+import com.csj.gold.mobile.vo.MobileResult;
 import com.csj.gold.model.bean.MobileUserAllInfo;
 import com.csj.gold.utils.StringUtils;
 
@@ -125,5 +127,12 @@ public class MobileControllerUtils {
 			}
 		}
 		return id;
+	}
+	
+	protected static void setResultCodeAndDesc(MobileResult result,MobileStateConstants.MobileConstants value){
+		if(null!=value){
+			result.setResultCode(String.valueOf(value.getIndex()));
+			result.setResultDesc(value.getName());
+		}
 	}
 }

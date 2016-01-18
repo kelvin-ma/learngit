@@ -10,16 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.csj.gold.mobile.common.MobileStateConstants;
 import com.csj.gold.mobile.vo.MobileAdvertisementParams;
 import com.csj.gold.mobile.vo.MobileAdvertisementResult;
 import com.csj.gold.mobile.vo.MobileAdvertisementVO;
 import com.csj.gold.model.bean.MobileAdvertisement;
 import com.csj.gold.service.MobileAdvertisementService;
-import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
 
 @Controller
-@RequestMapping("/advertisement")
+@RequestMapping(value="/advertisement",produces="text/html;charset=UTF-8")
 public class MobileAdvertisementController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger
@@ -50,12 +50,10 @@ public class MobileAdvertisementController {
 				mobileAdvertisementVO.setVersion(temp.getVersion());
 				resultList.add(mobileAdvertisementVO);
 			}
-			mobileAdvertisementResult.setResultCode("2001");
-			mobileAdvertisementResult.setResultDesc("success");
+			MobileControllerUtils.setResultCodeAndDesc(mobileAdvertisementResult, MobileStateConstants.MobileConstants.SUCCESS);
 			mobileAdvertisementResult.setDatas(resultList);
 		} else {
-			mobileAdvertisementResult.setResultCode("2002");
-			mobileAdvertisementResult.setResultDesc("No Datas");
+			MobileControllerUtils.setResultCodeAndDesc(mobileAdvertisementResult, MobileStateConstants.MobileConstants.NO_DATA);
 		}
 		return JsonConvert.getInstance().toJson(mobileAdvertisementResult);
 	}

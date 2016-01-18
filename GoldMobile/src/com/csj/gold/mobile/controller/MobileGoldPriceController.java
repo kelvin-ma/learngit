@@ -15,7 +15,7 @@ import com.csj.gold.service.GoldPriceService;
 import com.csj.gold.utils.json.JsonConvert;
 
 @Controller
-@RequestMapping("/goldprice")
+@RequestMapping(value="/goldprice",produces="text/html;charset=UTF-8")
 public class MobileGoldPriceController {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(MobileGoldPriceController.class);

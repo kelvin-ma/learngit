@@ -3,6 +3,7 @@ package com.csj.gold.utils.sms;
 import com.csj.gold.mobile.annotation.InterfaceEnum;
 
 public enum  SendStateEnum {
+	
 	NOT_SEND("未发送",-1),
 	TO_SEND("待发送",2),
 	SEND_SUCCESS("发送成功",1),

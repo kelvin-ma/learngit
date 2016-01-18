@@ -5,8 +5,12 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="consignee_phone" property="consigneePhone" jdbcType="VARCHAR" />
     <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
     <result column="is_main" property="isMain" jdbcType="INTEGER" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
     <result column="is_forbidden" property="isForbidden" jdbcType="INTEGER" />
@@ -17,8 +21,8 @@
     <result column="version" property="version" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, address, phone, consignee, is_main, is_del, is_forbidden, create_date, 
-    create_user, update_date, update_user,version
+    id, user_id, address, consignee_phone, consignee, is_main,post_code, is_del, is_forbidden, create_date, 
+    create_user, update_date, update_user,version,province,city,district
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -38,8 +42,8 @@
       <if test="parameters.address != null" >
         and address = #{parameters.address,jdbcType=VARCHAR}
       </if>
-      <if test="parameters.phone != null" >
-        and phone = #{parameters.phone,jdbcType=VARCHAR}
+      <if test="parameters.consigneePhone != null" >
+        and consignee_phone = #{parameters.consigneePhone,jdbcType=VARCHAR}
       </if>
       <if test="parameters.consignee != null" >
         and consignee = #{parameters.consignee,jdbcType=VARCHAR}
@@ -94,14 +98,16 @@
 		SELECT LAST_INSERT_ID() AS id
 	</selectKey>
     insert into user_address (id, user_id, address, 
-      phone, consignee, is_main, 
+      consignee_phone, consignee, is_main, 
       is_del, is_forbidden, create_date, 
-      create_user, update_date, update_user
+      create_user, update_date, update_user,post_code,province,city,district
       )
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, #{isMain,jdbcType=INTEGER}, 
+      #{consigneePhone,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, #{isMain,jdbcType=INTEGER}, 
       #{isDel,jdbcType=INTEGER}, #{isForbidden,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}
+      #{createUser,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},#{post_code}
+      ,#{province},#{city},#{district}
+      
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csj.gold.model.UserAddress" >
@@ -119,8 +125,8 @@
       <if test="address != null" >
         address,
       </if>
-      <if test="phone != null" >
-        phone,
+      <if test="consigneePhone != null" >
+        consignee_phone,
       </if>
       <if test="consignee != null" >
         consignee,
@@ -140,6 +146,21 @@
       <if test="createUser != null" >
         create_user,
       </if>
+      <if test="postCode != null" >
+        post_code,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -151,8 +172,8 @@
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
+      <if test="consigneePhone != null" >
+        #{consigneePhone,jdbcType=VARCHAR},
       </if>
       <if test="consignee != null" >
         #{consignee,jdbcType=VARCHAR},
@@ -172,6 +193,21 @@
       <if test="createUser != null" >
         #{createUser,jdbcType=BIGINT},
       </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=BIGINT},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=BIGINT},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=BIGINT},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.csj.gold.model.UserAddress" >
@@ -183,8 +219,8 @@
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
+      <if test="consigneePhone != null" >
+        consignee_phone = #{consigneePhone,jdbcType=VARCHAR},
       </if>
       <if test="consignee != null" >
         consignee = #{consignee,jdbcType=VARCHAR},
@@ -198,6 +234,18 @@
       <if test="updateUser != null" >
         update_user = #{updateUser,jdbcType=BIGINT},
       </if>
+      <if test="postCode != null" >
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
       version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -206,11 +254,15 @@
     update user_address
     set user_id = #{userId,jdbcType=BIGINT},
       address = #{address,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
+      consignee_phone = #{consigneePhone,jdbcType=VARCHAR},
       consignee = #{consignee,jdbcType=VARCHAR},
       is_main = #{isMain,jdbcType=INTEGER},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       update_user = #{updateUser,jdbcType=BIGINT},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      districe = #{districe,jdbcType=VARCHAR},
       version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>

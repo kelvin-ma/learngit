@@ -4,20 +4,30 @@ import com.csj.gold.mobile.annotation.InterfaceEnum;
 
 public class MobileStateConstants  {
 
-	public enum MobileErrorConstants  {
+	public enum MobileConstants  {
 
-		NOT_SEND("未发送",-1),
-		TO_SEND("待发送",2),
-		SEND_SUCCESS("发送成功",1),
-		SEND_FAILED("发送失败",0),
-		SEND_INTERRUPT("发送中断,时间范围内发送条数受限",3),
-		SEND_ERROR("发送错误",4) ;
+		UNSUCCESS("失败",3001),
+		NOT_LOGIN("未登录",3002),
+		UPDATE_FAULE("修改失败",3003),
+		SHORT_PARAMETER("缺少参数",3004),
+		WRONG_PARAMETER("错误参数",3005),
+		EXIST_PHONE("已注册号码",3006),
+		WRONG_PROCESS("错误流程",3007),
+		WRONG_IMAGE_CODE("验证码错误",3008),
+		NO_IMAGE_CODE("无验证码",3009),
+		NO_USER("无用户",3010),
+		ERROR("联系管理",3011),
+		WRONG_PASSWORD("密码错误",3012),
+		EXIST("已存在",3013),
+		SUCCESS("成功",2001),
+		NO_DATA("无数据",2002)
+		;
 		 // 成员变量
 	     private String name;
 	     private Integer index;
 
 	     // 构造方法
-	     private MobileErrorConstants(String name,Integer index) {
+	     private MobileConstants(String name,Integer index) {
 	         this.name = name;
 	         this.index = index;
 	     }
@@ -51,12 +61,5 @@ public class MobileStateConstants  {
 	     }
 		
 	}
-	
 
-//	
-//	public enum MobileErrorConstants {
-//
-//		
-//		
-//	}
 }
