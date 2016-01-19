@@ -7,13 +7,13 @@ import java.util.List;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import com.csj.gold.mobile.common.MobileStateConstants;
+
 public class MobileResult {
 
 	private String transNo;
 	private String resultCode;
 	private String resultDesc;
-	
-	private Object data;
 	
 	private List<Error> errors;
  
@@ -49,13 +49,6 @@ public class MobileResult {
 		this.errors = errors;
 	}
 
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(Object data) {
-		this.data = data;
-	}
 
 	public   void  addError(BindingResult result){
 		if(result==null||!result.hasErrors()){
@@ -76,8 +69,8 @@ public class MobileResult {
 			}
 			this.errors.add(error2);
 		}
-		this.resultCode="3100";
-		this.resultDesc="参数错误";
+		this.resultCode=String.valueOf(MobileStateConstants.MobileConstants.WRONG_PARAMETER.getIndex());
+		this.resultDesc=MobileStateConstants.MobileConstants.WRONG_PARAMETER.getName();
 	
 	}
 	

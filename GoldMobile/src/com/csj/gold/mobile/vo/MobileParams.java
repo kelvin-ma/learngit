@@ -1,5 +1,13 @@
 package com.csj.gold.mobile.vo;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.csj.gold.mobile.common.CommonGroup;
+
+
 public class MobileParams {
 
 	private String transNo;
@@ -14,9 +22,13 @@ public class MobileParams {
 	private String clientType;
 	private String businessSources;// 业务来源
 	private String clientVersion;//
-
+	
+	@NotEmpty(message = "{user.name.null}",groups={CommonGroup.class})  
+    @Length(min = 5, max = 12, message = "{user.name.length.illegal}",groups={CommonGroup.class})  
+    @Pattern(regexp = "[0-9]{5,12}", message = "{user.name.illegal}",groups={CommonGroup.class})
 	private String phone;
 
+	@NotEmpty(message = "{user.name.null}",groups={CommonGroup.class})  
 	private String phoneCode;
 
 	public String getDateSources() {

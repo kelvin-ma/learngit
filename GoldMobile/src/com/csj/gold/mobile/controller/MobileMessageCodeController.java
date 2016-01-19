@@ -7,16 +7,20 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.csj.gold.mobile.annotation.InterfaceEnum;
+import com.csj.gold.mobile.common.CommonGroup;
+import com.csj.gold.mobile.common.GroupOne;
+import com.csj.gold.mobile.common.GroupTwo;
 import com.csj.gold.mobile.common.MobileStateConstants;
 import com.csj.gold.mobile.vo.MobileMessageCodeParams;
 import com.csj.gold.mobile.vo.MobileMessageCodeResult;
 import com.csj.gold.model.bean.MobileUserRegister;
 import com.csj.gold.service.MobileUserRegisterService;
-import com.csj.gold.utils.StringUtils;
 import com.csj.gold.utils.json.JsonConvert;
 import com.csj.gold.utils.sms.SendMessage;
 import com.csj.gold.utils.sms.SendMessageManage;
@@ -39,17 +43,12 @@ public class MobileMessageCodeController {
 
 	@ResponseBody
 	@RequestMapping("/sendPhoneNumber")
-	public String sendPhonNumber(MobileMessageCodeParams mobileMessageCodeParams) {
+	public String sendPhonNumber(@Validated({CommonGroup.class,GroupOne.class}) MobileMessageCodeParams mobileMessageCodeParams,BindingResult result) {
 		MobileMessageCodeResult mobileMessageCodeResult = new MobileMessageCodeResult();
-		if (!StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
-				.getTypeCode())
-				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
-						.getPhone())
-				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
-						.getPhoneCode())) {
-			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SHORT_PARAMETER);
-			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
-		}
+		if(result.hasErrors()) {
+			mobileMessageCodeResult.addError(result);
+            return JsonConvert.getInstance().toJson(mobileMessageCodeResult);  
+		} 
 		MobileUserRegister mobileUserRegister = new MobileUserRegister();
 		mobileUserRegister.setPhone(mobileMessageCodeParams.getPhone());
 		List<MobileUserRegister> userLogin = mobileUserRegisterService
@@ -105,20 +104,12 @@ public class MobileMessageCodeController {
 
 	@ResponseBody
 	@RequestMapping("/checkCode")
-	public String checkMessageCode(
-			MobileMessageCodeParams mobileMessageCodeParams) {
+	public String checkMessageCode(@Validated({CommonGroup.class,GroupTwo.class}) MobileMessageCodeParams mobileMessageCodeParams,BindingResult result) {
 		MobileMessageCodeResult mobileMessageCodeResult = new MobileMessageCodeResult();
 		SendMessage sendMessage = null;
-		if (!StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
-				.getTypeCode())
-				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
-						.getPhone())
-				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
-						.getMessageCode())
-				|| !StringUtils.checkStringNullAndEmpty(mobileMessageCodeParams
-						.getPhoneCode())) {
-			MobileControllerUtils.setResultCodeAndDesc(mobileMessageCodeResult, MobileStateConstants.MobileConstants.SHORT_PARAMETER);
-			return JsonConvert.getInstance().toJson(mobileMessageCodeResult);
+		if(result.hasErrors()) {
+			mobileMessageCodeResult.addError(result);
+            return JsonConvert.getInstance().toJson(mobileMessageCodeResult);  
 		}
 		Map<String, Integer> userMap = MobileControllerUtils
 				.getUserMessageCodeMapFromCacheMessageCodeMap(mobileMessageCodeParams
